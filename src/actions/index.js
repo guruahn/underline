@@ -19,3 +19,10 @@ export function setColor (color){
     color
   };
 }
+
+export function insertKeyword (keyword){
+  return {
+    type: types.INSERT_KEYWORD,
+    keyword
+  }
+}
