@@ -14,6 +14,7 @@ class SearchForm extends Component {
     }
     handleChange = e => {
       this.setState({ keyword: e.target.value })
+      this.props.onSearch(e.target.value)
     }
     render() {
         return(
