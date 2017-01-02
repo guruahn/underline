@@ -17,16 +17,18 @@ class SearchForm extends Component {
       this.props.onSearch(e.target.value)
     }
     render() {
-        return(
-            <div>
-              <h3>BookSearch</h3>
-              <input
-                type="text"
-                name="keyword"
-                value={this.state.keyword}
-                onChange={this.handleChange} />
-            </div>
-        );
+
+      return(
+          <div>
+            <h3>BookSearch</h3>
+            <input
+              type="text"
+              name="keyword"
+              value={this.state.keyword}
+              onChange={this.handleChange} />
+            
+          </div>
+      );
     }
 }
 

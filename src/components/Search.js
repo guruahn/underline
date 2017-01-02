@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import SearchForm from './SearchForm';
+import SearchList from './SearchList';
 import jsonp from 'jsonp';
 
 import { connect } from 'react-redux';
@@ -14,6 +15,9 @@ class Search extends Component {
     constructor(props) {
         super(props);
     }
+    state = {
+      books: ""
+    }
     handleSearch = keyword => {
       if (keyword.length !== 0) {
         //this.props.addTodo(text)
@@ -22,16 +26,19 @@ class Search extends Component {
             console.error(err.message);
           } else {
             console.log(data);
+            this.setState({ books: data })
           }
         });
       }
     }
 
     render() {
+
         return(
             <div>
               <h2>Search</h2>
               <SearchForm onSearch={this.handleSearch} />
+              <SearchList books={this.state.books} />
             </div>
         );
     }
