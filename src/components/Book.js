@@ -7,9 +7,14 @@ class Book extends Component {
     constructor(props) {
         super(props);
     }
+    stringToHtml(str) {
+      str = str.replace(/&lt;/g, "<")
+      str = str.replace(/&gt;/g, ">")
+      return str.replace(/<\/?[^>]+(>|$)/g, "");
+    }
     render() {
         return(
-            <div>Book</div>
+            <div>{this.stringToHtml(this.props.book.title)}</div>
         );
     }
 }
