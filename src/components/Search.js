@@ -38,7 +38,7 @@ class Search extends Component {
       <div>
         <h2>Search</h2>
         <SearchForm onSearch={this.handleSearch} />
-        <SearchList books={this.state.books} />
+        <SearchList books={this.state.books} onAdd={this.props.handleAddBook} />
       </div>
     );
   }

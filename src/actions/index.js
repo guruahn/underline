@@ -26,3 +26,11 @@ export function insertKeyword (keyword){
     keyword
   }
 }
+
+export function addBook (book, id){
+  return {
+    type: types.ADD_BOOK,
+    id,
+    book
+  }
+}

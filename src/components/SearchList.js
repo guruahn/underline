@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Book from './Book';
-import Add from './Add';
 
 const propTypes = {
 };
@@ -16,14 +15,11 @@ class SearchList extends Component {
       const mapToComponent = (books) => {
           return books.map((book, i) => {
               return (
-                <div>
+                <div key={i}>
                   <Book
                     book={book}
-                    key={i}
                     />
-                  <Add
-                    onAdd={this.props.handleIncrement}
-                    />
+                  <button onClick={this.props.onAdd}>+</button>
                 </div>
               )
           });
