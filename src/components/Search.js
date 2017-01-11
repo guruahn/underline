@@ -48,13 +48,15 @@ Search.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    number: state.search.keyword,
+    keyword: state.search.keyword,
+    books: state.search.books
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInsertKeyword: () => { dispatch(actions.insertKeyword())}
+    handleInsertKeyword: () => { dispatch(actions.insertKeyword())},
+    handleAddBook: () => { dispatch(actions.addBook())},
   };
 };
 

@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Book from './Book';
+import Add from './Add';
+
 const propTypes = {
 };
 const defaultProps = {
+  onAdd: () => createWarning('onAdd'),
 };
 class SearchList extends Component {
     constructor(props) {
@@ -12,10 +15,17 @@ class SearchList extends Component {
 
       const mapToComponent = (books) => {
           return books.map((book, i) => {
-              return (<Book
-                  book={book}
-                  key={i}
-                  />)
+              return (
+                <div>
+                  <Book
+                    book={book}
+                    key={i}
+                    />
+                  <Add
+                    onAdd={this.props.handleIncrement}
+                    />
+                </div>
+              )
           });
       };
       if(this.props.books){
@@ -31,6 +41,11 @@ class SearchList extends Component {
 
     }
 }
+
+function createWarning(funcName){
+  return () => console.warn(funcName + 'is now defined')
+}
+
 SearchList.propTypes = propTypes;
 SearchList.defaultProps = defaultProps;
 export default SearchList;
