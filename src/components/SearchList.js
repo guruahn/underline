@@ -19,7 +19,7 @@ class SearchList extends Component {
                   <Book
                     book={book}
                     />
-                  <button onClick={this.props.onAdd}>+</button>
+                  <button onClick={() => this.props.onAdd(book)}>+</button>
                 </div>
               )
           });

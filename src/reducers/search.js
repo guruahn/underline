@@ -2,7 +2,7 @@ import * as types from '../actions/ActionTypes';
 
 const initialState = {
   keyword: '',
-  book: []
+  books: []
 };
 
 export default function counter(state = initialState, action){
@@ -11,13 +11,17 @@ export default function counter(state = initialState, action){
         return { ...state, keyword: action.keyword};
         break;
       case types.ADD_BOOK:
-        return [
-          {
-            id: 1,
-            book: action.book
-          },
-          ...state
-        ]
+        console.log(state)
+        console.log(action)
+        return {
+          ...state, books: [
+              ...state.books,
+              {
+                id: Math.max(0, ...state.books.map(b => b.id)) + 1,
+                book: action.book
+              }
+            ]
+          }
         break;
       default:
         return state;

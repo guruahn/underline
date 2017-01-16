@@ -14,10 +14,17 @@ const defaultProps = {
 class Search extends Component {
   constructor(props) {
     super(props);
+    this.addBook = this.addBook.bind(this);
+    this.state = {
+      books: ""
+    }
   }
-  state = {
-    books: ""
+
+
+  addBook(book){
+    this.props.handleAddBook(book);
   }
+
   handleSearch = keyword => {
     if (keyword.length !== 0) {
       //this.props.addTodo(text)
@@ -38,7 +45,7 @@ class Search extends Component {
       <div>
         <h2>Search</h2>
         <SearchForm onSearch={this.handleSearch} />
-        <SearchList books={this.state.books} onAdd={this.props.handleAddBook} />
+        <SearchList books={this.state.books} onAdd={this.addBook} />
       </div>
     );
   }
@@ -56,7 +63,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInsertKeyword: () => { dispatch(actions.insertKeyword())},
-    handleAddBook: () => { dispatch(actions.addBook())},
+    handleAddBook: (book) => { dispatch(actions.addBook(book))},
   };
 };
 
