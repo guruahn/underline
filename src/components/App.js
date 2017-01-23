@@ -4,10 +4,13 @@ import { Match, BrowserRouter, Link, Miss, Redirect } from 'react-router'
 import Login from './Login'
 import Register from './Register'
 import Home from './Home'
-import Search from './Search';
+import Search from './Search'
+import Header from './Header'
 import Dashboard from './protected/Dashboard'
 import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
+
+import '../css/style.css';
 
 function MatchWhenAuthed ({component: Component, authed, ...rest}) {
   return (
@@ -37,6 +40,7 @@ class App extends Component {
     this.state = {
       authed: false,
       loading: true,
+      user: ''
     }
   }
 
@@ -46,6 +50,7 @@ class App extends Component {
         this.setState({
           authed: true,
           loading: false,
+          user: {email: user.email}
         })
       } else {
         this.setState({
@@ -58,42 +63,25 @@ class App extends Component {
   componentWillUnmount () {
     this.removeListener()
   }
+
+
+
   render() {
+
     return this.state.loading === true ? <h1>Loading</h1> : (
       <div>
       <BrowserRouter>
         {({router}) => (
-          <div>
-            <nav className="navbar navbar-default navbar-static-top">
-              <div className="container">
-                <div className="navbar-header">
-                  <Link to="/" className="navbar-brand">React Router + Firebase Auth</Link>
-                </div>
-                <ul className="nav navbar-nav pull-right">
-                  <li>
-                    <Link to="/" className="navbar-brand">Home</Link>
-                  </li>
-                  <li>
-                    <Link to="/dashboard" className="navbar-brand">Dashboard</Link>
-                  </li>
-                  <li>
-                    {this.state.authed
-                      ? <button
-                          style={{border: 'none', background: 'transparent'}}
-                          onClick={() => {
-                            logout()
-                            this.setState({authed: false})
-                            router.transitionTo('/')
-                          }}
-                          className="navbar-brand">Logout</button>
-                      : <span>
-                          <Link to="/login" className="navbar-brand">Login</Link>
-                          <Link to="/register" className="navbar-brand">Register</Link>
-                        </span>}
-                  </li>
-                </ul>
-              </div>
-            </nav>
+          <div className="col-xs-12">
+            <Header
+              auth={this.state.authed}
+              user={this.state.user}
+              onLogout={() =>{
+                  logout()
+                  this.setState({authed: false, user:''})
+                  router.transitionTo('/')
+              }}/>
+
             <div className="container">
               <div className="row">
                 <Match pattern='/' exactly component={Home} />
