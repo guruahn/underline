@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import { Match, BrowserRouter, Link, Miss, Redirect } from 'react-router'
+import { Match, BrowserRouter, Miss, Redirect } from 'react-router'
 import Login from './Login'
 import Register from './Register'
 import Home from './Home'
@@ -88,6 +88,7 @@ class App extends Component {
                 <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
                 <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />
                 <MatchWhenAuthed authed={this.state.authed} pattern='/dashboard' component={Dashboard} />
+                <MatchWhenAuthed authed={this.state.authed} pattern='/search' component={Search} />
                 <Miss render={() => <h3>No Match</h3>} />
               </div>
             </div>
