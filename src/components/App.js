@@ -72,6 +72,8 @@ class App extends Component {
       <div>
       <BrowserRouter>
         {({router}) => (
+
+
           <div className="col-xs-12">
             <Header
               auth={this.state.authed}
@@ -80,7 +82,13 @@ class App extends Component {
                   logout()
                   this.setState({authed: false, user:''})
                   router.transitionTo('/')
-              }}/>
+              }}
+              onLogin={() =>{
+                  if(this.state.authed){
+                    router.transitionTo('/dashboard')
+                  }
+                }
+              }/>
 
             <div className="container">
               <div className="row">

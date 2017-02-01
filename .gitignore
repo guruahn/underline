@@ -16,4 +16,4 @@ npm-debug.log
 deploy.sh
 
 #firebase
-config/constants.js
+src/config/constants.js

@@ -9,6 +9,9 @@ class Header extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount(){
+      this.props.onLogin()
+    }
     render() {
         return(
             <div>
