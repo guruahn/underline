@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router'
 import 'bootstrap/dist/css/bootstrap.css'
+import Search from './Search'
+
 const propTypes = {
 };
 const defaultProps = {
@@ -24,6 +26,7 @@ class Header extends Component {
                     <ul className="nav navbar-nav">
                       <li className="active"><a href="/search">Search <span className="sr-only">(current)</span></a></li>
                       <li><a href="#">Link</a></li>
+                      <li><Search /></li>
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
                       <li><a href="/dashboard">Dashboard</a></li>

@@ -70,39 +70,39 @@ class App extends Component {
 
     return this.state.loading === true ? <h1>Loading</h1> : (
       <div>
-      <BrowserRouter>
-        {({router}) => (
+        <BrowserRouter>
+          {({router}) => (
 
 
-          <div className="col-xs-12">
-            <Header
-              auth={this.state.authed}
-              user={this.state.user}
-              onLogout={() =>{
-                  logout()
-                  this.setState({authed: false, user:''})
-                  router.transitionTo('/')
-              }}
-              onLogin={() =>{
-                  if(this.state.authed){
-                    router.transitionTo('/dashboard')
+            <div className="col-xs-12">
+              <Header
+                auth={this.state.authed}
+                user={this.state.user}
+                onLogout={() =>{
+                    logout()
+                    this.setState({authed: false, user:''})
+                    router.transitionTo('/')
+                }}
+                onLogin={() =>{
+                    if(this.state.authed){
+                      router.transitionTo('/dashboard')
+                    }
                   }
-                }
-              }/>
+                }/>
 
-            <div className="container">
-              <div className="row">
-                <Match pattern='/' exactly component={Home} />
-                <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
-                <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />
-                <MatchWhenAuthed authed={this.state.authed} pattern='/dashboard' component={Dashboard} />
-                <MatchWhenAuthed authed={this.state.authed} pattern='/search' component={Search} />
-                <Miss render={() => <h3>No Match</h3>} />
+              <div className="container">
+                <div className="row">
+                  <Match pattern='/' exactly component={Home} />
+                  <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
+                  <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />
+                  <MatchWhenAuthed authed={this.state.authed} pattern='/dashboard' component={Dashboard} />
+                  <MatchWhenAuthed authed={this.state.authed} pattern='/search' component={Search} />
+                  <Miss render={() => <h3>No Match</h3>} />
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </BrowserRouter>
+          )}
+        </BrowserRouter>
       </div>
     );
   }

@@ -26,7 +26,7 @@ class SearchList extends Component {
       };
       if(this.props.books){
         return(
-            <div>
+            <div className={"well well-lg center-block navbar-fixed-top"}>
               <h3>SearchList</h3>
               <div className={"list"}>{mapToComponent(this.props.books.channel.item)}</div>
             </div>
