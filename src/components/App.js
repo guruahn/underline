@@ -74,7 +74,7 @@ class App extends Component {
           {({router}) => (
 
 
-            <div className="col-xs-12">
+            <div className="">
               <Header
                 auth={this.state.authed}
                 user={this.state.user}
@@ -88,7 +88,8 @@ class App extends Component {
                       router.transitionTo('/dashboard')
                     }
                   }
-                }/>
+                }
+                />
 
               <div className="container">
                 <div className="row">

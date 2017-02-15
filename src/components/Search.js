@@ -71,7 +71,6 @@ class Search extends Component {
 
     return(
       <div>
-        <h2>Search</h2>
         <SearchForm onSearch={this.handleSearch} />
         <SearchList books={this.state.books} onAdd={this.addBook} />
       </div>

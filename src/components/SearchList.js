@@ -26,13 +26,15 @@ class SearchList extends Component {
       };
       if(this.props.books){
         return(
-            <div className={"well well-lg center-block navbar-fixed-top"}>
-              <h3>SearchList</h3>
-              <div className={"list"}>{mapToComponent(this.props.books.channel.item)}</div>
+            <div className={"col-lg-10 col-sm-12 navbar-fixed-top well-lg-mt-70"}>
+              <div className={"well well-lg"}>
+                <h3>SearchList</h3>
+                <div className={"list"}>{mapToComponent(this.props.books.channel.item)}</div>
+              </div>
             </div>
         );
       }else{
-        return <div>결과가 없습니다.</div>;
+        return <div className={"well well-lg navbar-fixed-top col-lg-10 col-sm-12 well-lg-mt-50 hide"}>결과가 없습니다.</div>;
       }
 
     }

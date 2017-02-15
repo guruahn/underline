@@ -19,15 +19,17 @@ class SearchForm extends Component {
     render() {
 
       return(
-          <div>
-            <h3>BookSearch</h3>
+        <div className={"navbar-form navbar-left"}>
+          <div className={"form-group"}>
             <input
               type="text"
               name="keyword"
               value={this.state.keyword}
-              onChange={this.handleChange} />
-            
+              onChange={this.handleChange}
+              className={"form-control"}
+              placeholder="Search"/>
           </div>
+        </div>
       );
     }
 }
