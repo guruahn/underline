@@ -27,6 +27,10 @@ class MyBooks extends Component {
     });
   }
 
+
+  // TODO 검색후 책 추가 시 MyBooks에 반영
+  // TODO MyBooks 책 삭제 기능 추가
+
   componentDidMount(){
 
     this.getInitMyBooks()
