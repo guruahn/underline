@@ -17,11 +17,12 @@ class Search extends Component {
     super(props);
     this.addBook = this.addBook.bind(this);
     this.user = firebaseAuth().currentUser
-    console.log(this.user)
+    //console.log(this.user)
     this.state = {
       books: ""
     }
   }
+
 
 
   addBook(book){
