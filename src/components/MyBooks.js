@@ -40,18 +40,27 @@ class MyBooks extends Component {
     const mapToComponent = (books) => {
       return books.map((book, i) => {
         return (
-          <div key={book.key}>
-            <Book
-              book={book.value}
-              />
-          </div>
+            <li className={"list-group-item"} key={book.key}>
+              <Book
+                book={book.value}
+                />
+            </li>
+
         )
       });
     };
 
     return(
         <div>
-          <div className={"list"}>{mapToComponent(this.state.myBooks)}</div>
+          <div className={"panel panel-default"}>
+            <div className={"panel-heading"}>My Library</div>
+            <div className={"panel-body"}>
+              <p>Manage your library simply</p>
+            </div>
+
+            <ul className={"list-group"}>{mapToComponent(this.state.myBooks)}</ul>
+          </div>
+
         </div>
     );
   }

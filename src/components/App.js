@@ -75,23 +75,24 @@ class App extends Component {
 
 
             <div className="">
-              <Header
-                auth={this.state.authed}
-                user={this.state.user}
-                onLogout={() =>{
-                    logout()
-                    this.setState({authed: false, user:''})
-                    router.transitionTo('/')
-                }}
-                onLogin={() =>{
-                    if(this.state.authed){
-                      router.transitionTo('/dashboard')
-                    }
-                  }
-                }
-                />
+
 
               <div className="container">
+                <Header
+                  auth={this.state.authed}
+                  user={this.state.user}
+                  onLogout={() =>{
+                      logout()
+                      this.setState({authed: false, user:''})
+                      router.transitionTo('/')
+                  }}
+                  onLogin={() =>{
+                      if(this.state.authed){
+                        router.transitionTo('/dashboard')
+                      }
+                    }
+                  }
+                  />
                 <div className="row">
                   <Match pattern='/' exactly component={Home} />
                   <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
