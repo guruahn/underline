@@ -2,4 +2,7 @@ body {
   margin-top: 1em;
 }
 
-.well-lg-mt-70 { margin-top: 70px; }
+.well-lg-mt-70 {
+  margin-top: 70px;
+  padding: 0;
+}

@@ -2,28 +2,39 @@ import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Book from './Book';
 
+import { connect } from 'react-redux';
+import * as actions from '../actions/MyBooks';
+
 const propTypes = {
 };
 const defaultProps = {
 };
 class MyBooks extends Component {
   constructor(props) {
-      super(props);
-      this.user = firebaseAuth().currentUser
-      this.state = {
-        myBooks: []
-      }
+    super(props);
+    this.user = firebaseAuth().currentUser;
+    this.mybooksRef = database.ref('/user-books/' + this.user.uid);
+    this.listnerAddedBook = this.listnerAddedBook.bind(this);
   }
 
   getInitMyBooks(){
     let _this = this
-    database.ref('/user-books/' + this.user.uid).once('value').then(function(snapshot) {
+    console.log('start getInitMyBooks!!!!')
+    this.mybooksRef.once('value').then(function(snapshot) {
       let myBooks = []
       snapshot.forEach(function(data){
-        //console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
+        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
         myBooks.push({key:data.key, value:data.val()})
       });
-      _this.setState({myBooks : myBooks});
+      _this.props.handleSetMyBooks(myBooks);
+    });
+  }
+
+  listnerAddedBook(){
+    //listner added my books
+    this.mybooksRef.on('child_added', function(data) {
+      this.props.handleAddBook(data.key, data.val());
+      //addCommentElement(postElement, data.key, data.val().text, data.val().author);
     });
   }
 
@@ -32,7 +43,6 @@ class MyBooks extends Component {
   // TODO MyBooks 책 삭제 기능 추가
 
   componentDidMount(){
-
     this.getInitMyBooks()
   }
   render() {
@@ -58,7 +68,7 @@ class MyBooks extends Component {
               <p>Manage your library simply</p>
             </div>
 
-            <ul className={"list-group"}>{mapToComponent(this.state.myBooks)}</ul>
+            <ul className={"list-group"}>{mapToComponent(this.props.books)}</ul>
           </div>
 
         </div>
@@ -67,4 +77,18 @@ class MyBooks extends Component {
 }
 MyBooks.propTypes = propTypes;
 MyBooks.defaultProps = defaultProps;
-export default MyBooks;
+
+const mapStateToProps = (state) => {
+  return {
+    books: state.myBooks.books
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleAddBook: (book) => { dispatch(actions.addBook(book))},
+    handleSetMyBooks: (books) => { dispatch(actions.setMyBooks(books))}
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyBooks);

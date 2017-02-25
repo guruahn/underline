@@ -1,14 +1,15 @@
-import * as types from '../actions/Search/ActionTypes';
+import * as types from '../actions/MyBooks/ActionTypes';
 
 const initialState = {
-  keyword: '',
   books: []
 };
 
-export default function search(state = initialState, action){
+export default function myBooks(state = initialState, action){
     switch (action.type) {
-      case types.INSERT_KEYWORD:
-        return { ...state, keyword: action.keyword};
+      case types.SET_MY_BOOKS:
+        return {
+          books: action.books
+        };
         break;
       case types.ADD_BOOK:
         console.log(state)
@@ -23,10 +24,6 @@ export default function search(state = initialState, action){
             ]
           }
         break;
-      case types.SET_BOOKS:
-        return {
-          books: action.books
-        }
       default:
         return state;
 

@@ -24,12 +24,12 @@ class SearchList extends Component {
               )
           });
       };
-      if(this.props.books){
+      if(this.props.books.length > 0){
         return(
-            <div className={"col-lg-10 col-sm-12 navbar-fixed-top well-lg-mt-70"}>
+            <div className={"container navbar-fixed-top well-lg-mt-70"}>
               <div className={"well well-lg"}>
                 <h3>SearchList</h3>
-                <div className={"list"}>{mapToComponent(this.props.books.channel.item)}</div>
+                <div className={"list"}>{mapToComponent(this.props.books)}</div>
               </div>
             </div>
         );

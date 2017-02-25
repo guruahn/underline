@@ -6,7 +6,7 @@ import { database, firebaseAuth } from '../config/constants'
 
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
+import * as actions from '../actions/Search';
 const propTypes = {
 
 };
@@ -18,9 +18,6 @@ class Search extends Component {
     this.addBook = this.addBook.bind(this);
     this.user = firebaseAuth().currentUser
     //console.log(this.user)
-    this.state = {
-      books: ""
-    }
   }
 
 
@@ -57,7 +54,7 @@ class Search extends Component {
           console.error(err.message);
         } else {
           console.log(bookData);
-          this.setState({ books: bookData })
+          this.props.handleSetBooks(bookData.channel.item);
         }
       });
     }
@@ -73,7 +70,7 @@ class Search extends Component {
     return(
       <div>
         <SearchForm onSearch={this.handleSearch} />
-        <SearchList books={this.state.books} onAdd={this.addBook} />
+        <SearchList books={this.props.books} onAdd={this.addBook} />
       </div>
     );
   }
@@ -92,6 +89,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleInsertKeyword: () => { dispatch(actions.insertKeyword())},
     handleAddBook: (book) => { dispatch(actions.addBook(book))},
+    handleSetBooks: (books) => { dispatch(actions.setBooks(books))}
   };
 };
 

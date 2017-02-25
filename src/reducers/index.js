@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
-import counter from './counter';
 import search from './search';
-import ui from './ui';
+import myBooks from './myBooks';
 
 const reducers = combineReducers({
-  counter, ui, search
+  search, myBooks
 });
 
 export default reducers;
