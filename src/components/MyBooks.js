@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Book from './Book';
+import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
 
 import { connect } from 'react-redux';
 import * as actions from '../actions/MyBooks';
@@ -48,6 +49,9 @@ class MyBooks extends Component {
   render() {
 
     const mapToComponent = (books) => {
+      if(books.length == 0){
+        return <PreloaderIcon type={ICON_TYPE.OVAL} size={32} strokeWidth={3} strokeColor="#F0AD4E" duration={800} />
+      }
       return books.map((book, i) => {
         return (
             <li className={"list-group-item"} key={book.key}>

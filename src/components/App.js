@@ -9,6 +9,7 @@ import Header from './Header'
 import Dashboard from './protected/Dashboard'
 import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
+import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
 
 import '../css/style.css';
 
@@ -68,7 +69,11 @@ class App extends Component {
 
   render() {
 
-    return this.state.loading === true ? <h1>Loading</h1> : (
+    if (this.state.loading) {
+      return <PreloaderIcon type={ICON_TYPE.OVAL} size={132} strokeWidth={3} strokeColor="#F0AD4E" duration={800} />
+    }
+
+    return(
       <div>
         <BrowserRouter>
           {({router}) => (
@@ -107,6 +112,8 @@ class App extends Component {
         </BrowserRouter>
       </div>
     );
+
+
   }
 }
 export default App;

@@ -27,6 +27,7 @@ export default function search(state = initialState, action){
         return {
           books: action.books
         }
+        break;
       default:
         return state;
 

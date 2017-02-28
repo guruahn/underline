@@ -40,6 +40,7 @@ class Search extends Component {
         updates['/books/' + newUserBooksKey] = book;
         updates['/user-books/' + _this.user.uid + '/' + newUserBooksKey] = book;
         database.ref().update(updates);
+        _this.props.handleSetBooks([]);
       }
 
     });
@@ -89,7 +90,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleInsertKeyword: () => { dispatch(actions.insertKeyword())},
     handleAddBook: (book) => { dispatch(actions.addBook(book))},
-    handleSetBooks: (books) => { dispatch(actions.setBooks(books))}
+    handleSetBooks: (books) => { dispatch(actions.setBooks(books))},
   };
 };
 
