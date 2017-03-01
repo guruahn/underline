@@ -6,12 +6,16 @@ import { database, firebaseAuth } from '../config/constants'
 
 import { connect } from 'react-redux';
 
-import * as actions from '../actions/Search';
+import * as actions from '../actions/MyBooks';
 const propTypes = {
-
+  addBook: PropTypes.func,
+  handleSearch: PropTypes.func
 };
 const defaultProps = {
+  addBook: () => createWarning('onAdd'),
+  handleSearch: () => createWarning('onAdd'),
 };
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +27,6 @@ class Search extends Component {
 
 
   addBook(book){
-    this.props.handleAddBook(book);
     console.log(book.isbn13)
 
     let updates = {};
@@ -41,6 +44,8 @@ class Search extends Component {
         updates['/user-books/' + _this.user.uid + '/' + newUserBooksKey] = book;
         database.ref().update(updates);
         _this.props.handleSetBooks([]);
+        _this.props.handleAddBook({key:newUserBooksKey,value:book});
+        //console.log(JSON.stringify({key:newUserBooksKey,value:book}))
       }
 
     });
@@ -68,21 +73,32 @@ class Search extends Component {
 
   render() {
 
+    const printSearchList = () => {
+      if(this.props.searchBooks && this.props.searchBooks.length > 0){
+        return <SearchList books={this.props.searchBooks} onAdd={this.addBook} />
+      }
+    }
+
     return(
       <div>
         <SearchForm onSearch={this.handleSearch} />
-        <SearchList books={this.props.books} onAdd={this.addBook} />
+        {printSearchList()}
       </div>
     );
   }
 }
+
+function createWarning(funcName){
+  return () => console.warn(funcName + 'is now defined')
+}
+
 Search.propTypes = propTypes;
 Search.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    keyword: state.search.keyword,
-    books: state.search.books
+    keyword: state.myBooks.keyword,
+    searchBooks: state.myBooks.searchBooks
   };
 }
 
@@ -90,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleInsertKeyword: () => { dispatch(actions.insertKeyword())},
     handleAddBook: (book) => { dispatch(actions.addBook(book))},
-    handleSetBooks: (books) => { dispatch(actions.setBooks(books))},
+    handleSetBooks: (books) => { dispatch(actions.searchList(books))},
   };
 };
 

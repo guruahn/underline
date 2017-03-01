@@ -1,28 +1,36 @@
 import * as types from '../actions/MyBooks/ActionTypes';
 
 const initialState = {
-  books: []
+  keyword: '',
+  books: [],
+  searchBooks: []
 };
 
 export default function myBooks(state = initialState, action){
     switch (action.type) {
+      case types.INSERT_KEYWORD:
+        return { ...state, keyword: action.keyword};
+        break;
       case types.SET_MY_BOOKS:
         return {
           books: action.books
-        };
+        }
         break;
       case types.ADD_BOOK:
-        console.log(state)
-        console.log(action)
         return {
           ...state, books: [
               ...state.books,
               {
-                id: Math.max(0, ...state.books.map(b => b.id)) + 1,
-                book: action.book
+                key: action.book.key,
+                value: action.book.value
               }
             ]
           }
+        break;
+      case types.SEARCH_LIST:
+        return {
+          ...state, searchBooks: action.books
+        }
         break;
       default:
         return state;

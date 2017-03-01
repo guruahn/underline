@@ -7,15 +7,17 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/MyBooks';
 
 const propTypes = {
+  getInitMyBooks: PropTypes.func
 };
 const defaultProps = {
+  getInitMyBooks: () => createWarning('onAdd'),
 };
+
 class MyBooks extends Component {
   constructor(props) {
     super(props);
     this.user = firebaseAuth().currentUser;
     this.mybooksRef = database.ref('/user-books/' + this.user.uid);
-    this.listnerAddedBook = this.listnerAddedBook.bind(this);
   }
 
   getInitMyBooks(){
@@ -24,18 +26,11 @@ class MyBooks extends Component {
     this.mybooksRef.once('value').then(function(snapshot) {
       let myBooks = []
       snapshot.forEach(function(data){
-        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
+        //console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
         myBooks.push({key:data.key, value:data.val()})
       });
+      //console.log(myBooks)
       _this.props.handleSetMyBooks(myBooks);
-    });
-  }
-
-  listnerAddedBook(){
-    //listner added my books
-    this.mybooksRef.on('child_added', function(data) {
-      this.props.handleAddBook(data.key, data.val());
-      //addCommentElement(postElement, data.key, data.val().text, data.val().author);
     });
   }
 
@@ -46,24 +41,26 @@ class MyBooks extends Component {
   componentDidMount(){
     this.getInitMyBooks()
   }
+
   render() {
 
     const mapToComponent = (books) => {
-      if(books.length == 0){
+      if(books && books.length === 0){
         return <PreloaderIcon type={ICON_TYPE.OVAL} size={32} strokeWidth={3} strokeColor="#F0AD4E" duration={800} />
+      }else{
+        return books.map((book, i) => {
+          return (
+              <li className={"list-group-item"} key={book.key}>
+                <Book
+                  book={book.value}
+                  />
+              </li>
+          )
+        });
       }
-      return books.map((book, i) => {
-        return (
-            <li className={"list-group-item"} key={book.key}>
-              <Book
-                book={book.value}
-                />
-            </li>
 
-        )
-      });
     };
-
+    //console.log(this.props.books)
     return(
         <div>
           <div className={"panel panel-default"}>
@@ -79,6 +76,11 @@ class MyBooks extends Component {
     );
   }
 }
+
+function createWarning(funcName){
+  return () => console.warn(funcName + 'is now defined')
+}
+
 MyBooks.propTypes = propTypes;
 MyBooks.defaultProps = defaultProps;
 

@@ -9,10 +9,24 @@ export function setMyBooks (books){
   };
 }
 
+export function searchList (books){
+  return {
+    type: types.SEARCH_LIST,
+    books
+  }
+}
+
 export function addBook (book, id){
   return {
     type: types.ADD_BOOK,
     id,
     book
+  }
+}
+
+export function insertKeyword (keyword){
+  return {
+    type: types.INSERT_KEYWORD,
+    keyword
   }
 }

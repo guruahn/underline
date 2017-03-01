@@ -1,16 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router'
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import Search from './Search'
 
-const propTypes = {
-};
-const defaultProps = {
-};
 class Header extends Component {
-    constructor(props) {
-        super(props);
-    }
+
     componentDidMount(){
       this.props.onLogin()
     }
@@ -23,7 +16,7 @@ class Header extends Component {
                     <a className={"navbar-brand"} href="/">Underline</a>
                   </div>
                   <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    
+
                     <Search />
                     <ul className="nav navbar-nav navbar-right">
                       <li><a href="/dashboard">Dashboard</a></li>
@@ -45,6 +38,4 @@ class Header extends Component {
         );
     }
 }
-Header.propTypes = propTypes;
-Header.defaultProps = defaultProps;
 export default Header;

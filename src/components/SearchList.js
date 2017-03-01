@@ -1,15 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Book from './Book';
 
-const propTypes = {
-};
-const defaultProps = {
-  onAdd: () => createWarning('onAdd'),
-};
 class SearchList extends Component {
-    constructor(props) {
-        super(props);
-    }
+
     render() {
 
       const mapToComponent = (books) => {
@@ -24,7 +17,7 @@ class SearchList extends Component {
               )
           });
       };
-      if(this.props.books.length > 0){
+      if(this.props.books){
         return(
             <div className={"container navbar-fixed-top well-lg-mt-70"}>
               <div className={"well well-lg"}>
@@ -40,10 +33,4 @@ class SearchList extends Component {
     }
 }
 
-function createWarning(funcName){
-  return () => console.warn(funcName + 'is now defined')
-}
-
-SearchList.propTypes = propTypes;
-SearchList.defaultProps = defaultProps;
 export default SearchList;

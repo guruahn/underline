@@ -6,9 +6,7 @@ const defaultProps = {
   keyword: ''
 };
 class SearchForm extends Component {
-    constructor(props) {
-        super(props);
-    }
+
     state = {
       keyword: this.props.keyword || ''
     }
