@@ -37,3 +37,10 @@ export function removeBook (book){
     book
   }
 }
+
+export function onIng (book){
+  return {
+    type: types.ON_ING,
+    book
+  }
+}

@@ -34,6 +34,14 @@ export default function myBooks(state = initialState, action){
           ]
         }
         break;
+      case types.ON_ING:
+        return {
+          ...state, books: [
+            ...state.books.map(
+              book => book.key === action.book.key ? {...book, ing: true} : book)
+          ]
+        }
+        break;
       case types.SEARCH_LIST:
         return {
           ...state, searchBooks: action.books

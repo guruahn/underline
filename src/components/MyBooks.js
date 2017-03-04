@@ -39,9 +39,9 @@ class MyBooks extends Component {
   }
 
   onRemove(book){
-    //console.log(book)
     let updates = {};
     let _this = this;
+    this.props.handleOnIng(book);
     updates['/user-books/' + this.user.uid + '/' + book.key] = null;
 
     //update book and then
@@ -69,7 +69,7 @@ class MyBooks extends Component {
                   />
                 <i
                   onClick={() => this.onRemove(book)}
-                  className={"fa fa-minus-square-o" }
+                  className={book.ing === true ? 'fa fa-circle-o-notch fa-spin fa-fw' : 'fa fa-minus-square-o'}
                   aria-hidden={"true"}
                   role={"button"}></i>
               </li>
@@ -112,7 +112,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleAddBook: (book) => { dispatch(actions.addBook(book)) },
     handleSetMyBooks: (books) => { dispatch(actions.setMyBooks(books)) },
-    handleRemoveBook: (book) => { dispatch(actions.removeBook(book)) }
+    handleRemoveBook: (book) => { dispatch(actions.removeBook(book)) },
+    handleOnIng: (book) => { dispatch(actions.onIng(book)) }
   };
 };
 
