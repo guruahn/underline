@@ -27,7 +27,7 @@ class Search extends Component {
 
 
   addBook(book){
-    console.log(book.isbn13)
+    //console.log(book.isbn13)
 
     let updates = {};
     let _this = this;

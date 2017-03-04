@@ -17,6 +17,7 @@ class MyBooks extends Component {
   constructor(props) {
     super(props);
     this.user = firebaseAuth().currentUser;
+    console.log(this.user)
     this.mybooksRef = database.ref('/user-books/' + this.user.uid);
   }
 
