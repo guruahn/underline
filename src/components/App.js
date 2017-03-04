@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
 import { Match, BrowserRouter, Miss, Redirect } from 'react-router'
 import Login from './Login'
 import Register from './Register'
@@ -11,7 +10,11 @@ import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
 import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
 
+
+import 'bootstrap/dist/css/bootstrap.css'
 import '../css/style.css';
+import 'bootstrap/dist/js/bootstrap.min.js'
+
 
 function MatchWhenAuthed ({component: Component, authed, ...rest}) {
   return (
@@ -98,7 +101,7 @@ class App extends Component {
                     }
                   }
                   />
-                <div className="row">
+                <div>
                   <Match pattern='/' exactly component={Home} />
                   <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
                   <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />

@@ -9,10 +9,13 @@ class Header extends Component {
     }
     render() {
         return(
-            <div className={"row"}>
+            <div>
               <nav className={"navbar navbar-default"}>
                 <div className={"container-fluid"}>
                   <div className={"navbar-header"}>
+                    <button type="button" className={"navbar-toggle collapsed"} data-toggle={"collapse"} data-target={"#bs-example-navbar-collapse-1"} aria-expanded={"false"}>
+                      <span className={"glyphicon glyphicon-option-vertical" } aria-hidden={"true"}></span>
+                    </button>
                     <a className={"navbar-brand"} href="/">Underline</a>
                   </div>
                   <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
