@@ -12,7 +12,15 @@ class SearchList extends Component {
                   <Book
                     book={book}
                     />
-                  <button onClick={() => this.props.onAdd(book)}>+</button>
+                  <button 
+                    onClick={() => this.props.onAdd(book)}
+                    type={"button"}
+                    className="btn btn-default"
+                    aria-label={"Left Align"}>
+                    <span
+                      className={"glyphicon glyphicon-plus" }
+                      aria-hidden={"true"}></span>
+                  </button>
                 </div>
               )
           });

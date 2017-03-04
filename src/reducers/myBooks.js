@@ -27,6 +27,13 @@ export default function myBooks(state = initialState, action){
             ]
           }
         break;
+      case types.REMOVE_BOOK:
+        return {
+          ...state, books: [
+            ...state.books.filter(book => action.book.key !== book.key)
+          ]
+        }
+        break;
       case types.SEARCH_LIST:
         return {
           ...state, searchBooks: action.books

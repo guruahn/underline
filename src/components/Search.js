@@ -12,8 +12,8 @@ const propTypes = {
   handleSearch: PropTypes.func
 };
 const defaultProps = {
-  addBook: () => createWarning('onAdd'),
-  handleSearch: () => createWarning('onAdd'),
+  addBook: () => createWarning('addBook'),
+  handleSearch: () => createWarning('handleSearch'),
 };
 
 class Search extends Component {

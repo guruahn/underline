@@ -7,10 +7,12 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/MyBooks';
 
 const propTypes = {
-  getInitMyBooks: PropTypes.func
+  getInitMyBooks: PropTypes.func,
+  onRemove: PropTypes.func
 };
 const defaultProps = {
-  getInitMyBooks: () => createWarning('onAdd'),
+  getInitMyBooks: () => createWarning('getInitMyBooks'),
+  onRemove: () => createWarning('onRemove'),
 };
 
 class MyBooks extends Component {
@@ -19,6 +21,7 @@ class MyBooks extends Component {
     this.user = firebaseAuth().currentUser;
     console.log(this.user)
     this.mybooksRef = database.ref('/user-books/' + this.user.uid);
+    this.onRemove = this.onRemove.bind(this);
   }
 
   getInitMyBooks(){
@@ -35,9 +38,18 @@ class MyBooks extends Component {
     });
   }
 
+  onRemove(book){
+    //console.log(book)
+    let updates = {};
+    let _this = this;
+    updates['/user-books/' + this.user.uid + '/' + book.key] = null;
 
-  // TODO 검색후 책 추가 시 MyBooks에 반영
-  // TODO MyBooks 책 삭제 기능 추가
+    //update book and then
+    database.ref().update(updates).then(function() {
+      _this.props.handleRemoveBook(book);
+    });
+
+  }
 
   componentDidMount(){
     this.getInitMyBooks()
@@ -55,6 +67,11 @@ class MyBooks extends Component {
                 <Book
                   book={book.value}
                   />
+                <i
+                  onClick={() => this.onRemove(book)}
+                  className={"fa fa-minus-square-o" }
+                  aria-hidden={"true"}
+                  role={"button"}></i>
               </li>
           )
         });
@@ -93,8 +110,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleAddBook: (book) => { dispatch(actions.addBook(book))},
-    handleSetMyBooks: (books) => { dispatch(actions.setMyBooks(books))}
+    handleAddBook: (book) => { dispatch(actions.addBook(book)) },
+    handleSetMyBooks: (books) => { dispatch(actions.setMyBooks(books)) },
+    handleRemoveBook: (book) => { dispatch(actions.removeBook(book)) }
   };
 };
 

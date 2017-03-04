@@ -30,3 +30,10 @@ export function insertKeyword (keyword){
     keyword
   }
 }
+
+export function removeBook (book){
+  return {
+    type: types.REMOVE_BOOK,
+    book
+  }
+}
