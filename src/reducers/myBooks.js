@@ -17,6 +17,7 @@ export default function myBooks(state = initialState, action){
         }
         break;
       case types.ADD_BOOK:
+        console.log(action.book)
         return {
           ...state, books: [
               ...state.books,

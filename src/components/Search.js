@@ -20,6 +20,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.addBook = this.addBook.bind(this);
+    this.addUserBook = this.addUserBook.bind(this);
     this.user = firebaseAuth().currentUser
     //console.log(this.user)
   }
@@ -27,39 +28,52 @@ class Search extends Component {
 
 
   addBook(book){
-    //console.log(book.isbn13)
+    console.log(book.isbn13)
 
     let updates = {};
     let _this = this;
+    let bookKey;
     database.ref().child('books').orderByChild('isbn13').equalTo(book.isbn13).on('value', function(snapshot, key) {
 
       snapshot.forEach(function(data) {
-        //console.log("The " + data.key + " dinosaur's score is " + data.val());
-        updates['/user-books/' + _this.user.uid + '/' + data.key] = book;
+        console.log("The " + data.key + " dinosaur's score is " + data.val());
+        bookKey = data.key;
+        _this.addUserBook(book, bookKey, _this);
       });
-      //console.log('snapshot.length: ' + (!snapshot.val()))
+      console.log( 'snapshot.length: ' + JSON.stringify(snapshot.val()) )
       if(!snapshot.val()){
-        let newUserBooksKey = database.ref().child('books').push().key;
-        updates['/books/' + newUserBooksKey] = book;
-        updates['/user-books/' + _this.user.uid + '/' + newUserBooksKey] = book;
+        bookKey = database.ref().child('books').push().key;
+        updates['/books/' + bookKey] = book;
         database.ref().update(updates);
-        _this.props.handleSetBooks([]);
-        _this.props.handleAddBook({key:newUserBooksKey,value:book});
-        //console.log(JSON.stringify({key:newUserBooksKey,value:book}))
+        _this.addUserBook(book, bookKey, _this);
       }
+
 
     });
 
+
+  }
+
+  addUserBook(book, key, _this){
+    let updates = {};
+    database.ref('/user-books/' + _this.user.uid + '/' + key).on('value', function(userbooksnapshot, userbookkey) {
+      if(!userbooksnapshot.val()){
+        updates['/user-books/' + _this.user.uid + '/' + key] = book;
+        database.ref().update(updates);
+        _this.props.handleSetBooks([]);
+        _this.props.handleAddBook({key:key,value:book});
+        console.log(JSON.stringify({key:key,value:book}))
+      }
+    });
   }
 
   handleSearch = keyword => {
     if (keyword.length !== 0) {
-      //this.props.addTodo(text)
       jsonp(`https://apis.daum.net/search/book?apikey=f43b4510bf93765b4b6800c889be1b89&q=${keyword}&output=json`, null, (err, bookData) =>{
         if (err) {
           console.error(err.message);
         } else {
-          console.log(bookData);
+          //console.log(bookData);
           this.props.handleSetBooks(bookData.channel.item);
         }
       });
