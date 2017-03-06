@@ -1,4 +1,6 @@
-import * as types from './ActionTypes'
+import * as types from './MyBooksActionTypes';
+
+
 
 // 액션 생성자, 함수 이름 규칙은 camelCase
 

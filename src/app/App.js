@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Match, BrowserRouter, Miss, Redirect } from 'react-router'
-import Login from './Login'
-import Register from './Register'
+import Login from '../user/Login'
+import Register from '../user/Register'
 import Home from './Home'
-import Search from './Search'
+import Search from '../search/Search'
 import Header from './Header'
-import Dashboard from './protected/Dashboard'
+import MyBooks from '../mybooks/MyBooks'
 import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
 import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
@@ -33,7 +33,7 @@ function MatchWhenUnauthed ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === false
         ? <Component {...props} />
-        : <Redirect to='/dashboard' />}
+        : <Redirect to='/mybooks' />}
     />
   )
 }
@@ -96,7 +96,7 @@ class App extends Component {
                   }}
                   onLogin={() =>{
                       if(this.state.authed){
-                        router.transitionTo('/dashboard')
+                        router.transitionTo('/mybooks')
                       }
                     }
                   }
@@ -105,7 +105,7 @@ class App extends Component {
                   <Match pattern='/' exactly component={Home} />
                   <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
                   <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />
-                  <MatchWhenAuthed authed={this.state.authed} pattern='/dashboard' component={Dashboard} />
+                  <MatchWhenAuthed authed={this.state.authed} pattern='/mybooks' component={MyBooks} />
                   <MatchWhenAuthed authed={this.state.authed} pattern='/search' component={Search} />
                   <Miss render={() => <h3>No Match</h3>} />
                 </div>

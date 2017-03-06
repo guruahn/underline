@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Book from './Book';
+import Book from '../books/Book';
 
 class SearchList extends Component {
 
@@ -12,7 +12,7 @@ class SearchList extends Component {
                   <Book
                     book={book}
                     />
-                  <button 
+                  <button
                     onClick={() => this.props.onAdd(book)}
                     type={"button"}
                     className="btn btn-default"

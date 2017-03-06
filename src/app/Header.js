@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import Search from './Search'
+import Search from '../search/Search'
 
 class Header extends Component {
 

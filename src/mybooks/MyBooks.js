@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
-import Book from './Book';
+import Book from '../books/Book';
 import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
 
 import { connect } from 'react-redux';
-import * as actions from '../actions/MyBooks';
+import * as actions from './MyBooksActions';
 
 const propTypes = {
   getInitMyBooks: PropTypes.func,
