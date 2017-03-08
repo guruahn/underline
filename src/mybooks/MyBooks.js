@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Book from '../books/Book';
-import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
+import Loading from 'react-loading-animation'
 
 import { connect } from 'react-redux';
 import * as actions from './MyBooksActions';
@@ -59,7 +59,7 @@ class MyBooks extends Component {
 
     const mapToComponent = (books) => {
       if(books && books.length === 0){
-        return <PreloaderIcon type={ICON_TYPE.OVAL} size={32} strokeWidth={3} strokeColor="#F0AD4E" duration={800} />
+        return <Loading />
       }else{
         return books.map((book, i) => {
           return (

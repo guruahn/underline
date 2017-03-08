@@ -8,7 +8,8 @@ import Header from './Header'
 import MyBooks from '../mybooks/MyBooks'
 import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
-import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
+//import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
+import Loading from 'react-loading-animation'
 
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -73,7 +74,8 @@ class App extends Component {
   render() {
 
     if (this.state.loading) {
-      return <PreloaderIcon type={ICON_TYPE.OVAL} size={132} strokeWidth={3} strokeColor="#F0AD4E" duration={800} />
+
+      return <Loading type='balls' color='#F0AD4E' />
     }
 
     return(
