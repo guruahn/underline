@@ -1,4 +1,4 @@
-import * as types from './MyBooksActionTypes';
+import * as types from './BooksActionTypes';
 
 const initialState = {
   keyword: '',

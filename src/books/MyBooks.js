@@ -4,7 +4,7 @@ import Book from '../books/Book';
 import Loading from 'react-loading-animation'
 
 import { connect } from 'react-redux';
-import * as actions from './MyBooksActions';
+import * as actions from './BooksActions';
 
 const propTypes = {
   getInitMyBooks: PropTypes.func,

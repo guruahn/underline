@@ -5,7 +5,7 @@ import Register from '../user/Register'
 import Home from './Home'
 import Search from '../search/Search'
 import Header from './Header'
-import MyBooks from '../mybooks/MyBooks'
+import MyBooks from '../books/MyBooks'
 import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
 //import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
@@ -34,7 +34,7 @@ function MatchWhenUnauthed ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === false
         ? <Component {...props} />
-        : <Redirect to='/mybooks' />}
+        : <Redirect to='/books' />}
     />
   )
 }

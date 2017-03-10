@@ -6,7 +6,7 @@ import { database, firebaseAuth } from '../config/constants'
 
 import { connect } from 'react-redux';
 
-import * as actions from '../mybooks/MyBooksActions';
+import * as actions from '../books/BooksActions';
 const propTypes = {
   addBook: PropTypes.func,
   handleSearch: PropTypes.func
