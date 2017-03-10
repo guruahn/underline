@@ -2,9 +2,24 @@ body {
   margin-top: 1em;
 }
 
+/*Utils*/
+.u-no-boder { border: 0; }
+
+
 .well-lg-mt-70 {
   margin-top: 70px;
 }
 .preloader-icon {
   margin: 50px auto;
+}
+
+
+/*Underline*/
+#underlineAddForm {
+  -webkit-transition-property: height row;
+  -webkit-transition-duration:0.5s;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-property : height;
+  transition-duration:0.5s;
+  transition-timing-function: ease-in-out;
 }

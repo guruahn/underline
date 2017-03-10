@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth } from '../config/constants'
+import { database, firebaseAuth } from '../config/constants';
 import Book from '../books/Book';
-import Loading from 'react-loading-animation'
+import Loading from 'react-loading-animation';
+import UnderlineAddForm from '../underline/UnderlineAddForm';
 
 import { connect } from 'react-redux';
 import * as actions from './BooksActions';
@@ -81,6 +82,7 @@ class MyBooks extends Component {
     //console.log(this.props.books)
     return(
         <div>
+          <UnderlineAddForm />
           <div className={"panel panel-default"}>
             <div className={"panel-heading"}>My Library</div>
             <div className={"panel-body"}>
