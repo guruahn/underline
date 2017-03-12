@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import Search from '../search/Search'
 
 class Header extends Component {
 
     componentDidMount(){
-      this.props.onLogin()
+      //this.props.onLogin()
     }
     render() {
         return(
@@ -19,10 +18,9 @@ class Header extends Component {
                     <a className={"navbar-brand"} href="/">Underline</a>
                   </div>
                   <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                    <Search />
                     <ul className="nav navbar-nav navbar-right">
                       <li><a href="/dashboard">Dashboard</a></li>
+                      <li><a href="/search">Book Search</a></li>
                       <li>
                         <a
                           href="#"

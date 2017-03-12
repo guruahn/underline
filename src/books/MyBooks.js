@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants';
 import Book from '../books/Book';
 import Loading from 'react-loading-animation';
-import UnderlineAddForm from '../underline/UnderlineAddForm';
+import UnderlineAddForm from '../underlines/UnderlineAddForm';
 
 import { connect } from 'react-redux';
 import * as actions from './BooksActions';
