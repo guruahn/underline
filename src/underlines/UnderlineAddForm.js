@@ -27,13 +27,6 @@ class UnderlineAddForm extends Component {
 
     addUnderline = e => {
 
-      /*
-      * TODO Book 정보를 먼저 가져온 후
-      * underlines ( /underlines/{underlineKey}/underline )
-      * user-underlines ( /user-underlines/{userKey}/{underlineKey} ) : 특정 유저에 대한 모든 밑줄
-      * book-underlines ( /book-underlines/{bookKey}/{underlineKey} ) : 특정 책에 대한 모든 유저들의 밑줄
-      * user-book-underlines ( /user-book-lines/{userKey}/{bookKey}/{underlineKey}) : 특정 유저의 특정 책에 대한 모든 밑줄
-      */
       const underline = this.props.underline;
       const updates = [];
 
