@@ -6,6 +6,7 @@ import Home from './Home'
 import Search from '../search/Search'
 import Header from './Header'
 import MyBooks from '../books/MyBooks'
+import MyUnderlines from '../underlines/MyUnderlines'
 import { logout } from '../helpers/auth'
 import { firebaseAuth } from '../config/constants'
 //import PreloaderIcon, {ICON_TYPE} from 'react-preloader-icon';
@@ -109,6 +110,7 @@ class App extends Component {
                   <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />
                   <MatchWhenAuthed authed={this.state.authed} pattern='/mybooks' component={MyBooks} />
                   <MatchWhenAuthed authed={this.state.authed} pattern='/search' component={Search} />
+                  <MatchWhenAuthed authed={this.state.authed} pattern='/myUnderlines' component={MyUnderlines} />
                   <Miss render={() => <h3>No Match</h3>} />
                 </div>
               </div>

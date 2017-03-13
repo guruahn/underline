@@ -5,6 +5,8 @@ import Search from '../search/Search'
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
 
+import '../css/module_popup.css';
+
 const propTypes = {
   underline: PropTypes.string,
   isWritingLine: PropTypes.bool
@@ -54,33 +56,45 @@ class UnderlineAddForm extends Component {
 
     render() {
       let formStyle = {};
+      let formWrapClass = 'panel panel-default u-no-border';
+      let popupBg = null;
       console.log('this.props.isWritingLine!!', this.props.isWritingLine)
       if(this.props.isWritingLine){
         formStyle.height = '200px';
+        formStyle.width = '100%';
+        formWrapClass = 'panel panel-default u-no-border on-popup-wrap';
+        popupBg = <div className={"modal-backdrop fade in"}></div>;
       }else{
         formStyle.height = '100px';
+        formWrapClass = 'panel panel-default u-no-border';
       }
       return(
         <div>
-          <div className={'panel panel-default u-no-border'}>
-            <textarea
-              id={"underlineAddForm"}
-              className={"form-control"}
-              style={formStyle}
-              placeholder={"Put your line"}
-              onFocus={this.props.handleToggleIsWritingLine}
-              onBlur={this.props.handleToggleIsWritingLine}
-              onChange={this.setUnderline}>
-
-            </textarea>
-            <button
-              type={"button"}
-              className={"btn btn-primary"}
-              onClick={this.addLine}>Primary</button>
+          <div
+            className={formWrapClass}>
+            <div className={"on-popup-bg"}></div>
+            <div className={"on-popup-content"}>
+              <textarea
+                id={"underlineAddForm"}
+                className={"form-control on-popup-content"}
+                style={formStyle}
+                placeholder={"Put your line"}
+                onFocus={this.props.handleToggleIsWritingLine}
+                onBlur={this.props.handleToggleIsWritingLine}
+                onChange={this.setUnderline}>
+              </textarea>
+              <button
+                type={"button"}
+                className={"btn btn-primary"}
+                onClick={this.addLine}>Insert</button>
+            </div>
           </div>
-          <div className={'panel panel-default u-no-border'} >
-            <Search />
+          <div className={"row"}>
+            <div className={'panel panel-default u-no-border'} >
+              <Search />
+            </div>
           </div>
+          {popupBg}
         </div>
       );
     }

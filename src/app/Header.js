@@ -21,6 +21,7 @@ class Header extends Component {
                     <ul className="nav navbar-nav navbar-right">
                       <li><a href="/dashboard">Dashboard</a></li>
                       <li><a href="/search">Book Search</a></li>
+                      <li><a href="/myUnderlines">My Underlines</a></li>
                       <li>
                         <a
                           href="#"

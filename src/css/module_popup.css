@@ -1,0 +1,15 @@
+.on-popup-wrap {
+  position: fixed;
+  top: 20%;
+  left: 0;
+  width: 940px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 2000;
+}
+.on-popup-wrap .on-popup-content {
+  margin: 0 auto;
+  width: 100%;
+}
