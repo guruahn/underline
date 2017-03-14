@@ -74,7 +74,8 @@ class UnderlineAddForm extends Component {
             className={formWrapClass}>
             <div className={"on-popup-bg"}></div>
             <div className={"on-popup-content"}>
-              <textarea
+              <p>
+                <textarea
                 id={"underlineAddForm"}
                 className={"form-control on-popup-content"}
                 style={formStyle}
@@ -82,18 +83,24 @@ class UnderlineAddForm extends Component {
                 onFocus={this.props.handleToggleIsWritingLine}
                 onBlur={this.props.handleToggleIsWritingLine}
                 onChange={this.setUnderline}>
-              </textarea>
-              <button
+                </textarea>
+              </p>
+              <p>
+                <button
                 type={"button"}
                 className={"btn btn-primary"}
                 onClick={this.addLine}>Insert</button>
+              </p>
+
+              <div className={"row"}>
+                <div className={'panel panel-default u-no-border'} >
+                  <Search />
+                </div>
+              </div>
+              
             </div>
           </div>
-          <div className={"row"}>
-            <div className={'panel panel-default u-no-border'} >
-              <Search />
-            </div>
-          </div>
+
           {popupBg}
         </div>
       );

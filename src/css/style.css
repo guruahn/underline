@@ -4,6 +4,7 @@ body {
 
 /*Utils*/
 .u-no-border { border: 0; }
+.u-no-padding { padding: 0 }
 
 .well-lg-mt-70 {
   margin-top: 70px;
