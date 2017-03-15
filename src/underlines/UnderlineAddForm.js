@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Search from '../search/Search'
 
+
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
 
@@ -9,18 +10,27 @@ import '../css/module_popup.css';
 
 const propTypes = {
   underline: PropTypes.string,
-  isWritingLine: PropTypes.bool
+  isWritingLine: PropTypes.bool,
+  isSearching: PropTypes.bool
 };
 const defaultProps = {
   underline: '',
-  isWritingLine: false
+  isWritingLine: false,
+  isSearching: false
 };
 class UnderlineAddForm extends Component {
     constructor(props) {
       super(props);
       this.user = firebaseAuth().currentUser;
+      this.onWriting = this.onWriting.bind(this);
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
+    }
+
+    onWriting(){
+      if(!this.props.isWritingLine){
+        this.props.handleToggleIsWritingLine();
+      }
     }
 
     setUnderline(event) {
@@ -30,13 +40,13 @@ class UnderlineAddForm extends Component {
     addUnderline = e => {
 
       const underline = this.props.underline;
-      const updates = [];
-
-      console.log( underline )
+      console.log('addUnderline!!!', underline)
+      const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
       updates['/underlines/' + underlineKey] = underline;
+      console.log(updates)
       database.ref().update(updates);
-      this.addUserLine(underline, underlineKey, this.props.selectedBook);
+      // this.addUserLine(underline, underlineKey, this.props.selectedBook);
     }
 
     addUserLine = (underline, underlineKey, bookKey) => {
@@ -56,32 +66,39 @@ class UnderlineAddForm extends Component {
 
     render() {
       let formStyle = {};
+      let popupContentStyle = {};
       let formWrapClass = 'panel panel-default u-no-border';
       let popupBg = null;
-      console.log('this.props.isWritingLine!!', this.props.isWritingLine)
+      //console.log('this.props.isWritingLine!!', this.props.isWritingLine)
       if(this.props.isWritingLine){
         formStyle.height = '200px';
         formStyle.width = '100%';
         formWrapClass = 'panel panel-default u-no-border on-popup-wrap';
-        popupBg = <div className={"modal-backdrop fade in"}></div>;
+        popupBg = <div className={"modal-backdrop fade in"} onClick={this.props.handleToggleIsWritingLine}></div>;
       }else{
         formStyle.height = '100px';
         formWrapClass = 'panel panel-default u-no-border';
+      }
+
+      let search = null;
+      if(this.props.isSearching){
+        search = <Search isWritingLine={this.props.isWritingLine} addUnderline={this.addUnderline} />;
+        popupContentStyle.display = 'none';
+      }else{
+        popupContentStyle = {};
       }
       return(
         <div>
           <div
             className={formWrapClass}>
-            <div className={"on-popup-bg"}></div>
-            <div className={"on-popup-content"}>
+            <div className={"on-popup-content"} style={popupContentStyle}>
               <p>
                 <textarea
                 id={"underlineAddForm"}
                 className={"form-control on-popup-content"}
                 style={formStyle}
                 placeholder={"Put your line"}
-                onFocus={this.props.handleToggleIsWritingLine}
-                onBlur={this.props.handleToggleIsWritingLine}
+                onFocus={this.onWriting}
                 onChange={this.setUnderline}>
                 </textarea>
               </p>
@@ -89,15 +106,15 @@ class UnderlineAddForm extends Component {
                 <button
                 type={"button"}
                 className={"btn btn-primary"}
-                onClick={this.addLine}>Insert</button>
+                onClick={this.props.handleToggleIsSearching}>Insert</button>
               </p>
 
-              <div className={"row"}>
-                <div className={'panel panel-default u-no-border'} >
-                  <Search />
-                </div>
+
+            </div>
+            <div className={"row"}>
+              <div className={'panel panel-default u-no-border'} >
+                {search}
               </div>
-              
             </div>
           </div>
 
@@ -112,7 +129,8 @@ UnderlineAddForm.defaultProps = defaultProps;
 const mapStateToProps = (state) => {
   return {
     underline: state.underlines.underline,
-    isWritingLine: state.underlines.isWritingLine
+    isWritingLine: state.underlines.isWritingLine,
+    isSearching: state.underlines.isSearching
   };
 }
 
@@ -121,6 +139,7 @@ const mapDispatchToProps = (dispatch) => {
     handleAddLine: (underline) => { dispatch(actions.addLine(underline))},
     handleSetMyUnderlines: (underline) => { dispatch(actions.setMyUnderlines(underline))},
     handleToggleIsWritingLine: () => { dispatch(actions.toggleIsWritingLine())},
+    handleToggleIsSearching: () => { dispatch(actions.toggleIsSearching())}
   };
 };
 

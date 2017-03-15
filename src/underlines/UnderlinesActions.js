@@ -39,6 +39,12 @@ export function toggleIsWritingLine (){
   }
 }
 
+export function toggleIsSearching (){
+  return {
+    type: types.TOGGLE_IS_SEARCHING
+  }
+}
+
 export function setSearchBookList (books){
   return {
     type: types.SET_SEARCH_BOOK_LIST,

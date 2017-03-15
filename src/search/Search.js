@@ -34,20 +34,24 @@ class Search extends Component {
     let _this = this;
     let bookKey;
     database.ref().child('books').orderByChild('isbn13').equalTo(book.isbn13).on('value', function(snapshot, key) {
-
+      //books에 이미 책이 존재하면, user-books에만 등록
       snapshot.forEach(function(data) {
         console.log("The " + data.key + " dinosaur's score is " + data.val());
         bookKey = data.key;
         _this.addUserBook(book, bookKey, _this);
       });
       console.log( 'snapshot.length: ' + JSON.stringify(snapshot.val()) )
+      //처음 등록하는 책이면, books, user-books에 모두 등록
       if(!snapshot.val()){
         bookKey = database.ref().child('books').push().key;
         updates['/books/' + bookKey] = book;
         database.ref().update(updates);
         _this.addUserBook(book, bookKey, _this);
       }
-
+      //case: called in UnderlineAddForm
+      if(_this.props.isWritingLine){
+        _this.props.addUnderline();
+      }
 
     });
 
@@ -86,7 +90,6 @@ class Search extends Component {
   }
 
   render() {
-
     const printSearchList = () => {
       if(this.props.searchBooks && this.props.searchBooks.length > 0){
         return <SearchList books={this.props.searchBooks} onAdd={this.addBook} />

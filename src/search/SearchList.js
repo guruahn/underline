@@ -4,7 +4,7 @@ import Book from '../books/Book';
 class SearchList extends Component {
 
     render() {
-
+      
       const mapToComponent = (books) => {
           return books.map((book, i) => {
               return (
@@ -27,9 +27,9 @@ class SearchList extends Component {
       };
       if(this.props.books){
         return(
-            <div className={"container navbar-fixed-top well-lg-mt-70"}>
-              <div className={"well well-lg"}>
-                <h3>SearchList</h3>
+            <div className={"col-sm-12"}>
+              <div className={"well-lg"}>
+                <h4>Search Result</h4>
                 <div className={"list"}>{mapToComponent(this.props.books)}</div>
               </div>
             </div>

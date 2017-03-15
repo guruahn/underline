@@ -50,9 +50,16 @@ export default function underlines(state = initialState, action){
           isWritingLine: !state.isWritingLine
         }
         break;
-      case types.SET_SEARCH_BOOK_LIST:
+      case types.TOGGLE_IS_WRITING_LINE:
         return {
-          ...state, searchBooks: action.books
+          ...state,
+          isWritingLine: !state.isWritingLine
+        }
+        break;
+      case types.TOGGLE_IS_SEARCHING:
+        return {
+          ...state,
+          isSearching: !state.isSearching
         }
         break;
       default:

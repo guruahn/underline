@@ -15,17 +15,18 @@ class SearchForm extends Component {
       this.props.onSearch(e.target.value)
     }
     render() {
-
       return(
-        <div className={"navbar-form navbar-left"}>
+        <div className={"col-sm-12"}>
           <div className={"form-group"}>
+            <label htmlFor={"book-search"}>Book search</label>
             <input
               type="text"
               name="keyword"
               value={this.state.keyword}
               onChange={this.handleChange}
+              id={"book-search"}
               className={"form-control"}
-              placeholder="Search"/>
+              placeholder="Book title here"/>
           </div>
         </div>
       );
