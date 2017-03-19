@@ -5,6 +5,7 @@ body {
 /*Utils*/
 .u-no-border { border: 0; }
 .u-no-padding { padding: 0 }
+.u-display-none { display: none; }
 
 .well-lg-mt-70 {
   margin-top: 70px;
@@ -16,10 +17,6 @@ body {
 
 /*Underline*/
 #underlineAddForm {
-  -webkit-transition-property: height row;
-  -webkit-transition-duration:0.5s;
-  -webkit-transition-timing-function: ease-in-out;
-  transition-property : height;
-  transition-duration:0.5s;
-  transition-timing-function: ease-in-out;
+  min-height: 500px;
+
 }

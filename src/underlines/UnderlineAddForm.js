@@ -6,8 +6,6 @@ import Search from '../search/Search'
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
 
-import '../css/module_popup.css';
-
 const propTypes = {
   underline: PropTypes.string,
   isWritingLine: PropTypes.bool,
@@ -37,20 +35,19 @@ class UnderlineAddForm extends Component {
       this.props.handleSetMyUnderlines(event.target.value);
     }
 
-    addUnderline = e => {
-
+    addUnderline = (book) => {
       const underline = this.props.underline;
       console.log('addUnderline!!!', underline)
       const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
-      updates['/underlines/' + underlineKey] = underline;
+      updates['/underlines/' + underlineKey] = { line:underline, book:book };
       console.log(updates)
       database.ref().update(updates);
-      // this.addUserLine(underline, underlineKey, this.props.selectedBook);
+      this.addUserLine(underline, underlineKey, this.props.selectedBook);
     }
 
     addUserLine = (underline, underlineKey, bookKey) => {
-      const updates = [];
+      const updates = {};
       let _this = this;
       database.ref('/user-underlines/' + this.user.uid + '/' + underlineKey).on('value', function(userunderlinesnapshot, userunderlinekey) {
         if(!userunderlinesnapshot.val()){
@@ -65,38 +62,23 @@ class UnderlineAddForm extends Component {
 
 
     render() {
-      let formStyle = {};
-      let popupContentStyle = {};
-      let formWrapClass = 'panel panel-default u-no-border';
-      let popupBg = null;
-      //console.log('this.props.isWritingLine!!', this.props.isWritingLine)
-      if(this.props.isWritingLine){
-        formStyle.height = '200px';
-        formStyle.width = '100%';
-        formWrapClass = 'panel panel-default u-no-border on-popup-wrap';
-        popupBg = <div className={"modal-backdrop fade in"} onClick={this.props.handleToggleIsWritingLine}></div>;
-      }else{
-        formStyle.height = '100px';
-        formWrapClass = 'panel panel-default u-no-border';
-      }
-
+      let formWrapClass = null;
       let search = null;
       if(this.props.isSearching){
         search = <Search isWritingLine={this.props.isWritingLine} addUnderline={this.addUnderline} />;
-        popupContentStyle.display = 'none';
+        formWrapClass = 'u-display-none';
       }else{
-        popupContentStyle = {};
+        formWrapClass = '';
+        search = null;
       }
       return(
         <div>
-          <div
-            className={formWrapClass}>
-            <div className={"on-popup-content"} style={popupContentStyle}>
+          <div>
+            <div className={formWrapClass}>
               <p>
                 <textarea
                 id={"underlineAddForm"}
                 className={"form-control on-popup-content"}
-                style={formStyle}
                 placeholder={"Put your line"}
                 onFocus={this.onWriting}
                 onChange={this.setUnderline}>
@@ -118,7 +100,6 @@ class UnderlineAddForm extends Component {
             </div>
           </div>
 
-          {popupBg}
         </div>
       );
     }

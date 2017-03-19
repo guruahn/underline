@@ -82,7 +82,6 @@ class MyBooks extends Component {
     //console.log(this.props.books)
     return(
         <div>
-          <UnderlineAddForm />
           <div className={"panel panel-default"}>
             <div className={"panel-heading"}>My Library</div>
             <div className={"panel-body"}>
