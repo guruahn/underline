@@ -23,6 +23,8 @@ class UnderlineAddForm extends Component {
       this.onWriting = this.onWriting.bind(this);
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
+      this.addBookLine = this.addBookLine.bind(this);
+      this.addUserLine = this.addUserLine.bind(this);
     }
 
     onWriting(){
@@ -35,7 +37,7 @@ class UnderlineAddForm extends Component {
       this.props.handleSetMyUnderlines(event.target.value);
     }
 
-    addUnderline = (book) => {
+    addUnderline = (book, bookKey) => {
       const underline = this.props.underline;
       console.log('addUnderline!!!', underline)
       const updates = {};
@@ -43,29 +45,29 @@ class UnderlineAddForm extends Component {
       updates['/underlines/' + underlineKey] = { line:underline, book:book };
       console.log(updates)
       database.ref().update(updates);
-      this.addUserLine(underline, underlineKey, this.props.selectedBook);
+      this.addUserLine(underline, underlineKey, book);
+      this.addBookLine(underline, underlineKey, book, bookKey);
     }
 
-    addUserLine = (underline, underlineKey, bookKey) => {
+    addUserLine = (underline, underlineKey, book) => {
       const updates = {};
-      let _this = this;
-      database.ref('/user-underlines/' + this.user.uid + '/' + underlineKey).on('value', function(userunderlinesnapshot, userunderlinekey) {
-        if(!userunderlinesnapshot.val()){
-          updates['/user-underlines/' + _this.user.uid + '/' + underlineKey] = underline;
-          database.ref().update(updates);
-          _this.props.handleSetUnderline("");
-          _this.props.handleAddUnderline({key:underlineKey,value:underline});
-          console.log(JSON.stringify({key:underlineKey,value:underline}))
-        }
-      });
+      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline, book:book };
+      database.ref().update(updates);
+      console.log(JSON.stringify({key:underlineKey,value:underline}))
     }
 
+    addBookLine = (underline, underlineKey, book, bookKey) => {
+      const updates = {};
+      updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book };
+      database.ref().update(updates);
+      console.log(JSON.stringify({key:underlineKey,value:underline}))
+    }
 
     render() {
       let formWrapClass = null;
       let search = null;
       if(this.props.isSearching){
-        search = <Search isWritingLine={this.props.isWritingLine} addUnderline={this.addUnderline} />;
+        search = <Search isWritingLine={this.props.isWritingLine} onAddUnderline={this.addUnderline} />;
         formWrapClass = 'u-display-none';
       }else{
         formWrapClass = '';

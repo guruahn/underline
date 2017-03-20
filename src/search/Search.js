@@ -50,7 +50,7 @@ class Search extends Component {
       }
       //case: called in UnderlineAddForm
       if(_this.props.isWritingLine){
-        _this.props.addUnderline(book);
+        _this.props.onAddUnderline(book, bookKey);
       }
 
     });
