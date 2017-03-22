@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+
 import 'bootstrap/dist/css/bootstrap.css'
 
 class Header extends Component {
@@ -15,22 +17,24 @@ class Header extends Component {
                     <button type="button" className={"navbar-toggle collapsed"} data-toggle={"collapse"} data-target={"#bs-example-navbar-collapse-1"} aria-expanded={"false"}>
                       <span className={"glyphicon glyphicon-option-vertical" } aria-hidden={"true"}></span>
                     </button>
-                    <a className={"navbar-brand"} href="/">Underline</a>
+                    <Link to="/" className="navbar-brand">Underline</Link>
                   </div>
                   <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav navbar-right">
-                      <li><a href="/dashboard">Dashboard</a></li>
-                      <li><a href="/search">Book Search</a></li>
-                      <li><a href="/myUnderlines">My Underlines</a></li>
+                      <li><Link to="/search" >Book Search</Link></li>
+                      <li><Link to="/addUnderline" >add underline</Link></li>
+                      <li><Link to="/myUnderlines" >My Underlines</Link></li>
                       <li>
-                        <a
-                          href="#"
+                        <Link
+                          to="#"
                           className={this.props.auth ? '' : 'hide'}
-                          onClick={this.props.onLogout}>Logout</a>
+                          onClick={this.props.onLogout}>
+                          Logout
+                        </Link>
                       </li>
-                      <li><a href="/login" className={this.props.auth ? 'hide' : ''}>Login</a></li>
-                      <li><a href="/register">Register</a></li>
-                      <li><a href="#" className="navbar-link">{this.props.user.email}</a></li>
+                      <li><Link to="/login" className={this.props.auth ? 'hide' : ''} >Login</Link></li>
+                      <li><Link to="/register" >Register</Link></li>
+                      <li><Link to="#" className="navbar-link">{this.props.user.email}</Link></li>
                     </ul>
                   </div>
                 </div>

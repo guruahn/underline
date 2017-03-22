@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Match, BrowserRouter, Miss, Redirect } from 'react-router'
+import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
 import Login from '../user/Login'
 import Register from '../user/Register'
 import Home from './Home'
@@ -19,9 +19,9 @@ import '../css/style.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 
 
-function MatchWhenAuthed ({component: Component, authed, ...rest}) {
+function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
-    <Match
+    <Route
       {...rest}
       render={(props) => authed === true
         ? <Component {...props} />
@@ -30,13 +30,13 @@ function MatchWhenAuthed ({component: Component, authed, ...rest}) {
   )
 }
 
-function MatchWhenUnauthed ({component: Component, authed, ...rest}) {
+function PublicRoute ({component: Component, authed, ...rest}) {
   return (
-    <Match
+    <Route
       {...rest}
       render={(props) => authed === false
         ? <Component {...props} />
-      : <Redirect to='/mybooks' />}
+      : <Redirect to='/myUnderlinse' />}
     />
   )
 }
@@ -83,41 +83,30 @@ class App extends Component {
     return(
       <div>
         <BrowserRouter>
-          {({router}) => (
-
-
-            <div className="">
-
-
-              <div className="container">
-                <Header
-                  auth={this.state.authed}
-                  user={this.state.user}
-                  onLogout={() =>{
-                      logout()
-                      this.setState({authed: false, user:''})
-                      router.transitionTo('/')
-                  }}
-                  onLogin={() =>{
-                      if(this.state.authed){
-                        router.transitionTo('/mybooks')
-                      }
-                    }
-                  }
-                  />
-                <div>
-                  <Match pattern='/' exactly component={Home} />
-                  <MatchWhenUnauthed authed={this.state.authed} pattern='/login' component={Login} />
-                  <MatchWhenUnauthed authed={this.state.authed} pattern='/register' component={Register} />
-                  <MatchWhenAuthed authed={this.state.authed} pattern='/mybooks' component={MyBooks} />
-                  <MatchWhenAuthed authed={this.state.authed} pattern='/search' component={Search} />
-                  <MatchWhenAuthed authed={this.state.authed} pattern='/myUnderlines' component={MyUnderlines} />
-                  <MatchWhenAuthed authed={this.state.authed} pattern='/addUnderline' component={AddUnderline} />
-                  <Miss render={() => <h3>No Match</h3>} />
-                </div>
+          <div className="">
+            <div className="container">
+              <Header
+                auth={this.state.authed}
+                user={this.state.user}
+                onLogout={() =>{
+                    logout()
+                    this.setState({authed: false, user:''})
+                }}
+                />
+              <div>
+                <Switch>
+                  <Route path='/' exact component={Home} />
+                  <PublicRoute authed={this.state.authed} path='/login' component={Login} />
+                  <PublicRoute authed={this.state.authed} path='/register' component={Register} />
+                  <PrivateRoute authed={this.state.authed} path='/mybooks' component={MyBooks} />
+                  <PrivateRoute authed={this.state.authed} path='/search' component={Search} />
+                  <PrivateRoute authed={this.state.authed} path='/myUnderlines' component={MyUnderlines} />
+                  <PrivateRoute authed={this.state.authed} path='/addUnderline' component={AddUnderline} />
+                  <Route render={() => <h3>No Match</h3>} />
+                </Switch>
               </div>
             </div>
-          )}
+          </div>
         </BrowserRouter>
       </div>
     );
