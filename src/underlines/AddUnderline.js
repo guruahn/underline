@@ -1,14 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import UnderlineAddForm from './UnderlineAddForm';
 
-const propTypes = {
-};
-const defaultProps = {
-};
+
 class AddUnderline extends Component {
-    constructor(props) {
-        super(props);
-    }
+
     render() {
         return(
             <div>
@@ -17,6 +12,6 @@ class AddUnderline extends Component {
         );
     }
 }
-AddUnderline.propTypes = propTypes;
-AddUnderline.defaultProps = defaultProps;
+AddUnderline.propTypes = {};
+AddUnderline.defaultProps = {};
 export default AddUnderline;

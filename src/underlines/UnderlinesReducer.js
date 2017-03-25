@@ -17,13 +17,11 @@ export default function underlines(state = initialState, action){
           ...state,
           underline: action.underline
         }
-        break;
       case types.SELECT_BOOK:
         return {
           ...state,
           selectedBook: action.book
         }
-        break;
       case types.ADD_UNDERLINE:
         console.log(action.underlines)
         return {
@@ -36,32 +34,22 @@ export default function underlines(state = initialState, action){
               }
             ]
           }
-        break;
       case types.REMOVE_UNDERLINE:
         return {
           ...state, underlines: [
             ...state.underlines.filter(underline => action.underline.key !== underline.key)
           ]
         }
-        break;
       case types.TOGGLE_IS_WRITING_LINE:
         return {
           ...state,
           isWritingLine: !state.isWritingLine
         }
-        break;
-      case types.TOGGLE_IS_WRITING_LINE:
-        return {
-          ...state,
-          isWritingLine: !state.isWritingLine
-        }
-        break;
       case types.TOGGLE_IS_SEARCHING:
         return {
           ...state,
           isSearching: !state.isSearching
         }
-        break;
       default:
         return state;
 

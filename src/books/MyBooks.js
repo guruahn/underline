@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants';
 import Book from '../books/Book';
+import BookDetail from '../books/BookDetail'
+import { Route } from 'react-router-dom'
 import Loading from 'react-loading-animation';
-import UnderlineAddForm from '../underlines/UnderlineAddForm';
 
 import { connect } from 'react-redux';
 import * as actions from './BooksActions';
@@ -82,14 +83,17 @@ class MyBooks extends Component {
     //console.log(this.props.books)
     return(
         <div>
-          <div className={"panel panel-default"}>
-            <div className={"panel-heading"}>My Library</div>
-            <div className={"panel-body"}>
-              <p>Manage your library simply</p>
-            </div>
+          <Route path={`${this.props.match.url}/:bookKey`} component={BookDetail}/>
+          <Route exact path={this.props.match.url} render={() => (
+            <div className={"panel panel-default"}>
+              <div className={"panel-heading"}>My Library</div>
+              <div className={"panel-body"}>
+                <p>Manage your library simply</p>
+              </div>
 
-            <ul className={"list-group"}>{mapToComponent(this.props.books)}</ul>
-          </div>
+              <ul className={"list-group"}>{mapToComponent(this.props.books)}</ul>
+            </div>
+          )}/>
 
         </div>
     );

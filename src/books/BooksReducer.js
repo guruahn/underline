@@ -10,12 +10,10 @@ export default function myBooks(state = initialState, action){
     switch (action.type) {
       case types.INSERT_KEYWORD:
         return { ...state, keyword: action.keyword};
-        break;
       case types.SET_MY_BOOKS:
         return {
           books: action.books
         }
-        break;
       case types.ADD_BOOK:
         console.log(action.book)
         return {
@@ -27,14 +25,12 @@ export default function myBooks(state = initialState, action){
               }
             ]
           }
-        break;
       case types.REMOVE_BOOK:
         return {
           ...state, books: [
             ...state.books.filter(book => action.book.key !== book.key)
           ]
         }
-        break;
       case types.ON_ING:
         return {
           ...state, books: [
@@ -42,12 +38,10 @@ export default function myBooks(state = initialState, action){
               book => book.key === action.book.key ? {...book, ing: true} : book)
           ]
         }
-        break;
       case types.SEARCH_LIST:
         return {
           ...state, searchBooks: action.books
         }
-        break;
       default:
         return state;
 
