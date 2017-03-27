@@ -12,5 +12,4 @@
 - refectoring BookDetail, for redux structure
 - add floating button(+ button)
 - add MyUnderlines component
-6. remove underline( remove user-underline, remove book-underline, remove user-book-underline)
-7. modify book info
+- remove underline( remove user-underline, remove book-underline, remove user-book-underline)
