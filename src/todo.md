@@ -7,8 +7,9 @@
 - [resolved] add underlines ( /underlines/{underlineKey}/underline )
 - [resolved] add user-underlines ( /user-underlines/{userKey}/{underlineKey} ) : 특정 유저에 대한 모든 밑줄
 - [resolved] add book-underlines ( /book-underlines/{bookKey}/{underlineKey} ) : 특정 책에 대한 모든 유저들의 밑줄
-- add BookDetail page
+- [resolved] add BookDetail page and listing the book's underlines
 - [resolved] after adding underline, redirect to book detail page  
+- refectoring BookDetail, for redux structure
 - add floating button(+ button)
 - add MyUnderlines component
 6. remove underline( remove user-underline, remove book-underline, remove user-book-underline)
