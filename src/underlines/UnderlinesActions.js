@@ -51,3 +51,10 @@ export function setSearchBookList (books){
     books
   }
 }
+
+export function setRedirectBookKey (bookKey){
+  return {
+    type: types.SET_REDIRECT_BOOK_KEY,
+    bookKey
+  }
+}

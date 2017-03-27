@@ -6,7 +6,8 @@ const initialState = {
   searchBooks: [],
   isSearchingBook: false,
   selectedBook: {},
-  isWritingLine: false
+  isWritingLine: false,
+  redirectToBookDetail: ''
 };
 
 export default function underlines(state = initialState, action){
@@ -49,6 +50,11 @@ export default function underlines(state = initialState, action){
         return {
           ...state,
           isSearching: !state.isSearching
+        }
+      case types.SET_REDIRECT_BOOK_KEY:
+        return {
+          ...state,
+          redirectToBookDetail: action.bookKey
         }
       default:
         return state;

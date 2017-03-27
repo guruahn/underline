@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Search from '../search/Search'
+import { Redirect } from 'react-router-dom'
 
 
 import { connect } from 'react-redux';
@@ -9,12 +10,14 @@ import * as actions from './UnderlinesActions';
 const propTypes = {
   underline: PropTypes.string,
   isWritingLine: PropTypes.bool,
-  isSearching: PropTypes.bool
+  isSearching: PropTypes.bool,
+  redirectToBookDetail: PropTypes.string
 };
 const defaultProps = {
   underline: '',
   isWritingLine: false,
-  isSearching: false
+  isSearching: false,
+  redirectToBookDetail: ''
 };
 class UnderlineAddForm extends Component {
     constructor(props) {
@@ -60,6 +63,7 @@ class UnderlineAddForm extends Component {
       const updates = {};
       updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book };
       database.ref().update(updates);
+      this.props.handleSetRedirectBookKey(bookKey);
       console.log(JSON.stringify({key:underlineKey,value:underline}))
     }
 
@@ -73,6 +77,13 @@ class UnderlineAddForm extends Component {
         formWrapClass = '';
         search = null;
       }
+      console.log('redirect', this.props.redirectToBookDetail)
+      if (this.props.redirectToBookDetail) {
+        return (
+          <Redirect to={`/myBooks/${this.props.redirectToBookDetail}`}/>
+        )
+      }
+
       return(
         <div>
           <div>
@@ -113,7 +124,8 @@ const mapStateToProps = (state) => {
   return {
     underline: state.underlines.underline,
     isWritingLine: state.underlines.isWritingLine,
-    isSearching: state.underlines.isSearching
+    isSearching: state.underlines.isSearching,
+    redirectToBookDetail: state.underlines.redirectToBookDetail
   };
 }
 
@@ -122,7 +134,8 @@ const mapDispatchToProps = (dispatch) => {
     handleAddLine: (underline) => { dispatch(actions.addLine(underline))},
     handleSetMyUnderlines: (underline) => { dispatch(actions.setMyUnderlines(underline))},
     handleToggleIsWritingLine: () => { dispatch(actions.toggleIsWritingLine())},
-    handleToggleIsSearching: () => { dispatch(actions.toggleIsSearching())}
+    handleToggleIsSearching: () => { dispatch(actions.toggleIsSearching())},
+    handleSetRedirectBookKey: (bookKey) => { dispatch(actions.setRedirectBookKey(bookKey)) }
   };
 };
 
