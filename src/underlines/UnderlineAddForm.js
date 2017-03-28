@@ -28,6 +28,7 @@ class UnderlineAddForm extends Component {
       this.addUnderline = this.addUnderline.bind(this);
       this.addBookLine = this.addBookLine.bind(this);
       this.addUserLine = this.addUserLine.bind(this);
+      this.addUserBooks = this.addUserBooks.bind(this);
     }
 
     onWriting(){
@@ -43,28 +44,43 @@ class UnderlineAddForm extends Component {
     addUnderline = (book, bookKey) => {
       const underline = this.props.underline;
       console.log('addUnderline!!!', underline)
-      const updates = {};
+      let updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
       updates['/underlines/' + underlineKey] = { line:underline, book:book };
       console.log(updates)
       database.ref().update(updates);
-      this.addUserLine(underline, underlineKey, book);
+      this.addUserLine(underline, underlineKey, book, bookKey);
       this.addBookLine(underline, underlineKey, book, bookKey);
+      this.addUserBooks(underline, underlineKey, bookKey);
     }
 
-    addUserLine = (underline, underlineKey, book) => {
-      const updates = {};
-      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline, book:book };
+    addUserLine = (underline, underlineKey, book, bookKey) => {
+      let updates = {};
+      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline, book:book, bookKey:bookKey };
       database.ref().update(updates);
       console.log(JSON.stringify({key:underlineKey,value:underline}))
     }
 
     addBookLine = (underline, underlineKey, book, bookKey) => {
-      const updates = {};
-      updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book };
+      let updates = {};
+      updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book, uid: this.user.uid };
+      database.ref().update(updates);
+      console.log(JSON.stringify({key:underlineKey,value:underline}))
+    }
+
+    addUserBooks = (underline, underlineKey, bookKey) => {
+      let updates = {};
+      updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + underlineKey] = underline;
       database.ref().update(updates);
       this.props.handleSetRedirectBookKey(bookKey);
       console.log(JSON.stringify({key:underlineKey,value:underline}))
+    }
+
+    componentDidMount(){
+      this.props.handleSetRedirectBookKey('');
+      if( this.props.isSearching ){
+          this.props.handleToggleIsSearching();
+      }
     }
 
     render() {
@@ -79,8 +95,10 @@ class UnderlineAddForm extends Component {
       }
       console.log('redirect', this.props.redirectToBookDetail)
       if (this.props.redirectToBookDetail) {
+        const redirectToBookDetail = this.props.redirectToBookDetail;
+
         return (
-          <Redirect to={`/myBooks/${this.props.redirectToBookDetail}`}/>
+          <Redirect to={`/myBooks/${this.props.redirectToBookDetail}`} />
         )
       }
 

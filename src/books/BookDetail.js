@@ -4,7 +4,11 @@ import Book from './Book';
 import Underline from '../underlines/Underline';
 import Loading from 'react-loading-animation';
 
+import { connect } from 'react-redux';
+import * as actions from './BooksActions';
+
 const propTypes = {
+  book: PropTypes.object,
 };
 const defaultProps = {
 };
@@ -15,6 +19,7 @@ class BookDetail extends Component {
         console.log('/user-books/' + this.user.uid )
         this.bookRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey);
         this.bookUnderlinesRef = database.ref('/book-underlines/' + this.props.match.params.bookKey);
+        this.userBooksRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
         this.getBook = this.getBook.bind(this);
         this.getUnderlines = this.getUnderlines.bind(this);
         this.state = {
@@ -25,23 +30,21 @@ class BookDetail extends Component {
 
     getBook(){
       let _this = this
-      console.log('start getBook!!!!')//[this.props.match.params.bookKey
-      this.bookRef.once('value').then(function(snapshot) {
+      console.log('start getBook!!!!')
+      this.bookRef.once('value').then(function(snapshot, key) {
         //console.log(snapshot.val())
         _this.setState( { book: snapshot.val() } )
-        _this.getUnderlines();
+        _this.getUnderlines(snapshot.val(), key);
       });
     }
 
-    getUnderlines(){
+    getUnderlines(book, bookKey){
       let _this = this;
-      let underlinse = []
-      this.bookUnderlinesRef.once('value').then(function(snapshot) {
-        console.log(snapshot.val())
+      let underlinse = [];
+      this.userBooksRef.once('value').then(function(snapshot) {
         snapshot.forEach(function(data){
-          console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
-          underlinse.push({key:data.key, value:data.val().line})
-
+          console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
+          underlinse.push({key:data.key, value:JSON.stringify(data.val())})
         });
         _this.setState( { underlines: underlinse } )
       });

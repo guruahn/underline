@@ -11,5 +11,6 @@
 - [resolved] after adding underline, redirect to book detail page  
 - refectoring BookDetail, for redux structure
 - add floating button(+ button)
+- UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
 - add MyUnderlines component
 - remove underline( remove user-underline, remove book-underline, remove user-book-underline)
