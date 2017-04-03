@@ -8,93 +8,108 @@ import { connect } from 'react-redux';
 import * as actions from './BooksActions';
 
 const propTypes = {
-  book: PropTypes.object,
+  getBook: PropTypes.func
 };
 const defaultProps = {
+  getBook: () => createWarning('getBook'),
 };
 class BookDetail extends Component {
-    constructor(props) {
-        super(props);
-        this.user = firebaseAuth().currentUser;
-        console.log('/user-books/' + this.user.uid )
-        this.bookRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey);
-        this.bookUnderlinesRef = database.ref('/book-underlines/' + this.props.match.params.bookKey);
-        this.userBooksRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
-        this.getBook = this.getBook.bind(this);
-        this.getUnderlines = this.getUnderlines.bind(this);
-        this.state = {
-          book: null,
-          underlines: []
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.user = firebaseAuth().currentUser;
+    console.log('/user-books/' + this.user.uid )
+    this.bookRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey);
+    this.userBooksRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
+    this.getBook = this.getBook.bind(this);
+    this.getUnderlines = this.getUnderlines.bind(this);
+  }
 
-    getBook(){
-      let _this = this
-      console.log('start getBook!!!!')
-      this.bookRef.once('value').then(function(snapshot, key) {
-        //console.log(snapshot.val())
-        _this.setState( { book: snapshot.val() } )
-        _this.getUnderlines(snapshot.val(), key);
+  getBook(){
+    let _this = this
+    console.log('start getBook!!!!')
+    this.bookRef.once('value').then(function(snapshot, key) {
+      //console.log(snapshot.val())
+      _this.props.handleSetBook(snapshot.val())
+      _this.getUnderlines(snapshot.val(), key);
+    });
+  }
+
+  getUnderlines(book, bookKey){
+    let _this = this;
+    let underlines = [];
+    this.userBooksRef.once('value').then(function(snapshot) {
+      snapshot.forEach(function(data){
+        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
+        underlines.push({key:data.key, value:JSON.stringify(data.val())})
       });
-    }
+      _this.props.handleSetUnderlinesOfBook(underlines)
+    });
+  }
 
-    getUnderlines(book, bookKey){
-      let _this = this;
-      let underlinse = [];
-      this.userBooksRef.once('value').then(function(snapshot) {
-        snapshot.forEach(function(data){
-          console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
-          underlinse.push({key:data.key, value:JSON.stringify(data.val())})
-        });
-        _this.setState( { underlines: underlinse } )
-      });
-    }
+  componentDidMount(){
+    this.getBook()
+  }
 
-    componentDidMount(){
-      this.getBook()
-    }
+  render() {
 
-    render() {
-
-      const mapToComponent = (underlines) => {
-        if(underlines && underlines.length === 0){
-          return <Loading />
-        }else{
-          return underlines.map((underline, i) => {
-            return (
-                <li className={"list-group-item"} key={underline.key}>
-                  <Underline
-                    underline={underline.value}
-                    />
-                </li>
-            )
-          });
-        }
-
-      };
-
-      const printBook = () => {
-        if(!this.state.book){
-          return <Loading />
-        }else{
+    const mapToComponent = (underlines) => {
+      if(typeof underlines === 'undefined' || underlines.length === 0){
+        return <Loading />
+      }else{
+        return underlines.map((underline, i) => {
           return (
-            <Book
-              book={this.state.book}
-              />
+              <li className={"list-group-item"} key={underline.key}>
+                <Underline
+                  underline={underline.value}
+                  />
+              </li>
           )
-        }
+        });
+      }
 
-      };
-      return(
-          <div>
-            <h3>Book Detail</h3>
-            {this.props.match.params.bookKey}
-            {printBook()}
-            <ul className={"list-group"}>{mapToComponent(this.state.underlines)}</ul>
-          </div>
-      );
-    }
+    };
+
+    const printBook = (book) => {
+      console.log('book', book)
+      if(typeof book === 'undefined'){
+        return <Loading />
+      }else{
+        return <Book
+          book={book}
+          />
+      }
+
+    };
+    return(
+        <div>
+          <h3>Book Detail</h3>
+          {this.props.match.params.bookKey}
+          {printBook(this.props.bookDetail)}
+          <ul className={"list-group"}>{mapToComponent(this.props.underlinesOfBook)}</ul>
+        </div>
+    );
+  }
 }
+
+function createWarning(funcName){
+  return () => console.warn(funcName + 'is now defined')
+}
+
 BookDetail.propTypes = propTypes;
 BookDetail.defaultProps = defaultProps;
-export default BookDetail;
+
+const mapStateToProps = (state) => {
+  return {
+    bookDetail: state.bookDetail.bookDetail,
+    underlinesOfBook: state.bookDetail.underlinesOfBook
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSetBook: (book) => { dispatch(actions.setBook(book)) },
+    handleSetUnderlinesOfBook: (underlines) => { dispatch(actions.setUnderlinesOfBook(underlines)) },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookDetail);

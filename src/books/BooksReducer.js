@@ -3,17 +3,15 @@ import * as types from './BooksActionTypes';
 const initialState = {
   keyword: '',
   books: [],
-  searchBooks: []
+  searchBooks: [],
 };
 
-export default function myBooks(state = initialState, action){
+export default function books(state = initialState, action){
     switch (action.type) {
       case types.INSERT_KEYWORD:
         return { ...state, keyword: action.keyword};
       case types.SET_MY_BOOKS:
-        return {
-          books: action.books
-        }
+        return { books: action.books }
       case types.ADD_BOOK:
         console.log(action.book)
         return {

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants';
 import Book from '../books/Book';
 import BookDetail from '../books/BookDetail'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Loading from 'react-loading-animation';
 
 import { connect } from 'react-redux';
@@ -66,9 +66,11 @@ class MyBooks extends Component {
         return books.map((book, i) => {
           return (
               <li className={"list-group-item"} key={book.key}>
-                <Book
-                  book={book.value}
-                  />
+                <Link to={`${this.props.match.url}/${book.key}`}>
+                  <Book
+                    book={book.value}
+                    />
+                </Link>
                 <i
                   onClick={() => this.onRemove(book)}
                   className={book.ing === true ? 'fa fa-circle-o-notch fa-spin fa-fw' : 'fa fa-minus-square-o'}
@@ -109,7 +111,7 @@ MyBooks.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    books: state.myBooks.books
+    books: state.books.books
   };
 }
 

@@ -11,6 +11,20 @@ export function setMyBooks (books){
   };
 }
 
+export function setBook (book){
+  return {
+    type: types.SET_BOOK,
+    book
+  }
+}
+
+export function setUnderlinesOfBook (underlines){
+  return {
+    type: types.SET_UNDERLINE_OF_BOOK,
+    underlines
+  }
+}
+
 export function searchList (books){
   return {
     type: types.SEARCH_LIST,

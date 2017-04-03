@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import myBooks from '../books/BooksReducer';
+import books from '../books/BooksReducer';
+import bookDetail from '../books/BookDetailReducer.js';
 import underlines from '../underlines/UnderlinesReducer';
 
 const reducers = combineReducers({
-  myBooks, underlines
+  books, bookDetail, underlines
 });
 
 export default reducers;

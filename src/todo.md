@@ -9,7 +9,7 @@
 - [resolved] add book-underlines ( /book-underlines/{bookKey}/{underlineKey} ) : 특정 책에 대한 모든 유저들의 밑줄
 - [resolved] add BookDetail page and listing the book's underlines
 - [resolved] after adding underline, redirect to book detail page  
-- refectoring BookDetail, for redux structure
+- [resolved] refectoring BookDetail, for redux structure
 - add floating button(+ button)
 - UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
 - add MyUnderlines component
