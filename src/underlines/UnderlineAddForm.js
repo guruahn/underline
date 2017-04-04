@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Search from '../search/Search'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 
 import { connect } from 'react-redux';

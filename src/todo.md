@@ -10,6 +10,7 @@
 - [resolved] add BookDetail page and listing the book's underlines
 - [resolved] after adding underline, redirect to book detail page  
 - [resolved] refectoring BookDetail, for redux structure
+- fix "double excuting method addUnderline(UnderlineAddForm.js)"
 - add floating button(+ button)
 - UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
 - add MyUnderlines component
