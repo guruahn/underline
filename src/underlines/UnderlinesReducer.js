@@ -6,14 +6,12 @@ const initialState = {
   searchBooks: [],
   isSearchingBook: false,
   selectedBook: {},
-  isWritingLine: false,
-  redirectToBookDetail: ''
+  isWritingLine: false
 };
 
 export default function underlines(state = initialState, action){
     switch (action.type) {
       case types.SET_MY_UNDERLINES:
-        console.log(action.underline)
         return {
           ...state,
           underline: action.underline
@@ -50,11 +48,6 @@ export default function underlines(state = initialState, action){
         return {
           ...state,
           isSearching: !state.isSearching
-        }
-      case types.SET_REDIRECT_BOOK_KEY:
-        return {
-          ...state,
-          redirectToBookDetail: action.bookKey
         }
       default:
         return state;

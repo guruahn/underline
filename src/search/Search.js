@@ -28,9 +28,9 @@ class Search extends Component {
 
 
   addBook(book){
-    console.log(book.isbn13)
+    console.log('isbn13', book.isbn13)
 
-    let updates = {};
+    const updates = {};
     let _this = this;
     let bookKey;
     database.ref().child('books').orderByChild('isbn13').equalTo(book.isbn13).on('value', function(snapshot, key) {
@@ -59,7 +59,7 @@ class Search extends Component {
   }
 
   addUserBook(book, key, _this){
-    let updates = {};
+    const updates = {};
     database.ref('/user-books/' + _this.user.uid + '/' + key).on('value', function(userbooksnapshot, userbookkey) {
       if(!userbooksnapshot.val()){
         updates['/user-books/' + _this.user.uid + '/' + key] = book;
@@ -84,9 +84,8 @@ class Search extends Component {
     }
   }
 
-  componentWillMount(){
-
-
+  shouldComponentUpdate(nextProps, nextState){
+   return (JSON.stringify(nextProps) != JSON.stringify(this.props));
   }
 
   render() {
@@ -114,8 +113,8 @@ Search.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    keyword: state.myBooks.keyword,
-    searchBooks: state.myBooks.searchBooks
+    keyword: state.books.keyword,
+    searchBooks: state.books.searchBooks
   };
 }
 

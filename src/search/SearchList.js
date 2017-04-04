@@ -3,8 +3,12 @@ import Book from '../books/Book';
 
 class SearchList extends Component {
 
+    shouldComponentUpdate(nextProps, nextState){
+     return (JSON.stringify(nextProps) != JSON.stringify(this.props));
+    }
+
     render() {
-      
+
       const mapToComponent = (books) => {
           return books.map((book, i) => {
               return (

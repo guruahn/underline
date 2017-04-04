@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
 import Search from '../search/Search'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 
 import { connect } from 'react-redux';
@@ -42,45 +42,60 @@ class UnderlineAddForm extends Component {
     }
 
     addUnderline = (book, bookKey) => {
-      const underline = this.props.underline;
       console.log('addUnderline!!!', underline)
-      let updates = {};
+      const underline = this.props.underline;
+      let _this = this;
+      const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
       updates['/underlines/' + underlineKey] = { line:underline, book:book };
       console.log(updates)
-      database.ref().update(updates);
-      this.addUserLine(underline, underlineKey, book, bookKey);
-      this.addBookLine(underline, underlineKey, book, bookKey);
-      this.addUserBooks(underline, underlineKey, bookKey);
+      database.ref().update(updates).then(function() {
+        console.log('result addUnderline', JSON.stringify({key:underlineKey,value:underline}));
+        _this.addUserLine(underline, underlineKey, book, bookKey);
+      }, function(error) {
+          console.log("Error updating data:", error);
+      });
     }
 
     addUserLine = (underline, underlineKey, book, bookKey) => {
-      let updates = {};
+      const updates = {};
+      let _this = this;
       updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline, book:book, bookKey:bookKey };
-      database.ref().update(updates);
-      console.log(JSON.stringify({key:underlineKey,value:underline}))
+      database.ref().update(updates).then(function() {
+        console.log('result addUserLine', JSON.stringify({key:underlineKey,value:underline}));
+        _this.addBookLine(underline, underlineKey, book, bookKey);
+      }, function(error) {
+          console.log("Error updating data:", error);
+      });
     }
 
     addBookLine = (underline, underlineKey, book, bookKey) => {
-      let updates = {};
+      const updates = {};
+      let _this = this;
       updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book, uid: this.user.uid };
-      database.ref().update(updates);
-      console.log(JSON.stringify({key:underlineKey,value:underline}))
+      database.ref().update(updates).then(function() {
+        console.log('result addBookLine', JSON.stringify({key:underlineKey,value:underline}));
+        _this.addUserBooks(underline, underlineKey, bookKey);
+      }, function(error) {
+          console.log("Error updating data:", error);
+      });
     }
 
     addUserBooks = (underline, underlineKey, bookKey) => {
-      let updates = {};
+      const updates = {};
       updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + underlineKey] = underline;
       database.ref().update(updates);
-      this.props.handleSetRedirectBookKey(bookKey);
-      console.log(JSON.stringify({key:underlineKey,value:underline}))
+      console.log('result addUserBooks', JSON.stringify({key:underlineKey,value:underline}));
+      this.props.history.push('/myBooks/' + bookKey)
     }
 
     componentDidMount(){
-      this.props.handleSetRedirectBookKey('');
       if( this.props.isSearching ){
           this.props.handleToggleIsSearching();
       }
+    }
+    shouldComponentUpdate(nextProps, nextState){
+     return (JSON.stringify(nextProps) != JSON.stringify(this.props));
     }
 
     render() {
@@ -93,17 +108,10 @@ class UnderlineAddForm extends Component {
         formWrapClass = '';
         search = null;
       }
-      console.log('redirect', this.props.redirectToBookDetail)
-      if (this.props.redirectToBookDetail) {
-        const redirectToBookDetail = this.props.redirectToBookDetail;
-
-        return (
-          <Redirect to={`/myBooks/${this.props.redirectToBookDetail}`} />
-        )
-      }
 
       return(
         <div>
+          <withRouter>
           <div>
             <div className={formWrapClass}>
               <p>
@@ -130,7 +138,7 @@ class UnderlineAddForm extends Component {
               </div>
             </div>
           </div>
-
+          </withRouter>
         </div>
       );
     }
@@ -152,9 +160,8 @@ const mapDispatchToProps = (dispatch) => {
     handleAddLine: (underline) => { dispatch(actions.addLine(underline))},
     handleSetMyUnderlines: (underline) => { dispatch(actions.setMyUnderlines(underline))},
     handleToggleIsWritingLine: () => { dispatch(actions.toggleIsWritingLine())},
-    handleToggleIsSearching: () => { dispatch(actions.toggleIsSearching())},
-    handleSetRedirectBookKey: (bookKey) => { dispatch(actions.setRedirectBookKey(bookKey)) }
+    handleToggleIsSearching: () => { dispatch(actions.toggleIsSearching())}
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UnderlineAddForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UnderlineAddForm));
