@@ -39,16 +39,6 @@ export default function underlines(state = initialState, action){
             ...state.underlines.filter(underline => action.underline.key !== underline.key)
           ]
         }
-      case types.TOGGLE_IS_WRITING_LINE:
-        return {
-          ...state,
-          isWritingLine: !state.isWritingLine
-        }
-      case types.TOGGLE_IS_SEARCHING:
-        return {
-          ...state,
-          isSearching: !state.isSearching
-        }
       default:
         return state;
 

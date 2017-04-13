@@ -23,7 +23,6 @@ class UnderlineAddForm extends Component {
     constructor(props) {
       super(props);
       this.user = firebaseAuth().currentUser;
-      this.onWriting = this.onWriting.bind(this);
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
       this.addBookLine = this.addBookLine.bind(this);
@@ -31,39 +30,33 @@ class UnderlineAddForm extends Component {
       this.addUserBooks = this.addUserBooks.bind(this);
     }
 
-    onWriting(){
-      if(!this.props.isWritingLine){
-        this.props.handleToggleIsWritingLine();
-      }
-    }
-
     setUnderline(event) {
       this.props.handleSetMyUnderlines(event.target.value);
     }
 
-    addUnderline = (book, bookKey) => {
-      console.log('addUnderline!!!', underline)
+    addUnderline = () => {
       const underline = this.props.underline;
       let _this = this;
       const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
-      updates['/underlines/' + underlineKey] = { line:underline, book:book };
+      updates['/underlines/' + underlineKey] = { line:underline };
       console.log(updates)
       database.ref().update(updates).then(function() {
         console.log('result addUnderline', JSON.stringify({key:underlineKey,value:underline}));
-        _this.addUserLine(underline, underlineKey, book, bookKey);
+        _this.addUserLine(underline, underlineKey);
       }, function(error) {
           console.log("Error updating data:", error);
       });
+
     }
 
-    addUserLine = (underline, underlineKey, book, bookKey) => {
+    addUserLine = (underline, underlineKey) => {
       const updates = {};
       let _this = this;
-      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline, book:book, bookKey:bookKey };
+      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline };
       database.ref().update(updates).then(function() {
         console.log('result addUserLine', JSON.stringify({key:underlineKey,value:underline}));
-        _this.addBookLine(underline, underlineKey, book, bookKey);
+        _this.props.history.push('/search/' + underlineKey);
       }, function(error) {
           console.log("Error updating data:", error);
       });
@@ -86,40 +79,33 @@ class UnderlineAddForm extends Component {
       updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + underlineKey] = underline;
       database.ref().update(updates);
       console.log('result addUserBooks', JSON.stringify({key:underlineKey,value:underline}));
-      this.props.history.push('/myBooks/' + bookKey)
+
     }
 
     componentDidMount(){
-      if( this.props.isSearching ){
-          this.props.handleToggleIsSearching();
-      }
+
     }
     shouldComponentUpdate(nextProps, nextState){
      return (JSON.stringify(nextProps) != JSON.stringify(this.props));
     }
 
+    componentWillUnmount () {
+      window.removeEventListener('onClick', this.addUnderline, false);
+    }
+
     render() {
-      let formWrapClass = null;
       let search = null;
-      if(this.props.isSearching){
-        search = <Search isWritingLine={this.props.isWritingLine} onAddUnderline={this.addUnderline} />;
-        formWrapClass = 'u-display-none';
-      }else{
-        formWrapClass = '';
-        search = null;
-      }
 
       return(
         <div>
           <withRouter>
           <div>
-            <div className={formWrapClass}>
+            <div>
               <p>
                 <textarea
                 id={"underlineAddForm"}
                 className={"form-control on-popup-content"}
                 placeholder={"Put your line"}
-                onFocus={this.onWriting}
                 onChange={this.setUnderline}>
                 </textarea>
               </p>
@@ -127,15 +113,8 @@ class UnderlineAddForm extends Component {
                 <button
                 type={"button"}
                 className={"btn btn-primary"}
-                onClick={this.props.handleToggleIsSearching}>Insert</button>
+                onClick={this.addUnderline}>Insert</button>
               </p>
-
-
-            </div>
-            <div className={"row"}>
-              <div className={'panel panel-default u-no-border'} >
-                {search}
-              </div>
             </div>
           </div>
           </withRouter>
@@ -150,8 +129,6 @@ const mapStateToProps = (state) => {
   return {
     underline: state.underlines.underline,
     isWritingLine: state.underlines.isWritingLine,
-    isSearching: state.underlines.isSearching,
-    redirectToBookDetail: state.underlines.redirectToBookDetail
   };
 }
 
@@ -159,8 +136,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleAddLine: (underline) => { dispatch(actions.addLine(underline))},
     handleSetMyUnderlines: (underline) => { dispatch(actions.setMyUnderlines(underline))},
-    handleToggleIsWritingLine: () => { dispatch(actions.toggleIsWritingLine())},
-    handleToggleIsSearching: () => { dispatch(actions.toggleIsSearching())}
   };
 };
 

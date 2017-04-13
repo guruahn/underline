@@ -7,6 +7,10 @@ class SearchList extends Component {
      return (JSON.stringify(nextProps) != JSON.stringify(this.props));
     }
 
+    componentWillUnmount () {
+      window.removeEventListener('onClick', this.props.onAdd, false);
+    }
+
     render() {
 
       const mapToComponent = (books) => {

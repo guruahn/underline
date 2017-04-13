@@ -12,6 +12,7 @@
 - [resolved] refectoring BookDetail, for redux structure
 - fix "double excuting method addUnderline(UnderlineAddForm.js)"
 - add floating button(+ button)
+- 단위테스트 구현
 - UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
 - add MyUnderlines component
 - remove underline( remove user-underline, remove book-underline, remove user-book-underline)
