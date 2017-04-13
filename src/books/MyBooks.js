@@ -117,7 +117,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleAddBook: (book) => { dispatch(actions.addBook(book)) },
     handleSetMyBooks: (books) => { dispatch(actions.setMyBooks(books)) },
     handleRemoveBook: (book) => { dispatch(actions.removeBook(book)) },
     handleOnIng: (book) => { dispatch(actions.onIng(book)) }

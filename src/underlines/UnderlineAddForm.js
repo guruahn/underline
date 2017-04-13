@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth } from '../config/constants'
-import Search from '../search/Search'
 import { withRouter } from 'react-router-dom'
 
 
@@ -25,7 +24,6 @@ class UnderlineAddForm extends Component {
       this.user = firebaseAuth().currentUser;
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
-      this.addBookLine = this.addBookLine.bind(this);
       this.addUserLine = this.addUserLine.bind(this);
       this.addUserBooks = this.addUserBooks.bind(this);
     }
@@ -66,7 +64,7 @@ class UnderlineAddForm extends Component {
 
     }
     shouldComponentUpdate(nextProps, nextState){
-     return (JSON.stringify(nextProps) != JSON.stringify(this.props));
+     return (JSON.stringify(nextProps) !== JSON.stringify(this.props));
     }
 
     componentWillUnmount () {
@@ -74,7 +72,6 @@ class UnderlineAddForm extends Component {
     }
 
     render() {
-      let search = null;
 
       return(
         <div>

@@ -4,7 +4,7 @@ import Book from '../books/Book';
 class SearchList extends Component {
 
     shouldComponentUpdate(nextProps, nextState){
-     return (JSON.stringify(nextProps) != JSON.stringify(this.props));
+     return (JSON.stringify(nextProps) !== JSON.stringify(this.props));
     }
 
     componentWillUnmount () {

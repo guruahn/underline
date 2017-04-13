@@ -5,8 +5,8 @@ import jsonp from 'jsonp';
 import { database, firebaseAuth } from '../config/constants'
 
 import { connect } from 'react-redux';
+import * as actions from './SearchActions';
 
-import * as actions from '../books/BooksActions';
 const propTypes = {
   addBook: PropTypes.func,
   handleSearch: PropTypes.func
@@ -25,7 +25,7 @@ class Search extends Component {
     this.addLineInUserBooks = this.addLineInUserBooks.bind(this);
 
     this.user = firebaseAuth().currentUser;
-    this.underlineRef = database.ref('/underlines/' + this.user.uid + '/' + this.props.match.params.bookKey);
+    this.underlineRef = database.ref('/underlines/' + this.props.match.params.underlineKey);
     //console.log(this.user)
   }
 
@@ -53,8 +53,8 @@ class Search extends Component {
         _this.addUserBook(book, bookKey, _this);
       }
       //case: called in UnderlineAddForm
-      if(_this.props.isWritingLine){
-        _this.props.onAddUnderline(book, bookKey);
+      if(_this.props.match.params.underlineKey){
+        _this.addBookLine(book, bookKey);
       }
 
     });
@@ -80,7 +80,7 @@ class Search extends Component {
     console.log('start getUnderline!!!!')
     this.underlineRef.once('value').then(function(snapshot, key) {
       console.log(snapshot.val())
-      _this.props.handleSetUnderline({key:key,value:snapshot.val()});
+      _this.props.handleSetUnderline({key:_this.props.match.params.underlineKey,value:snapshot.val()});
       //TODO 1 make reducer function handleSetUnderline
       //TODO 2 trigger addBookLine, addLineInUserBooks On select book
     }, function(error) {
@@ -88,23 +88,26 @@ class Search extends Component {
     });
   }
 
-  addBookLine = (underline, underlineKey, book, bookKey) => {
+  addBookLine = (book, bookKey) => {
     const updates = {};
     let _this = this;
-    updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book, uid: this.user.uid };
+    updates['/book-underlines/' + bookKey + '/' + this.props.underline.key] = { line: this.props.underline.value, book:book, uid: this.user.uid };
     database.ref().update(updates).then(function() {
-      console.log('result addBookLine', JSON.stringify({key:underlineKey,value:underline}));
-      _this.addUserBooks(underline, underlineKey, bookKey);
+      console.log('result addBookLine', JSON.stringify(_this.props.underline));
+      _this.addLineInUserBooks(bookKey);
     }, function(error) {
         console.log("Error updating data:", error);
     });
   }
 
-  addLineInUserBooks = (underline, underlineKey, bookKey) => {
+  addLineInUserBooks = (bookKey) => {
     const updates = {};
-    updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + underlineKey] = underline;
-    database.ref().update(updates);
-    console.log('result addUserBooks', JSON.stringify({key:underlineKey,value:underline}));
+    let _this = this;
+    updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + this.props.underline.key] = this.props.underline.value;
+    database.ref().update(updates).then(function(){
+      _this.props.history.push('/mybooks/' + bookKey);
+    });
+    console.log('result addLineInUserBooks', JSON.stringify(this.props.underline));
 
   }
 
@@ -121,8 +124,14 @@ class Search extends Component {
     }
   }
 
+  componentDidMount(){
+    if(this.props.match.params.underlineKey){
+      this.addUnderline();
+    }
+  }
+
   shouldComponentUpdate(nextProps, nextState){
-   return (JSON.stringify(nextProps) != JSON.stringify(this.props));
+   return (JSON.stringify(nextProps) !== JSON.stringify(this.props));
   }
 
   render() {
@@ -150,16 +159,18 @@ Search.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
-    keyword: state.books.keyword,
-    searchBooks: state.books.searchBooks
+    keyword: state.search.keyword,
+    searchBooks: state.search.searchBooks,
+    underline: state.search.underline
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInsertKeyword: () => { dispatch(actions.insertKeyword())},
-    handleAddBook: (book) => { dispatch(actions.addBook(book))},
-    handleSetBooks: (books) => { dispatch(actions.searchList(books))},
+    handleInsertKeyword: () => { dispatch(actions.insertKeyword()) },
+    handleAddBook: (book) => { dispatch(actions.addBook(book)) },
+    handleSetBooks: (books) => { dispatch(actions.searchList(books)) },
+    handleSetUnderline: (underline) => { dispatch(actions.setUnderline(underline)) }
   };
 };
 
