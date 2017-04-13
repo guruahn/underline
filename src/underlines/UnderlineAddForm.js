@@ -62,26 +62,6 @@ class UnderlineAddForm extends Component {
       });
     }
 
-    addBookLine = (underline, underlineKey, book, bookKey) => {
-      const updates = {};
-      let _this = this;
-      updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book, uid: this.user.uid };
-      database.ref().update(updates).then(function() {
-        console.log('result addBookLine', JSON.stringify({key:underlineKey,value:underline}));
-        _this.addUserBooks(underline, underlineKey, bookKey);
-      }, function(error) {
-          console.log("Error updating data:", error);
-      });
-    }
-
-    addUserBooks = (underline, underlineKey, bookKey) => {
-      const updates = {};
-      updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + underlineKey] = underline;
-      database.ref().update(updates);
-      console.log('result addUserBooks', JSON.stringify({key:underlineKey,value:underline}));
-
-    }
-
     componentDidMount(){
 
     }

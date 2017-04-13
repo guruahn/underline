@@ -21,7 +21,11 @@ class Search extends Component {
     super(props);
     this.addBook = this.addBook.bind(this);
     this.addUserBook = this.addUserBook.bind(this);
-    this.user = firebaseAuth().currentUser
+    this.addBookLine = this.addBookLine.bind(this);
+    this.addLineInUserBooks = this.addLineInUserBooks.bind(this);
+
+    this.user = firebaseAuth().currentUser;
+    this.underlineRef = database.ref('/underlines/' + this.user.uid + '/' + this.props.match.params.bookKey);
     //console.log(this.user)
   }
 
@@ -69,6 +73,39 @@ class Search extends Component {
         console.log(JSON.stringify({key:key,value:book}))
       }
     });
+  }
+
+  addUnderline = () => {
+    let _this = this
+    console.log('start getUnderline!!!!')
+    this.underlineRef.once('value').then(function(snapshot, key) {
+      console.log(snapshot.val())
+      _this.props.handleSetUnderline({key:key,value:snapshot.val()});
+      //TODO 1 make reducer function handleSetUnderline
+      //TODO 2 trigger addBookLine, addLineInUserBooks On select book
+    }, function(error) {
+        console.log("Error updating data:", error);
+    });
+  }
+
+  addBookLine = (underline, underlineKey, book, bookKey) => {
+    const updates = {};
+    let _this = this;
+    updates['/book-underlines/' + bookKey + '/' + underlineKey] = { line:underline, book:book, uid: this.user.uid };
+    database.ref().update(updates).then(function() {
+      console.log('result addBookLine', JSON.stringify({key:underlineKey,value:underline}));
+      _this.addUserBooks(underline, underlineKey, bookKey);
+    }, function(error) {
+        console.log("Error updating data:", error);
+    });
+  }
+
+  addLineInUserBooks = (underline, underlineKey, bookKey) => {
+    const updates = {};
+    updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + underlineKey] = underline;
+    database.ref().update(updates);
+    console.log('result addUserBooks', JSON.stringify({key:underlineKey,value:underline}));
+
   }
 
   handleSearch = keyword => {
