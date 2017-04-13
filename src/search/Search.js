@@ -81,8 +81,6 @@ class Search extends Component {
     this.underlineRef.once('value').then(function(snapshot, key) {
       console.log(snapshot.val())
       _this.props.handleSetUnderline({key:_this.props.match.params.underlineKey,value:snapshot.val()});
-      //TODO 1 make reducer function handleSetUnderline
-      //TODO 2 trigger addBookLine, addLineInUserBooks On select book
     }, function(error) {
         console.log("Error updating data:", error);
     });

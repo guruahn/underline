@@ -10,7 +10,8 @@
 - [resolved] add BookDetail page and listing the book's underlines
 - [resolved] after adding underline, redirect to book detail page  
 - [resolved] refectoring BookDetail, for redux structure
-- fix "double excuting method addUnderline(UnderlineAddForm.js)"
+- [resolved] fix "double excuting method addUnderline(UnderlineAddForm.js)"
+- build structure for Sass + BEM, remove bootstrap
 - add floating button(+ button)
 - 단위테스트 구현
 - UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
