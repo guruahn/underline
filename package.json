@@ -1,6 +1,6 @@
 {
   "name": "redux-example",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "devDependencies": {
     "node-sass": "^4.5.2",

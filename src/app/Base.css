@@ -1,0 +1,56 @@
+/*
+ * default style definition
+ */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 75%;
+  line-height: 1.5em;
+  font-family: "Malgun Gothic", "Lucida Grande", Tahoma, Verdana, AppleGothic, UnDotum, sans-serif; }
+
+form {
+  margin: 0;
+  padding: 0; }
+
+hr {
+  display: none; }
+
+p, div, th, td, select, input {
+  color: #333; }
+
+a:link, a:visited {
+  color: #666;
+  text-decoration: none; }
+
+a:active, a:hover {
+  color: #000;
+  text-decoration: none; }
+
+a img,
+input.type-image {
+  border: 0 none; }
+
+input.type-text,
+textarea {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 1px; }
+
+input.type-text:hover,
+input.type-text:focus,
+textarea:hover,
+textarea:focus,
+select:hover,
+select:active {
+  background-color: #ffd; }
+
+input, select, textarea {
+  vertical-align: middle;
+  font-size: 1em;
+  color: #333; }
+
+span.button,
+img.button,
+a.button {
+  cursor: pointer;
+  vertical-align: middle; }
