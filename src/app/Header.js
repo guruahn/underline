@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
-import 'bootstrap/dist/css/bootstrap.css'
-
 class Header extends Component {
 
     componentDidMount(){

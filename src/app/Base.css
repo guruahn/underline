@@ -1,6 +1,7 @@
 /*
  * default style definition
  */
+@import url(./Grid.css);
 body {
   margin: 0;
   padding: 0;

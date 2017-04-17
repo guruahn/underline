@@ -14,7 +14,7 @@ import { firebaseAuth } from '../config/constants'
 import Loading from 'react-loading-animation'
 
 
-import 'bootstrap/dist/css/bootstrap.css'
+import './Base.css'
 import '../css/style.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 
@@ -36,7 +36,7 @@ function PublicRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === false
         ? <Component {...props} />
-      : <Redirect to='/myUnderlinse' />}
+      : <Redirect to='/myUnderlines' />}
     />
   )
 }
