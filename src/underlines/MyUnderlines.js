@@ -4,7 +4,7 @@ class MyUnderlines extends Component {
 
     render() {
         return(
-            <div><h2>myUnderlines</h2></div>
+            <div className="u-maxWidth1000 u-marginAuto"><h1>My Underlines</h1></div>
         );
     }
 }

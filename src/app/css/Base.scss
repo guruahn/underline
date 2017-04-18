@@ -1,4 +1,6 @@
 @charset "utf-8";
+@import "./Base-grid.css";
+@import "./Base-utils.css";
 /*
  * default style definition
  */
@@ -56,5 +58,8 @@ a.button {
 	cursor: pointer;
 	vertical-align: middle;
 }
-
-@import "./Grid.css"
+ol, ul {
+  padding: 0;
+  list-style: none;
+  list-style-image: none;
+}

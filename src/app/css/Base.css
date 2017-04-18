@@ -1,7 +1,8 @@
+@import url(./Base-grid.css);
+@import url(./Base-utils.css);
 /*
  * default style definition
  */
-@import url(./Grid.css);
 body {
   margin: 0;
   padding: 0;
@@ -55,3 +56,8 @@ img.button,
 a.button {
   cursor: pointer;
   vertical-align: middle; }
+
+ol, ul {
+  padding: 0;
+  list-style: none;
+  list-style-image: none; }

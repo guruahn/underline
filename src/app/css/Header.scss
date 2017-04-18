@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+.header {
+  width: 100%;
+  top: 0;
+  position: relative;
+  &__inner{
+
+  }
+}
+
+.header-block{
+  &__brand{
+    padding: 1em 0;
+    font-size: 2em;
+    text-decoration: underline;
+  }
+  &__menus{
+    padding: 2em 0;
+  }
+}
+
+.header-popover{
+  position: absolute;
+  font-size: 12px;
+  top: 30px;
+  right: 100px;
+  padding: 15px;
+  &__inner{
+    background: #fff;
+    padding: 8px 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 0 1px rgba(0,0,0,.35);
+  }
+}
+
+.header-menu {
+  padding: 0 1em;
+}

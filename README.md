@@ -47,7 +47,7 @@
       css/
         app.css
 ```
-이 구조의 단점은 조금만 개발이 진행되면 Component들이 급속히 많아진다는 것입니다. 그리고 한 컴포넌트를 수정하기 위해서 네 개의 폴더(actions, components,, reducers, css)에 걸쳐있는 파일들을 찾아 열어야 합니다. 그래서 [marmelab](https://marmelab.com/blog/2015/12/17/react-directory-structure.html) 이런 단점을 극복할 수 있는 구조를 제안했습니다. 저도 점점 규모가 커지면서 새로운 구조로 바꾸었습니다. 아래와 같습니다.
+이 구조의 단점은 조금만 개발이 진행되면 Component들이 급속히 많아진다는 것입니다. 그리고 한 컴포넌트를 수정하기 위해서 네 개의 폴더(actions, components,, reducers, css)에 걸쳐있는 파일들을 찾아 열어야 합니다. 그래서 [marmelab](https://marmelab.com/blog/2015/12/17/react-directory-structure.html)에서 이런 단점을 극복할 수 있는 구조를 제안했습니다. 저도 점점 규모가 커지면서 새로운 구조로 바꾸었습니다. 아래와 같습니다.
 
 ```
 my-app/
@@ -96,7 +96,7 @@ my-app/
 ## BEM + SCSS
 CSS 전처리기는 SCSS를 사용하고 있습니다. create-react-app에서는 [SCSS 로더를 설치하여 사용할 수 있는 방법](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)을 제공합니다. node-sass 패키지와 npm-run-all 패키지를 함께 사용하면 src폴더 안의 모든 scss를 watch하며 변경시 자동으로 css로 변환됩니다.
 
-[BEM](https://mytory.net/html-css-js/2015/05/07/mindbemding-getting-your-head-round-bem-syntax.html)은 CSS의 작명법 중 하나인데, 모듈화하기 좋아서 SASS와 리액트와의 궁합이 좋아 선택하게 되었습니다. (아직 환경만 갖추어놓고 본격코딩은 미루어두고 있습니다. 일단 부트스트랩을 제거해야할텐데요 ...ㅜㅜ)
+[BEM](https://mytory.net/html-css-js/2015/05/07/mindbemding-getting-your-head-round-bem-syntax.html)은 CSS의 작명법 중 하나입니다. 모듈화하기 좋아서 SASS와 리액트와의 궁합이 좋아 선택하게 되었습니다. BEM + SCSS를 도입하면서 기존의 Bootstrap 의존성과 코드들은 제거했습니다.
 
 # firebase
 리액트를 공부하고자 하는 목적이 큰 프로젝트이므로 서버사이드의 비용을 최소한으로 하고자 인증과 디비, 비즈니스 로직을 한번에 해결할 수 있는 firebase를 도입했습니다. 아까 언급했듯이 라우터와도 궁합이 나쁘지 않습니다.([react-router-firebase-auth](https://github.com/tylermcginnis/react-router-firebase-auth))

@@ -14,9 +14,8 @@ import { firebaseAuth } from '../config/constants'
 import Loading from 'react-loading-animation'
 
 
-import './Base.css'
+import './css/Base.css'
 import '../css/style.css';
-import 'bootstrap/dist/js/bootstrap.min.js'
 
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -93,7 +92,7 @@ class App extends Component {
                     this.setState({authed: false, user:''})
                 }}
                 />
-              <div>
+              <div className="u-marginTop10em">
                 <Switch>
                   <Route path='/' exact component={Home} />
                   <PublicRoute authed={this.state.authed} path='/login' component={Login} />

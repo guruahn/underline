@@ -1,22 +1,5 @@
-body {
-  margin-top: 1em;
-}
-
-/*Utils*/
-.u-no-border { border: 0; }
-.u-no-padding { padding: 0 }
-.u-display-none { display: none; }
-
 .well-lg-mt-70 {
-  margin-top: 70px;
-}
+  margin-top: 70px; }
+
 .preloader-icon {
-  margin: 50px auto;
-}
-
-
-/*Underline*/
-#underlineAddForm {
-  min-height: 500px;
-
-}
+  margin: 50px auto; }

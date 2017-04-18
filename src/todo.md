@@ -12,7 +12,7 @@
 - [resolved] refectoring BookDetail, for redux structure
 - [resolved] fix "double excuting method addUnderline(UnderlineAddForm.js)"
 - [resolved] build structure for Sass + BEM, remove bootstrap
-- recompose style by Sass + BEM
+- [resolved] recompose style by Sass + BEM
 - add floating button(+ button)
 - 단위테스트 구현
 - UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)

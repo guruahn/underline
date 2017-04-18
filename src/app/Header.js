@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
+import './css/Header.css'
+
 class Header extends Component {
 
     componentDidMount(){
@@ -9,32 +11,40 @@ class Header extends Component {
     render() {
         return(
             <div>
-              <nav className={"navbar navbar-default"}>
-                <div className={"container-fluid"}>
-                  <div className={"navbar-header"}>
-                    <button type="button" className={"navbar-toggle collapsed"} data-toggle={"collapse"} data-target={"#bs-example-navbar-collapse-1"} aria-expanded={"false"}>
-                      <span className={"glyphicon glyphicon-option-vertical" } aria-hidden={"true"}></span>
-                    </button>
-                    <Link to="/" className="navbar-brand">Underline</Link>
-                  </div>
-                  <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul className="nav navbar-nav navbar-right">
-                      <li><Link to="/search" >Book Search</Link></li>
-                      <li><Link to="/addUnderline" replace >add underline</Link></li>
-                      <li><Link to="/myUnderlines" >My Underlines</Link></li>
-                      <li>
-                        <Link
-                          to="#"
-                          className={this.props.auth ? '' : 'hide'}
-                          onClick={this.props.onLogout}>
-                          Logout
-                        </Link>
-                      </li>
-                      <li><Link to="/login" className={this.props.auth ? 'hide' : ''} >Login</Link></li>
-                      <li><Link to="/register" >Register</Link></li>
-                      <li><Link to="#" className="navbar-link">{this.props.user.email}</Link></li>
-                    </ul>
-                  </div>
+              <nav className={"header u-fixed u-boxShadowBottomThinLighter u-zIndexTop"}>
+                <div className={"header__inner u-maxWidth1000 u-marginAuto"}>
+                  <div className={"header-block header-block__brand u-floatLeft"}>
+                    <Link to="/" className="">Underline</Link>
+                  </div>{ /*.header-block*/ }
+                  <div className="header-block header-block__menus u-floatRight">
+                    <div className="header-menu u-inlineBlock">
+                      <Link to="/addUnderline" replace >Write a underline</Link>
+                    </div>
+                    <div className="header-menu u-inlineBlock">
+                      <Link to="#" replace >More</Link>
+                    </div>
+                    <div className="header-menu u-inlineBlock">
+                      <Link to="#" className="navbar-link">{this.props.user.email}</Link>
+                    </div>
+                  </div>{ /*.header-block*/ }
+                  <div className="header-popover js-header-popover u-zIndexTop">
+                    <div className="header-popover__inner">
+                      <ul className="">
+                        <li className="header-menu"><Link to="/search" >Book Search</Link></li>
+                        <li className="header-menu"><Link to="/myUnderlines" >My Underlines</Link></li>
+                        <li className="header-menu">
+                          <Link
+                            to="#"
+                            className={this.props.auth ? '' : 'hide'}
+                            onClick={this.props.onLogout}>
+                            Logout
+                          </Link>
+                        </li>
+                        <li className="header-menu"><Link to="/login" className={this.props.auth ? 'hide' : ''} >Login</Link></li>
+                        <li className="header-menu"><Link to="/register" >Register</Link></li>
+                      </ul>
+                    </div>{ /*.header-popover__inner*/ }
+                  </div>{ /*.header-popover*/ }
                 </div>
               </nav>
 
