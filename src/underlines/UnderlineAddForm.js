@@ -25,7 +25,6 @@ class UnderlineAddForm extends Component {
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
       this.addUserLine = this.addUserLine.bind(this);
-      this.addUserBooks = this.addUserBooks.bind(this);
     }
 
     setUnderline(event) {

@@ -13,7 +13,9 @@
 - [resolved] fix "double excuting method addUnderline(UnderlineAddForm.js)"
 - [resolved] build structure for Sass + BEM, remove bootstrap
 - [resolved] recompose style by Sass + BEM
-- add floating button(+ button)
+- popover in header
+- recompose style AddUnderline / Search / Mybooks
+- My Underlines
 - 단위테스트 구현
 - UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
 - add MyUnderlines component
