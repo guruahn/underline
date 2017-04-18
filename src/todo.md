@@ -13,7 +13,7 @@
 - [resolved] fix "double excuting method addUnderline(UnderlineAddForm.js)"
 - [resolved] build structure for Sass + BEM, remove bootstrap
 - [resolved] recompose style by Sass + BEM
-- popover in header
+- [resolved] popover in header
 - recompose style AddUnderline / Search / Mybooks
 - My Underlines
 - 단위테스트 구현

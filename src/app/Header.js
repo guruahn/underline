@@ -5,51 +5,68 @@ import './css/Header.css'
 
 class Header extends Component {
 
-    componentDidMount(){
-      //this.props.onLogin()
+  constructor(props) {
+    super(props);
+    this.state = {
+      popoverState: false
     }
-    render() {
-        return(
-            <div>
-              <nav className={"header u-fixed u-boxShadowBottomThinLighter u-zIndexTop"}>
-                <div className={"header__inner u-maxWidth1000 u-marginAuto"}>
-                  <div className={"header-block header-block__brand u-floatLeft"}>
-                    <Link to="/" className="">Underline</Link>
-                  </div>{ /*.header-block*/ }
-                  <div className="header-block header-block__menus u-floatRight">
-                    <div className="header-menu u-inlineBlock">
-                      <Link to="/addUnderline" replace >Write a underline</Link>
-                    </div>
-                    <div className="header-menu u-inlineBlock">
-                      <Link to="#" replace >More</Link>
-                    </div>
-                    <div className="header-menu u-inlineBlock">
-                      <Link to="#" className="navbar-link">{this.props.user.email}</Link>
-                    </div>
-                  </div>{ /*.header-block*/ }
-                  <div className="header-popover js-header-popover u-zIndexTop">
-                    <div className="header-popover__inner">
-                      <ul className="">
-                        <li className="header-menu"><Link to="/search" >Book Search</Link></li>
-                        <li className="header-menu"><Link to="/myUnderlines" >My Underlines</Link></li>
-                        <li className="header-menu">
-                          <Link
-                            to="#"
-                            className={this.props.auth ? '' : 'hide'}
-                            onClick={this.props.onLogout}>
-                            Logout
-                          </Link>
-                        </li>
-                        <li className="header-menu"><Link to="/login" className={this.props.auth ? 'hide' : ''} >Login</Link></li>
-                        <li className="header-menu"><Link to="/register" >Register</Link></li>
-                      </ul>
-                    </div>{ /*.header-popover__inner*/ }
-                  </div>{ /*.header-popover*/ }
-                </div>
-              </nav>
+    this.onPop = this.onPop.bind(this);
+  }
 
-            </div>
-        );
+  onPop(currentPopState){
+    this.setState({ popoverState: !this.state.popoverState});
+  }
+
+  componentDidMount(){
+    //this.props.onLogin()
+  }
+  render() {
+    let popover = null;
+    if(this.state.popoverState){
+      popover = <div className="header-popover js-header-popover u-zIndexTop">
+        <div className="header-popover__inner">
+          <ul className="">
+            <li className="header-menu"><Link to="/search" >Book Search</Link></li>
+            <li className="header-menu"><Link to="/myUnderlines" >My Underlines</Link></li>
+            <li className="header-menu">
+              <Link
+                to="#"
+                className={this.props.auth ? '' : 'hide'}
+                onClick={this.props.onLogout}>
+                Logout
+              </Link>
+            </li>
+            <li className="header-menu"><Link to="/login" className={this.props.auth ? 'hide' : ''} >Login</Link></li>
+            <li className="header-menu"><Link to="/register" >Register</Link></li>
+          </ul>
+        </div>
+      </div>
     }
+    return(
+      <div>
+        <nav className={"header u-fixed u-boxShadowBottomThinLighter u-zIndexTop"}>
+          <div className={"header__inner u-maxWidth1000 u-marginAuto"}>
+            <div className={"header-block header-block__brand u-floatLeft"}>
+              <Link to="/" className="">Underline</Link>
+            </div>{ /*.header-block*/ }
+            <div className="header-block header-block__menus u-floatRight">
+              <div className="header-menu u-inlineBlock">
+                <Link to="/addUnderline" replace >Write a underline</Link>
+              </div>
+              <div className="header-menu u-inlineBlock">
+                <Link to="#" replace onClick={() => this.onPop()} >More</Link>
+                {popover}
+              </div>
+              <div className="header-menu u-inlineBlock">
+                <Link to="#" className="navbar-link">{this.props.user.email}</Link>
+              </div>
+            </div>{ /*.header-block*/ }
+
+          </div>
+        </nav>
+
+      </div>
+    );
+  }
 }
 export default Header;

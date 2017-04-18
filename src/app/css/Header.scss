@@ -23,9 +23,11 @@
 .header-popover{
   position: absolute;
   font-size: 12px;
-  top: 30px;
-  right: 100px;
   padding: 15px;
+  width: 111px;
+  top: 15px;
+  right: 0;
+  left: 0;
   &__inner{
     background: #fff;
     padding: 8px 0;
@@ -36,4 +38,5 @@
 
 .header-menu {
   padding: 0 1em;
+  position: relative;
 }
