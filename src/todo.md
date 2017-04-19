@@ -15,12 +15,15 @@
 - [resolved] recompose style by Sass + BEM
 - [resolved] popover in header
 - [resolved] recompose style AddUnderline / Search / Mybooks
+- 단위테스트 구현
+- MyUnderlines - add ref
+- addUnderline - add page
 - recompose style Login / Logout
 - toggle Login / Logout
 - [resolved] My Underlines
 - paging search list
 - popover bullet
-- 단위테스트 구현
+
 - modify underline
 - [resolved] UnderlineAddForm.js refectoring(data processing move to AddUnderline.js)
 - add MyUnderlines component
