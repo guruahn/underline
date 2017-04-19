@@ -39,8 +39,8 @@ class BookDetail extends Component {
     let underlines = [];
     this.userBooksRef.once('value').then(function(snapshot) {
       snapshot.forEach(function(data){
-        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val()));
-        underlines.push({key:data.key, value:JSON.stringify(data.val())})
+        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
+        underlines.push({key:data.key, value:data.val().line})
       });
       _this.props.handleSetUnderlinesOfBook(underlines)
     });
@@ -81,10 +81,10 @@ class BookDetail extends Component {
 
     };
     return(
-        <div>
-          <h3>Book Detail</h3>
-          {this.props.match.params.bookKey}
+        <div className="BookDetail u-maxWidth700 u-marginAuto">
+          <h1>Book Detail</h1>
           {printBook(this.props.bookDetail)}
+          <h2>Underlines</h2>
           <ul className={"list-group"}>{mapToComponent(this.props.underlinesOfBook)}</ul>
         </div>
     );
