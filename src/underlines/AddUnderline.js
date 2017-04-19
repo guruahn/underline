@@ -78,16 +78,17 @@ class addUnderline extends Component {
         <div className="addUnderline">
           <withRouter>
           <div className="u-maxWidth700 u-marginAuto">
-            <div>
-              <p>
+            <div className="grid grid-pad">
+              <p className="col-10-12">
                 <textarea
                 id={"underlineAddForm"}
                 className={"form-control on-popup-content"}
                 placeholder={"Put your underline"}
-                onChange={this.setUnderline}>
+                onChange={this.setUnderline}
+                rows="10">
                 </textarea>
               </p>
-              <p>
+              <p className="col-2-12">
                 <button
                 type={"button"}
                 className={"u-pullRight button__normal"}
