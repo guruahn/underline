@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
 import { Link } from 'react-router-dom'
 
 import './css/Header.css'
@@ -13,13 +15,27 @@ class Header extends Component {
     this.onPop = this.onPop.bind(this);
   }
 
-  onPop(currentPopState){
-    this.setState({ popoverState: !this.state.popoverState});
+  onPop(nextPopState = !this.state.popoverState){
+    this.setState({ popoverState: nextPopState});
   }
 
-  componentDidMount(){
-    //this.props.onLogin()
+  componentWillMount() {
+    // add event listener for clicks
+    document.addEventListener('click', this.handleClick, false);
   }
+
+  componentWillUnmount() {
+    // make sure you remove the listener when the component is destroyed
+    document.removeEventListener('click', this.handleClick, false);
+  }
+
+  handleClick = e => {
+    if(!ReactDOM.findDOMNode(this).contains(e.target)) {
+      // the click was outside your component, so handle closing here
+      this.onPop(false);
+    }
+  }
+
   render() {
     let popover = null;
     if(this.state.popoverState){
