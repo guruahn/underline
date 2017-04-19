@@ -1,0 +1,11 @@
+.addUnderline textarea {
+  border: 0;
+  resize: none;
+  background: none;
+  font-size: 21px;
+  width: 100%; }
+
+.addUnderline textarea:focus {
+  border: 0;
+  background: none;
+  outline: none; }

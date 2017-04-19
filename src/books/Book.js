@@ -6,6 +6,8 @@ const defaultProps = {
   stringToHtml: () => createWarning('onAdd'),
 };
 
+import './style/Book.css';
+
 class Book extends Component {
 
     stringToHtml(str) {
@@ -17,7 +19,7 @@ class Book extends Component {
     }
     render() {
         return(
-            <div>{this.stringToHtml(this.props.book.title)}</div>
+            <div className="Book">{this.stringToHtml(this.props.book.title)}</div>
         );
     }
 }

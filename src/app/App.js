@@ -14,7 +14,7 @@ import { firebaseAuth } from '../config/constants'
 import Loading from 'react-loading-animation'
 
 
-import './css/Base.css'
+import './style/Base.css'
 import '../css/style.css';
 
 

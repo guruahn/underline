@@ -23,11 +23,8 @@ class SearchList extends Component {
                   <button
                     onClick={() => this.props.onAdd(book)}
                     type={"button"}
-                    className="btn btn-default"
-                    aria-label={"Left Align"}>
-                    <span
-                      className={"glyphicon glyphicon-plus" }
-                      aria-hidden={"true"}></span>
+                    aria-label={"add book"}>
+                    <i className="fa fa-plus" aria-hidden="true"></i>
                   </button>
                 </div>
               )

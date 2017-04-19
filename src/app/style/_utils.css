@@ -5,6 +5,9 @@
 .u-noPadding {
   padding: 0; }
 
+.u-pullRight {
+  float: right; }
+
 .u-marginTop10em {
   margin-top: 10em; }
 
@@ -37,6 +40,9 @@
 
 .u-maxWidth1000 {
   max-width: 1000px !important; }
+
+.u-maxWidth700 {
+  max-width: 700px !important; }
 
 .u-marginAuto {
   margin-left: auto !important;

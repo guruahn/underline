@@ -1,17 +1,120 @@
-import React, { Component } from 'react';
-import UnderlineAddForm from './UnderlineAddForm';
+import React, { Component, PropTypes } from 'react';
+import { database, firebaseAuth } from '../config/constants'
+import { withRouter } from 'react-router-dom'
 
 
-class AddUnderline extends Component {
+import { connect } from 'react-redux';
+import * as actions from './UnderlinesActions';
+
+import './style/AddUnderline.css'
+
+const propTypes = {
+  underline: PropTypes.string,
+  isWritingLine: PropTypes.bool,
+  isSearching: PropTypes.bool,
+  redirectToBookDetail: PropTypes.string
+};
+const defaultProps = {
+  underline: '',
+  isWritingLine: false,
+  isSearching: false,
+  redirectToBookDetail: ''
+};
+class addUnderline extends Component {
+    constructor(props) {
+      super(props);
+      this.user = firebaseAuth().currentUser;
+      this.setUnderline = this.setUnderline.bind(this);
+      this.addUnderline = this.addUnderline.bind(this);
+      this.addUserLine = this.addUserLine.bind(this);
+    }
+
+    setUnderline(event) {
+      this.props.handleSetMyUnderlines(event.target.value);
+    }
+
+    addUnderline = () => {
+      const underline = this.props.underline;
+      let _this = this;
+      const updates = {};
+      const underlineKey = database.ref().child('underlines').push().key;
+      updates['/underlines/' + underlineKey] = { line:underline };
+      console.log(updates)
+      database.ref().update(updates).then(function() {
+        console.log('result addUnderline', JSON.stringify({key:underlineKey,value:underline}));
+        _this.addUserLine(underline, underlineKey);
+      }, function(error) {
+          console.log("Error updating data:", error);
+      });
+
+    }
+
+    addUserLine = (underline, underlineKey) => {
+      const updates = {};
+      let _this = this;
+      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline };
+      database.ref().update(updates).then(function() {
+        console.log('result addUserLine', JSON.stringify({key:underlineKey,value:underline}));
+        _this.props.history.push('/search/' + underlineKey);
+      }, function(error) {
+          console.log("Error updating data:", error);
+      });
+    }
+
+    componentDidMount(){
+
+    }
+    shouldComponentUpdate(nextProps, nextState){
+     return (JSON.stringify(nextProps) !== JSON.stringify(this.props));
+    }
+
+    componentWillUnmount () {
+      window.removeEventListener('onClick', this.addUnderline, false);
+    }
 
     render() {
-        return(
+
+      return(
+        <div className="addUnderline">
+          <withRouter>
+          <div className="u-maxWidth700 u-marginAuto">
             <div>
-              <UnderlineAddForm />
+              <p>
+                <textarea
+                id={"underlineAddForm"}
+                className={"form-control on-popup-content"}
+                placeholder={"Put your underline"}
+                onChange={this.setUnderline}>
+                </textarea>
+              </p>
+              <p>
+                <button
+                type={"button"}
+                className={"u-pullRight"}
+                onClick={this.addUnderline}>Insert</button>
+              </p>
             </div>
-        );
+          </div>
+          </withRouter>
+        </div>
+      );
     }
 }
-AddUnderline.propTypes = {};
-AddUnderline.defaultProps = {};
-export default AddUnderline;
+addUnderline.propTypes = propTypes;
+addUnderline.defaultProps = defaultProps;
+
+const mapStateToProps = (state) => {
+  return {
+    underline: state.underlines.underline,
+    isWritingLine: state.underlines.isWritingLine,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleAddLine: (underline) => { dispatch(actions.addLine(underline))},
+    handleSetMyUnderlines: (underline) => { dispatch(actions.setMyUnderlines(underline))},
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(addUnderline));

@@ -1,0 +1,17 @@
+.search {
+  label {
+    font-size: 1.5rem;
+  }
+  input {
+    border: 0;
+    background: none;
+    font-size: 2.16666666666667em;
+    padding-left: 1em;
+    padding-bottom: 10px;
+  }
+  input:focus {
+    border: 0;
+    background: none;
+    outline: none;
+  }
+}

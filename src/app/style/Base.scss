@@ -1,13 +1,13 @@
 @charset "utf-8";
-@import "./Base-grid.css";
-@import "./Base-utils.css";
+@import "./_grid.css";
+@import "./_utils.css";
 /*
  * default style definition
  */
 body {
 	margin: 0;
 	padding: 0;
-	font-size: 75%;
+	font-size: 12px;
 	line-height: 1.5em;
 	font-family: "Malgun Gothic", "Lucida Grande", Tahoma, Verdana, AppleGothic, UnDotum, sans-serif;
 }
@@ -17,6 +17,9 @@ form {
 }
 hr {
 	display: none;
+}
+h1 {
+	font-size: 2rem;
 }
 p, div, th, td, select, input {
 	color: #333;
@@ -52,9 +55,7 @@ input, select, textarea {
 	font-size: 1em;
 	color: #333;
 }
-span.button,
-img.button,
-a.button {
+button {
 	cursor: pointer;
 	vertical-align: middle;
 }

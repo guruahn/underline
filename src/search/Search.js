@@ -7,6 +7,8 @@ import { database, firebaseAuth } from '../config/constants'
 import { connect } from 'react-redux';
 import * as actions from './SearchActions';
 
+import './style/Search.css'
+
 const propTypes = {
   addBook: PropTypes.func,
   handleSearch: PropTypes.func
@@ -140,7 +142,7 @@ class Search extends Component {
     }
 
     return(
-      <div>
+      <div className="search u-maxWidth700 u-marginAuto">
         <SearchForm onSearch={this.handleSearch} />
         {printSearchList()}
       </div>

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { Link } from 'react-router-dom'
 
-import './css/Header.css'
+import './style/Header.css'
 
 class Header extends Component {
 
