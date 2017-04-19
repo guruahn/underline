@@ -30,7 +30,7 @@ class addUnderline extends Component {
     }
 
     setUnderline(event) {
-      this.props.handleSetMyUnderlines(event.target.value);
+      this.props.handleSetUnderlines(event.target.value);
     }
 
     addUnderline = () => {
@@ -113,7 +113,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleAddLine: (underline) => { dispatch(actions.addLine(underline))},
-    handleSetMyUnderlines: (underline) => { dispatch(actions.setMyUnderlines(underline))},
+    handleSetUnderlines: (underline) => { dispatch(actions.setUnderline(underline))},
   };
 };
 

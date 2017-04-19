@@ -14,6 +14,11 @@ export default function underlines(state = initialState, action){
       case types.SET_MY_UNDERLINES:
         return {
           ...state,
+          underlines: action.underlines
+        }
+      case types.SET_UNDERLINE:
+        return {
+          ...state,
           underline: action.underline
         }
       case types.SELECT_BOOK:
