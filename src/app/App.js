@@ -30,6 +30,7 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
 }
 
 function PublicRoute ({component: Component, authed, ...rest}) {
+  console.log('authed', authed)
   return (
     <Route
       {...rest}
@@ -70,8 +71,6 @@ class App extends Component {
     this.removeListener()
   }
 
-
-
   render() {
 
     if (this.state.loading) {
@@ -94,7 +93,7 @@ class App extends Component {
                 />
               <div className="u-marginTop10em">
                 <Switch>
-                  <Route path='/' exact component={Home} />
+                  <PublicRoute path='/' exact component={Home} authed={this.state.authed} />
                   <PublicRoute authed={this.state.authed} path='/login' component={Login} />
                   <PublicRoute authed={this.state.authed} path='/register' component={Register} />
                   <PrivateRoute authed={this.state.authed} path='/mybooks' component={MyBooks} />
@@ -109,8 +108,6 @@ class App extends Component {
         </BrowserRouter>
       </div>
     );
-
-
   }
 }
 export default App;

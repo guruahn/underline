@@ -4,10 +4,10 @@ import * as types from './UnderlinesActionTypes';
 
 // 액션 생성자, 함수 이름 규칙은 camelCase
 
-export function setMyUnderlines (underline){
+export function setMyUnderlines (underlines){
   return {
     type: types.SET_MY_UNDERLINES,
-    underline
+    underlines
   };
 }
 

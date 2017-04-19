@@ -66,7 +66,6 @@ class BookDetail extends Component {
           )
         });
       }
-
     };
 
     const printBook = (book) => {
