@@ -90,7 +90,7 @@ class addUnderline extends Component {
               <p>
                 <button
                 type={"button"}
-                className={"u-pullRight"}
+                className={"u-pullRight button__normal"}
                 onClick={this.addUnderline}>Insert</button>
               </p>
             </div>

@@ -1,4 +1,5 @@
 @charset "utf-8";
+@import "./_variables.scss";
 @import "./_grid.css";
 @import "./_utils.css";
 /*
@@ -22,10 +23,10 @@ h1 {
 	font-size: 2rem;
 }
 p, div, th, td, select, input {
-	color: #333;
+	color: $gray_black;
 }
 a:link, a:visited {
-	color: #666;
+	color: $gray;
 	text-decoration: none;
 }
 a:active, a:hover {
@@ -53,11 +54,25 @@ select:active {
 input, select, textarea {
 	vertical-align: middle;
 	font-size: 1em;
-	color: #333;
+	color: $gray_black;
 }
 button {
 	cursor: pointer;
 	vertical-align: middle;
+}
+.button {
+	&__normal {
+		font-size: 1.3em;
+	  background: none;
+	  border-radius: .5em;
+	  border: 0;
+	  padding: .4em .5em;
+		color: $gray;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 0 1px rgba(0, 0, 0, 0.35);
+		&:hover {
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.65);
+		}
+	}
 }
 ol, ul {
   padding: 0;
