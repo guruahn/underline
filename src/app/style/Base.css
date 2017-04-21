@@ -1,5 +1,64 @@
 @import url(./_grid.css);
-@import url(./_utils.scss);
+/*Utils*/
+.u-noBorder {
+  border: 0; }
+
+.u-noPadding {
+  padding: 0; }
+
+.u-pullRight {
+  float: right; }
+
+.u-marginTop10em {
+  margin-top: 10em; }
+
+.u-displayNone {
+  display: none; }
+
+.u-fixed {
+  position: fixed !important; }
+
+.u-boxShadowBottomThinLighter {
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.15); }
+
+.u-zIndexTopest {
+  z-index: 1000; }
+
+.u-zIndexTop {
+  z-index: 800; }
+
+.u-zIndexMiddle {
+  z-index: 600; }
+
+.u-zIndexBottom {
+  z-index: 400; }
+
+.u-zIndexLow {
+  z-index: 200; }
+
+.u-zIndexLowest {
+  z-index: 1; }
+
+.u-maxWidth1000 {
+  max-width: 1000px !important; }
+
+.u-maxWidth700 {
+  max-width: 700px !important; }
+
+.u-marginAuto {
+  margin-left: auto !important;
+  margin-right: auto !important; }
+
+.u-floatLeft {
+  float: left; }
+
+.u-floatRight {
+  float: right; }
+
+.u-inlineBlock {
+  display: inline-block; }
+
+/*Mixins*/
 /*
  * default style definition
  */
@@ -58,9 +117,8 @@ button {
   padding: .4em .5em;
   color: #666;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 0 1px rgba(0, 0, 0, 0.35); }
-
-.button__normal:hover {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.65); }
+  .button__normal:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.65); }
 
 ol, ul {
   padding: 0;

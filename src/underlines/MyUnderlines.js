@@ -35,6 +35,7 @@ class MyUnderlines extends Component {
   }
 
   componentDidMount(){
+    console.log('user', JSON.stringify(this.user))
     this.getUnderlines()
   }
 

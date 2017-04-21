@@ -17,7 +17,6 @@ import Loading from 'react-loading-animation'
 import './style/Base.css'
 import '../css/style.css';
 
-
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
     <Route

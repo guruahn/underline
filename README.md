@@ -62,36 +62,57 @@ my-app/
     index.html
   src/
     app/
-        App.js
-        Header.js
-        reducers.js
-        routes.js
-        Sidebar.js
+      style/
+        Base.scss
+        Header.scss
+      test/
+        App.test.js
+        Header.test.js
+      App.js
+      Header.js
+      reducers.js
+      routes.js
+      Sidebar.js
     command/
-        Command.js
-        CommandContainer.js
-        CommandActions.js
-        CommandList.js
-        CommandItem.js
-        CommandHelper.js
-        CommandReducer.js
+      style/
+        Command.scss
+      test/
+        Command.test.js
+        CommandList.test.js
+      Command.js
+      CommandContainer.js
+      CommandActions.js
+      CommandList.js
+      CommandItem.js
+      CommandHelper.js
+      CommandReducer.js
     product/
-        Product.js
-        ProductContainer.js
-        ProductActions.js
-        ProductList.js
-        ProductItem.js
-        ProductImage.js
-        productReducer.js
+      style/
+        Product.scss
+      test/
+        Product.test.js
+        ProductList.test.js
+      Product.js
+      ProductContainer.js
+      ProductActions.js
+      ProductList.js
+      ProductItem.js
+      ProductImage.js
+      productReducer.js
     user/
-        User.js
-        UserContainer.js
-        UserActions.js
-        UserProfile.js
-        UserAvatar.js
-        userReducer.js
+      style/
+        User.scss
+      test/
+        User.test.js
+        UserProfile.test.js
+      User.js
+      UserContainer.js
+      UserActions.js
+      UserProfile.js
+      UserAvatar.js
+      userReducer.js
 ```
-[marmelab](https://marmelab.com/blog/2015/12/17/react-directory-structure.html)는 더 나아가 help나 테스트 코드도 컴포넌트별로 한 폴더에 넣는것을 권장합니다. 물론 이 글도 이미 1년이 더 지난 글이기 때문에 그 사이에 더 좋은 방법이 소개되었을지도 모르겠습니다. 아무튼 꽤 괜찮은 방법인것 같아 규모가 더 커지기 전에 빨리 바꾸었습니다.
+[marmelab](https://marmelab.com/blog/2015/12/17/react-directory-structure.html)는 더 나아가 help나 테스트 코드도 컴포넌트별로 한 폴더에 넣는것을 권장합니다. 위 예시는 제가 나름대로 변형하여 사용하고 있는 현재 방식입니다. 최근에 스타일과 테스트 코드를 폴더에 언더바를 붙여서 폴더링 했습니다. 물론 [이 글](https://marmelab.com/blog/2015/12/17/react-directory-structure.html)도 이미 1년이 더 지난 글이기 때문에 그 사이에 더 좋은 방법이 소개되었을지도 모르겠습니다. 아무튼 꽤 괜찮은 방법인것 같아 규모가 더 커지기 전에 빨리 바꾸었습니다.
 
 ## BEM + SCSS
 CSS 전처리기는 SCSS를 사용하고 있습니다. create-react-app에서는 [SCSS 로더를 설치하여 사용할 수 있는 방법](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)을 제공합니다. node-sass 패키지와 npm-run-all 패키지를 함께 사용하면 src폴더 안의 모든 scss를 watch하며 변경시 자동으로 css로 변환됩니다.

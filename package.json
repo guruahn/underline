@@ -3,9 +3,13 @@
   "version": "0.1.8",
   "private": true,
   "devDependencies": {
+    "enzyme": "^2.8.2",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
-    "react-scripts": "0.8.4"
+    "react-addons-test-utils": "^15.5.1",
+    "react-dom": "^15.5.4",
+    "react-scripts": "0.8.4",
+    "react-test-renderer": "^15.5.4"
   },
   "dependencies": {
     "firebase": "^3.6.6",
