@@ -1,5 +1,5 @@
 @import url(./_grid.css);
-@import url(./_utils.css);
+@import url(./_utils.scss);
 /*
  * default style definition
  */

@@ -98,6 +98,8 @@ CSS 전처리기는 SCSS를 사용하고 있습니다. create-react-app에서는
 
 [BEM](https://mytory.net/html-css-js/2015/05/07/mindbemding-getting-your-head-round-bem-syntax.html)은 CSS의 작명법 중 하나입니다. 모듈화하기 좋아서 SASS와 리액트와의 궁합이 좋아 선택하게 되었습니다. BEM + SCSS를 도입하면서 기존의 Bootstrap 의존성과 코드들은 제거했습니다.
 
+Grid는 자주 사용할 것 같아 가벼운 [Simple-Grid](http://thisisdallas.github.io/Simple-Grid/) 라이브러리를 가져다 썼습니다. 문서도 잘되어있고 287줄의 css정도니 가볍습니다. SCSS로 직접 만든 유틸과 통합해서 압축하면 어설프게 직접 구현하는것보다 낫다고 생각했습니다.
+
 # firebase
 리액트를 공부하고자 하는 목적이 큰 프로젝트이므로 서버사이드의 비용을 최소한으로 하고자 인증과 디비, 비즈니스 로직을 한번에 해결할 수 있는 firebase를 도입했습니다. 아까 언급했듯이 라우터와도 궁합이 나쁘지 않습니다.([react-router-firebase-auth](https://github.com/tylermcginnis/react-router-firebase-auth))
 
