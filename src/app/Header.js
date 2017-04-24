@@ -70,7 +70,11 @@ class Header extends Component {
                 <Link to="/addUnderline" replace >Write a underline</Link>
               </div>
               <div className="header-menu u-inlineBlock">
-                <Link to="#" replace onClick={() => this.onPop()} >More</Link>
+                <Link
+                  to="#"
+                  replace
+                  onClick={() => this.onPop()}
+                  className="js-popover">More</Link>
                 {popover}
               </div>
               <div className="header-menu u-inlineBlock">
