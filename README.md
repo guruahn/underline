@@ -128,7 +128,7 @@ Grid는 자주 사용할 것 같아 가벼운 [Simple-Grid](http://thisisdallas.
 리액트를 공부하고자 하는 목적이 큰 프로젝트이므로 서버사이드의 비용을 최소한으로 하고자 인증과 디비, 비즈니스 로직을 한번에 해결할 수 있는 firebase를 도입했습니다. 아까 언급했듯이 라우터와도 궁합이 나쁘지 않습니다.([react-router-firebase-auth](https://github.com/tylermcginnis/react-router-firebase-auth))
 
 # Testing : enzyme + mocha
-[enzyme](http://airbnb.io/enzyme/index.html)은 리액트 테스팅을 위한 자바스크립트 유틸리티입니다. jQuery의 Dom 조작 및 탐색과 흡사한 모양새를 갖추고 있어 사용이 직관적이고 유연합니다. assertion library는 테스트 프레임웤으로 [mocha](https://mochajs.org/)가 내장되어있습니다. 추가적인 assertion 스타일로 [chai](http://chaijs.com/)를 사용할 수 있도로 지원합니다. 물론 기타 타른 테스트프레임웤이나 assertion스타일도 직접 설치하여 사용할 수 있도록 지원하고 있습니다.
+[enzyme](http://airbnb.io/enzyme/index.html)은 리액트 테스팅을 위한 자바스크립트 유틸리티입니다. jQuery의 Dom 조작 및 탐색과 흡사한 모양새를 갖추고 있어 사용이 직관적이고 유연합니다. assertion library는 테스트 프레임웤으로 [mocha](https://mochajs.org/)가 내장되어있습니다. 추가적인 assertion 스타일로 [chai](http://chaijs.com/)를 사용할 수 있도로 지원합니다. 물론 다른 테스트프레임웤이나 assertion스타일도 직접 설치하여 사용할 수 있도록 지원하고 있습니다.
 
 아직 테스트 코드 작성이 익숙치는 않습니다. 그나마 [airbnb의 예제소스나 api문서](https://github.com/airbnb/enzyme)들에서 좋은 예시들을 잘 안내해주고 있어 조금씩 익숙해지고는 있습니다.
 
