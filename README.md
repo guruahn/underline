@@ -17,6 +17,9 @@
 - [Jest](http://facebook.github.io/jest)
 - and others.
 
+## Redux
+데이터 처리는 [Redux](https://github.com/reactjs/react-redux)를 사용합니다. 전통적인 데이터 모델인 MVC 모델이 리액트에는 적합하지 않아 페이스북에서 대안으로 만든 모델이 Flux입니다. Redux는 Flux의 다양한 구현체 중 하나입니다.
+
 ## Router
 라우터는 [React-router4](https://github.com/ReactTraining/react-router)를 사용합니다. 4베타를 사용하다가, 얼마전 4 정식버전이 나와서 업그레이드 했습니다. 하는 김에 firebase 로그인과 함께 구현한 샘플([react-router-firebase-auth](https://github.com/tylermcginnis/react-router-firebase-auth))을 참고했습니다. 리액트 라우터4에 대한 다양한 예제코드는 [ReactTraining](https://reacttraining.com/react-router/web/guides/quick-start)을 참고하는게 좋습니다. 정말 자료들은 무궁무진합니다.
 
