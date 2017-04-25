@@ -17,6 +17,8 @@
 - [resolved] recompose style AddUnderline / Search / Mybooks
 - [resolved] 단위테스트 구축 및 기본 구현
 - [resolved] My Underlines
+- Write myUnderlines Test
+- Write myBooks Test
 - Write AddUnderline Test
 - MyUnderlines - add ref
 - addUnderline - add page
