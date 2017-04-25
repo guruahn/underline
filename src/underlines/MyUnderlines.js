@@ -68,8 +68,8 @@ function createWarning(funcName){
   return () => console.warn(funcName + 'is now defined')
 }
 
-MyUnderlines.propTypes = {};
-MyUnderlines.defaultProps = {};
+MyUnderlines.propTypes = propTypes;
+MyUnderlines.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {

@@ -17,7 +17,7 @@ class BookDetail extends Component {
   constructor(props) {
     super(props);
     this.user = firebaseAuth().currentUser;
-    console.log('/user-books/' + this.user.uid )
+    //console.log('/user-books/' + this.user.uid )
     this.bookRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey);
     this.userBooksRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
     this.getBook = this.getBook.bind(this);
@@ -26,7 +26,7 @@ class BookDetail extends Component {
 
   getBook(){
     let _this = this
-    console.log('start getBook!!!!')
+    //console.log('start getBook!!!!')
     this.bookRef.once('value').then(function(snapshot, key) {
       //console.log(snapshot.val())
       _this.props.handleSetBook(snapshot.val())
@@ -39,7 +39,7 @@ class BookDetail extends Component {
     let underlines = [];
     this.userBooksRef.once('value').then(function(snapshot) {
       snapshot.forEach(function(data){
-        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
+        //console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
         underlines.push({key:data.key, value:data.val().line})
       });
       _this.props.handleSetUnderlinesOfBook(underlines)
@@ -69,7 +69,7 @@ class BookDetail extends Component {
     };
 
     const printBook = (book) => {
-      console.log('book', book)
+      //console.log('book', book)
       if(typeof book === 'undefined'){
         return <Loading />
       }else{
