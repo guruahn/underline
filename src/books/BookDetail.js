@@ -40,7 +40,7 @@ class BookDetail extends Component {
     this.userBooksRef.once('value').then(function(snapshot) {
       snapshot.forEach(function(data){
         //console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
-        underlines.push({key:data.key, value:data.val().line})
+        underlines.push({key:data.key, value:data.val()})
       });
       _this.props.handleSetUnderlinesOfBook(underlines)
     });

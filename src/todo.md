@@ -23,6 +23,7 @@
 - MyUnderlines - add ref
 - addUnderline - add page
 - Add datetime in db schema
+- Setting user db at firebase
 - recompose style Login / Logout
 - toggle Login / Logout
 - print message when failed login

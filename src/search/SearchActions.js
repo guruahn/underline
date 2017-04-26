@@ -18,10 +18,9 @@ export function searchList (books){
   }
 }
 
-export function addBook (book, id){
+export function addBook (book){
   return {
     type: types.ADD_BOOK,
-    id,
     book
   }
 }

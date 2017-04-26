@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth } from '../config/constants';
+import { database, firebaseAuth, datetimeFormat } from '../config/constants';
 import Underline from '../underlines/Underline';
 import Loading from 'react-loading-animation';
+import moment from 'moment';
 
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
@@ -17,7 +18,7 @@ class MyUnderlines extends Component {
   constructor(props) {
     super(props);
     this.user = firebaseAuth().currentUser;
-    console.log('/underlines/' + this.user.uid )
+    console.log('uid' + this.user.uid )
     this.userUnderlineRef = database.ref('/user-underlines/' + this.user.uid);
     this.getUnderlines = this.getUnderlines.bind(this);
   }
@@ -28,7 +29,7 @@ class MyUnderlines extends Component {
     this.userUnderlineRef.once('value').then(function(snapshot) {
       snapshot.forEach(function(data){
         console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
-        underlines.push({key:data.key, value:data.val().line})
+        underlines.push({key:data.key, value:data.val()})
       });
       _this.props.handleSetMyUnderlines(underlines)
     });
@@ -38,6 +39,8 @@ class MyUnderlines extends Component {
     console.log('user', JSON.stringify(this.user))
     console.log('process.env.NODE_ENV', process.env.NODE_ENV)
     this.getUnderlines()
+    //2013-02-08 09:30:26.123
+    console.log(moment().format(datetimeFormat))
   }
 
   render() {
@@ -46,6 +49,7 @@ class MyUnderlines extends Component {
         return <Loading />
       }else{
         return underlines.map((underline, i) => {
+          console.log('underline', underline)
           return (
             <li className={"list-group-item"} key={underline.key}>
               <Underline

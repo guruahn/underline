@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import SearchForm from './SearchForm';
 import SearchList from './SearchList';
 import jsonp from 'jsonp';
-import { database, firebaseAuth } from '../config/constants'
+import moment from 'moment';
+import { database, firebaseAuth, datetimeFormat } from '../config/constants'
 
 import { connect } from 'react-redux';
 import * as actions from './SearchActions';
@@ -66,6 +67,7 @@ class Search extends Component {
 
   addUserBook(book, key, _this){
     const updates = {};
+    book.updateDatetime = moment().format(datetimeFormat);
     database.ref('/user-books/' + _this.user.uid + '/' + key).on('value', function(userbooksnapshot, userbookkey) {
       if(!userbooksnapshot.val()){
         updates['/user-books/' + _this.user.uid + '/' + key] = book;
@@ -94,21 +96,32 @@ class Search extends Component {
     updates['/book-underlines/' + bookKey + '/' + this.props.underline.key] = { line: this.props.underline.value, book:book, uid: this.user.uid };
     database.ref().update(updates).then(function() {
       console.log('result addBookLine', JSON.stringify(_this.props.underline));
-      _this.addLineInUserBooks(bookKey);
+      _this.addLineInUserBooks(book, bookKey);
     }, function(error) {
         console.log("Error updating data:", error);
     });
   }
 
-  addLineInUserBooks = (bookKey) => {
+  addLineInUserBooks = (book, bookKey) => {
     const updates = {};
     let _this = this;
     updates['/user-books/' + this.user.uid + '/' + bookKey + '/underlines/' + this.props.underline.key] = this.props.underline.value;
     database.ref().update(updates).then(function(){
-      _this.props.history.push('/mybooks/' + bookKey);
+      _this.addUserLine(book, bookKey)
     });
     console.log('result addLineInUserBooks', JSON.stringify(this.props.underline));
+  }
 
+  addUserLine = (book, bookKey) => {
+    const updates = {};
+    let _this = this;
+    updates['/user-underlines/' + this.user.uid + '/' + this.props.underline.key] = { line:this.props.underline.value.line, book: book, bookKey: bookKey, updateDatetime: moment().format(datetimeFormat) };
+    database.ref().update(updates).then(function() {
+      console.log('result addUserLine', JSON.stringify({line:_this.props.underline.value, book: book, bookKey: bookKey}));
+      _this.props.history.push('/mybooks/' + bookKey);
+    }, function(error) {
+        console.log("Error updating data:", error);
+    });
   }
 
   handleSearch = keyword => {
@@ -128,6 +141,7 @@ class Search extends Component {
     if(this.props.match.params.underlineKey){
       this.addUnderline();
     }
+
   }
 
   shouldComponentUpdate(nextProps, nextState){

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth } from '../config/constants'
+import { database, firebaseAuth, datetimeFormat } from '../config/constants'
 import { withRouter } from 'react-router-dom'
-
+import moment from 'moment';
 
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
@@ -26,7 +26,6 @@ class addUnderline extends Component {
       this.user = firebaseAuth().currentUser;
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
-      this.addUserLine = this.addUserLine.bind(this);
     }
 
     setUnderline(event) {
@@ -38,27 +37,15 @@ class addUnderline extends Component {
       let _this = this;
       const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
-      updates['/underlines/' + underlineKey] = { line:underline };
+      updates['/underlines/' + underlineKey] = { line:underline, updateDatetime: moment().format(datetimeFormat) };
       console.log(updates)
       database.ref().update(updates).then(function() {
         console.log('result addUnderline', JSON.stringify({key:underlineKey,value:underline}));
-        _this.addUserLine(underline, underlineKey);
-      }, function(error) {
-          console.log("Error updating data:", error);
-      });
-
-    }
-
-    addUserLine = (underline, underlineKey) => {
-      const updates = {};
-      let _this = this;
-      updates['/user-underlines/' + this.user.uid + '/' + underlineKey] = { line:underline };
-      database.ref().update(updates).then(function() {
-        console.log('result addUserLine', JSON.stringify({key:underlineKey,value:underline}));
         _this.props.history.push('/search/' + underlineKey);
       }, function(error) {
           console.log("Error updating data:", error);
       });
+
     }
 
     componentDidMount(){

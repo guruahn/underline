@@ -3,7 +3,8 @@ import * as types from './SearchActionTypes';
 const initialState = {
   keyword: '',
   searchBooks: [],
-  underline: ''
+  underline: '',
+  books: []
 };
 
 export default function search(state = initialState, action){

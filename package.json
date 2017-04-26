@@ -5,6 +5,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "enzyme": "^2.8.2",
+    "moment": "^2.18.1",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
     "react-addons-test-utils": "^15.5.1",
