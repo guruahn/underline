@@ -14,7 +14,7 @@ class Underline extends Component {
       }
     }
     return(
-        <div>
+        <div className="Underline">
           {this.props.underline.line}
           {printBookInfo()}
           <span>{moment(this.props.underline.updateDatetime).fromNow()}</span>

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { database, firebaseAuth, datetimeFormat } from '../config/constants';
 import Underline from '../underlines/Underline';
 import Loading from 'react-loading-animation';
-import moment from 'moment';
 
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
@@ -17,18 +16,15 @@ const defaultProps = {
 class MyUnderlines extends Component {
   constructor(props) {
     super(props);
-    this.user = firebaseAuth().currentUser;
-    console.log('uid' + this.user.uid )
-    this.userUnderlineRef = database.ref('/user-underlines/' + this.user.uid);
     this.getUnderlines = this.getUnderlines.bind(this);
   }
 
   getUnderlines(){
     let _this = this;
     let underlines = [];
-    this.userUnderlineRef.once('value').then(function(snapshot) {
+    database.ref('/user-underlines/' + this.props.user.uid).once('value').then(function(snapshot) {
       snapshot.forEach(function(data){
-        console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
+        console.log("underlines", JSON.stringify({key:data.key, value:data.val()}));
         underlines.push({key:data.key, value:data.val()})
       });
       _this.props.handleSetMyUnderlines(underlines)
@@ -36,11 +32,7 @@ class MyUnderlines extends Component {
   }
 
   componentDidMount(){
-    console.log('user', JSON.stringify(this.user))
-    console.log('process.env.NODE_ENV', process.env.NODE_ENV)
     this.getUnderlines()
-    //2013-02-08 09:30:26.123
-    console.log(moment().format(datetimeFormat))
   }
 
   render() {
@@ -48,6 +40,7 @@ class MyUnderlines extends Component {
       if(typeof underlines === 'undefined' || underlines.length === 0){
         return <Loading />
       }else{
+
         return underlines.map((underline, i) => {
           console.log('underline', underline)
           return (
@@ -89,3 +82,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyUnderlines);
+export { MyUnderlines as PureMyUnderlines};

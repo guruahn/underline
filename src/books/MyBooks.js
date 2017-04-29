@@ -20,9 +20,7 @@ const defaultProps = {
 class MyBooks extends Component {
   constructor(props) {
     super(props);
-    this.user = firebaseAuth().currentUser;
-    console.log(this.user)
-    this.mybooksRef = database.ref('/user-books/' + this.user.uid);
+    this.mybooksRef = database.ref('/user-books/' + this.props.user.uid);
     this.onRemove = this.onRemove.bind(this);
   }
 
@@ -44,7 +42,7 @@ class MyBooks extends Component {
     let updates = {};
     let _this = this;
     this.props.handleOnIng(book);
-    updates['/user-books/' + this.user.uid + '/' + book.key] = null;
+    updates['/user-books/' + this.props.user.uid + '/' + book.key] = null;
 
     //update book and then
     database.ref().update(updates).then(function() {

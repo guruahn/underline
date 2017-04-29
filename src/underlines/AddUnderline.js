@@ -23,7 +23,6 @@ const defaultProps = {
 class addUnderline extends Component {
     constructor(props) {
       super(props);
-      this.user = firebaseAuth().currentUser;
       this.setUnderline = this.setUnderline.bind(this);
       this.addUnderline = this.addUnderline.bind(this);
     }
@@ -32,8 +31,7 @@ class addUnderline extends Component {
       this.props.handleSetUnderlines(event.target.value);
     }
 
-    addUnderline = () => {
-      const underline = this.props.underline;
+    addUnderline = (underline = this.props.underline) => {
       let _this = this;
       const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;

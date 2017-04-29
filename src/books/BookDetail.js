@@ -16,10 +16,8 @@ const defaultProps = {
 class BookDetail extends Component {
   constructor(props) {
     super(props);
-    this.user = firebaseAuth().currentUser;
-    //console.log('/user-books/' + this.user.uid )
-    this.bookRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey);
-    this.userBooksRef = database.ref('/user-books/' + this.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
+    this.bookRef = database.ref('/user-books/' + this.props.user.uid + '/' + this.props.match.params.bookKey);
+    this.userBooksRef = database.ref('/user-books/' + this.props.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
     this.getBook = this.getBook.bind(this);
     this.getUnderlines = this.getUnderlines.bind(this);
   }

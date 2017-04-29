@@ -18,11 +18,12 @@ import './style/Base.css'
 import '../css/style.css';
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
+  console.log('props', rest)
   return (
     <Route
       {...rest}
       render={(props) => authed === true
-        ? <Component {...props} />
+        ? <Component {...props} user={rest.user} />
         : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />
   )
@@ -56,7 +57,7 @@ class App extends Component {
         this.setState({
           authed: true,
           loading: false,
-          user: {email: user.email}
+          user: user
         })
       } else {
         this.setState({
@@ -97,7 +98,7 @@ class App extends Component {
                   <PublicRoute authed={this.state.authed} path='/register' component={Register} />
                   <PrivateRoute authed={this.state.authed} path='/mybooks' component={MyBooks} />
                   <PrivateRoute authed={this.state.authed} path='/search/:underlineKey' component={Search} />
-                  <PrivateRoute authed={this.state.authed} path='/myUnderlines' component={MyUnderlines} />
+                  <PrivateRoute authed={this.state.authed} path='/myUnderlines' component={MyUnderlines} user={this.state.user} />
                   <PrivateRoute authed={this.state.authed} path='/addUnderline' component={AddUnderline} />
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
