@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
 
 const propTypes = {
-  getUnderlines: PropTypes.func
+  underlines: PropTypes.array
 };
 const defaultProps = {
   getUnderlines: () => createWarning('getUnderlines'),

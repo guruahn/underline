@@ -51,7 +51,7 @@ class Search extends Component {
         bookKey = database.ref().child('books').push().key;
         updates['/books/' + bookKey] = book;
         database.ref().update(updates);
-        _this.addUserBook(book, bookKey, _this);
+        _this.addUserBook(book, bookKey);
       }
       //case: called in UnderlineAddForm
       if(_this.props.match.params.underlineKey){
@@ -63,10 +63,12 @@ class Search extends Component {
 
   }
 
-  addUserBook(book, key, _this){
+  addUserBook(book, key){
     const updates = {};
+    let _this = this;
     book.updateDatetime = moment().format(datetimeFormat);
-    database.ref('/user-books/' + _this.props.user.uid + '/' + key).on('value', function(userbooksnapshot, userbookkey) {
+    console.log('uid', this.props);
+    database.ref('/user-books/' + this.props.user.uid + '/' + key).on('value', function(userbooksnapshot, userbookkey) {
       if(!userbooksnapshot.val()){
         updates['/user-books/' + _this.props.user.uid + '/' + key] = book;
         database.ref().update(updates);

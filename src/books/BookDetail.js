@@ -16,16 +16,15 @@ const defaultProps = {
 class BookDetail extends Component {
   constructor(props) {
     super(props);
-    this.bookRef = database.ref('/user-books/' + this.props.user.uid + '/' + this.props.match.params.bookKey);
-    this.userBooksRef = database.ref('/user-books/' + this.props.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
     this.getBook = this.getBook.bind(this);
     this.getUnderlines = this.getUnderlines.bind(this);
   }
 
   getBook(){
     let _this = this
+    let bookRef = database.ref('/user-books/' + this.props.user.uid + '/' + this.props.match.params.bookKey);
     //console.log('start getBook!!!!')
-    this.bookRef.once('value').then(function(snapshot, key) {
+    bookRef.once('value').then(function(snapshot, key) {
       //console.log(snapshot.val())
       _this.props.handleSetBook(snapshot.val())
       _this.getUnderlines(snapshot.val(), key);
@@ -34,8 +33,9 @@ class BookDetail extends Component {
 
   getUnderlines(book, bookKey){
     let _this = this;
+    let userBooksRef = database.ref('/user-books/' + this.props.user.uid + '/' + this.props.match.params.bookKey + '/underlines');
     let underlines = [];
-    this.userBooksRef.once('value').then(function(snapshot) {
+    userBooksRef.once('value').then(function(snapshot) {
       snapshot.forEach(function(data){
         //console.log("The " + data.key + " dinosaur's score is " + JSON.stringify(data.val().line));
         underlines.push({key:data.key, value:data.val()})
@@ -45,6 +45,7 @@ class BookDetail extends Component {
   }
 
   componentDidMount(){
+    console.log('bookDetail props', this.props)
     this.getBook()
   }
 
@@ -79,8 +80,7 @@ class BookDetail extends Component {
     };
     return(
         <div className="BookDetail u-maxWidth700 u-marginAuto">
-          <h1>Book Detail</h1>
-          {printBook(this.props.bookDetail)}
+          <h1>{printBook(this.props.bookDetail)}</h1>
           <h2>Underlines</h2>
           <ul className={"list-group"}>{mapToComponent(this.props.underlinesOfBook)}</ul>
         </div>

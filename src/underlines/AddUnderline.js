@@ -31,14 +31,14 @@ class addUnderline extends Component {
       this.props.handleSetUnderlines(event.target.value);
     }
 
-    addUnderline = (underline = this.props.underline) => {
+    addUnderline() {
       let _this = this;
       const updates = {};
       const underlineKey = database.ref().child('underlines').push().key;
-      updates['/underlines/' + underlineKey] = { line:underline, updateDatetime: moment().format(datetimeFormat) };
+      updates['/underlines/' + underlineKey] = { line:this.props.underline, updateDatetime: moment().format(datetimeFormat) };
       console.log(updates)
       database.ref().update(updates).then(function() {
-        console.log('result addUnderline', JSON.stringify({key:underlineKey,value:underline}));
+        console.log('result addUnderline', JSON.stringify({key:underlineKey,value:_this.props.underline}));
         _this.props.history.push('/search/' + underlineKey);
       }, function(error) {
           console.log("Error updating data:", error);

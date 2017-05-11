@@ -56,7 +56,7 @@ class MyBooks extends Component {
   }
 
   render() {
-
+    console.log('mybooks props', this.props)
     const mapToComponent = (books) => {
       if(books && books.length === 0){
         return <Loading />
@@ -83,7 +83,7 @@ class MyBooks extends Component {
     //console.log(this.props.books)
     return(
         <div>
-          <Route path={`${this.props.match.url}/:bookKey`} component={BookDetail}/>
+          <Route path={`${this.props.match.url}/:bookKey`} component={props => <BookDetail {...props} user={this.props.user}/>}/>
           <Route exact path={this.props.match.url} render={() => (
             <div className={"panel panel-default"}>
               <div className={"panel-heading"}>My Library</div>

@@ -96,8 +96,8 @@ class App extends Component {
                   <PublicRoute path='/' exact component={Home} authed={this.state.authed} />
                   <PublicRoute authed={this.state.authed} path='/login' component={Login} />
                   <PublicRoute authed={this.state.authed} path='/register' component={Register} />
-                  <PrivateRoute authed={this.state.authed} path='/mybooks' component={MyBooks} />
-                  <PrivateRoute authed={this.state.authed} path='/search/:underlineKey' component={Search} />
+                  <PrivateRoute authed={this.state.authed} path='/mybooks' component={MyBooks} user={this.state.user} />
+                  <PrivateRoute authed={this.state.authed} path='/search/:underlineKey' component={Search} user={this.state.user} />
                   <PrivateRoute authed={this.state.authed} path='/myUnderlines' component={MyUnderlines} user={this.state.user} />
                   <PrivateRoute authed={this.state.authed} path='/addUnderline' component={AddUnderline} />
                   <Route render={() => <h3>No Match</h3>} />
