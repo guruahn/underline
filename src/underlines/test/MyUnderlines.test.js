@@ -63,7 +63,7 @@ describe('<MyUnderlines />', () => {
     //wrapper.update();
     //console.log(wrapper.debug())
     //console.log(wrapper.props().store)
-    expect(wrapper.find('.Underline').exists()).to.equal(true);
-    //expect(wrapper.find(Underline)).to.have.length(1);
+    //expect(wrapper.find('.Underline').exists()).to.equal(true);
+    expect(wrapper.find('.Underline')).to.have.length(2);
   });
 });
