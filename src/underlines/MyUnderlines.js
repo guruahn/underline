@@ -42,7 +42,7 @@ class MyUnderlines extends Component {
       }else{
 
         return underlines.map((underline, i) => {
-          console.log('underline', underline)
+          //console.log('underline', underline)
           return (
             <li className={"list-group-item"} key={underline.key}>
               <Underline
