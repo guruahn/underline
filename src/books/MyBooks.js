@@ -82,15 +82,11 @@ class MyBooks extends Component {
     };
     //console.log(this.props.books)
     return(
-        <div>
+        <div className="u-maxWidth700 u-marginAuto">
           <Route path={`${this.props.match.url}/:bookKey`} component={props => <BookDetail {...props} user={this.props.user}/>}/>
           <Route exact path={this.props.match.url} render={() => (
-            <div className={"panel panel-default"}>
-              <div className={"panel-heading"}>My Library</div>
-              <div className={"panel-body"}>
-                <p>Manage your library simply</p>
-              </div>
-
+            <div>
+              <h1>My Books</h1>
               <ul className={"list-group"}>{mapToComponent(this.props.books)}</ul>
             </div>
           )}/>
