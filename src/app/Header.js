@@ -44,6 +44,7 @@ class Header extends Component {
           <ul className="">
             <li className="header-menu"><Link to="/search" >Book Search</Link></li>
             <li className="header-menu"><Link to="/myUnderlines" >My Underlines</Link></li>
+            <li className="header-menu"><Link to="/myBooks" >My Books</Link></li>
             <li className="header-menu">
               <Link
                 to="#"
