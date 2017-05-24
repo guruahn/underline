@@ -118,3 +118,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyBooks);
+export { MyBooks as PureMyBooks};
