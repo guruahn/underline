@@ -11,7 +11,7 @@ export default class Home extends Component {
 
     return (
       <div className="u-maxWidth700 u-marginAuto">
-        This is Underline Beta. Give me a email if you want to join Underline.
+        This is Underline Beta. <a href="mailto:guruahn@gmail.com" target="_top">Give me a email</a> if you want to join Underline.
       </div>
     )
   }
