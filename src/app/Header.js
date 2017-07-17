@@ -64,7 +64,7 @@ class Header extends Component {
         <nav className={"header u-fixed u-boxShadowBottomThinLighter u-zIndexTop"}>
           <div className={"header__inner u-maxWidth1000 u-marginAuto"}>
             <div className={"header-block header-block__brand u-floatLeft"}>
-              <Link to="/" className="">Underline</Link>
+              <Link to="/" className="">Underline</Link><sup>Beta</sup>
             </div>{ /*.header-block*/ }
             <div className="header-block header-block__menus u-floatRight">
               <div className="header-menu u-inlineBlock">
