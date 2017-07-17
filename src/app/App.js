@@ -54,6 +54,10 @@ class App extends Component {
   componentDidMount () {
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
+        let authed = true;
+        if(!user.emailVerified){
+          authed = false;
+        }
         this.setState({
           authed: true,
           loading: false,
@@ -99,7 +103,7 @@ class App extends Component {
                   <PrivateRoute authed={this.state.authed} path='/mybooks' component={MyBooks} user={this.state.user} />
                   <PrivateRoute authed={this.state.authed} path='/search/:underlineKey' component={Search} user={this.state.user} />
                   <PrivateRoute authed={this.state.authed} path='/myUnderlines' component={MyUnderlines} user={this.state.user} />
-                  <PrivateRoute authed={this.state.authed} path='/addUnderline' component={AddUnderline} />
+                  <PrivateRoute authed={this.state.authed} path='/addUnderline' component={AddUnderline} user={this.state.user} />
                   <Route render={() => <h3>No Match</h3>} />
                 </Switch>
               </div>

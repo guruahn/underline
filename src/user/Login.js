@@ -8,7 +8,7 @@ export default class Login extends Component {
   }
   render () {
     return (
-      <div className="col-sm-6 col-sm-offset-3">
+      <div className="u-maxWidth700 u-marginAuto">
         <h1> Login </h1>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
