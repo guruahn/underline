@@ -10,8 +10,8 @@ export default class Home extends Component {
   render () {
 
     return (
-      <div>
-        Home. Not Protected. Anyone can see this. authed? {this.props.authed}
+      <div className="u-maxWidth700 u-marginAuto">
+        This is Underline Beta. Give me a email if you want to join Underline.
       </div>
     )
   }
