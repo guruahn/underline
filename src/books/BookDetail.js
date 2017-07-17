@@ -76,7 +76,6 @@ class BookDetail extends Component {
           book={book}
           />
       }
-
     };
     return(
         <div className="BookDetail u-maxWidth700 u-marginAuto">

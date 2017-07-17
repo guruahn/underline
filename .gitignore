@@ -18,3 +18,5 @@ deploy.sh
 #firebase
 src/config/constants.js
 src/config/authInfoForTest.js
+.firebaserc
+.firebase.json
