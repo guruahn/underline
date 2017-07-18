@@ -71,3 +71,11 @@ ol, ul {
   list-style: none;
   list-style-image: none;
 }
+.list-group {
+	&__item {
+		padding: 1em;
+	}
+	&__link {
+		padding: 0 1em;
+	}
+}

@@ -9,7 +9,7 @@ class Underline extends Component {
       //console.log('book', this.props.underline )
       if(this.props.underline.book && this.props.underline.bookKey){
         let to = "/mybooks/" + this.props.underline.bookKey;
-        return <Link to={to} data-name={"book-link"}>{'《' + this.props.underline.book.title + '》'}</Link>;
+        return <Link to={to} data-name={"book-link"} className={"list-group__link"}>{'《' + this.props.underline.book.title + '》'}</Link>;
       }
     }
     return(
