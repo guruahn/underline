@@ -32,26 +32,23 @@ describe('<MyUnderlines />', () => {
     //console.log(wrapper.debug())
 
   });
-  // it('calls componentDidMount', () => {
-  //   sinon.spy(PureMyUnderlines.prototype, 'componentDidMount');
-  //   const wrapper = mount(<PureMyUnderlines {...props}  />);
-  //   expect(PureMyUnderlines.prototype.componentDidMount.calledOnce).to.equal(true);
-  // });
+
   it('MyUnderlines 렌더하면 페이지 제목이 "MyUnderlines" 여야 한다', () => {
     //given
     //when
-    const wrapper = shallow( <PureMyUnderlines {...props}/> );
+    const wrapper = shallow(<PureMyUnderlines {...props}/> );
     //console.log(wrapper.debug())
     //then
     const title = wrapper.find('h1').text();
     expect(title).to.equal("My Underlines");
   });
-  // it('Underlines length is 2', () => {
-  //   //given
-  //   //when
-  //   const wrapper = mount( <PureMyUnderlines {...props}/> );
-  //   console.log(wrapper.debug())
-  //   //then
-  //   expect(wrapper.find('[data-name="item"]')).to.have.length(3);
-  // });
+
+  it('Underlines length is 2', () => {
+    //given
+    //when
+    const wrapper = shallow( <PureMyUnderlines {...props}/> );
+
+    //then
+    expect(wrapper.find('[data-name="item"]')).to.have.length(2);
+  });
 });
