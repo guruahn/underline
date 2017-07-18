@@ -33,13 +33,12 @@ describe('<Underline />', () => {
     //expect(title).to.equal("My Underlines");
   });
 
-  it('Underline 렌더하면 링크 "설문지 목록" 여야 한다', () => {
+  it('Underline 렌더하면 fromNow가 하나 있어야 한다.', () => {
     //given
     //when
     const wrapper = shallow( <Underline {...props}/> );
     console.log(wrapper.debug())
     //then
-    //const title = wrapper.find('h1').text();
-    //expect(title).to.equal("설문지 목록");
+    expect(wrapper.find('[data-name="fromNow"]')).to.have.length(1);
   });
 });
