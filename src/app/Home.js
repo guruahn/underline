@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { firebaseAuth } from '../config/constants';
 
 export default class Home extends Component {

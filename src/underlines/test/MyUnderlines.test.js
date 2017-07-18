@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Route, BrowserRouter, Redirect, Switch } from 'react-router-dom'
-import { database, firebaseAuth } from '../../config/constants'
 import { expect, assert } from 'chai';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
@@ -18,52 +15,43 @@ import reducers from '../../app/reducer';
 
 const store = createStore(reducers);
 
-const init = () => {
-  //console.log('user', user)
-  database.ref('/user-underlines/').set(null).then(function(){
-    console.log('set null')
-  }, function(error){
-    console.log("Error updating data:", error);
-  });
-}
-
-init();
-
 
 describe('<MyUnderlines />', () => {
+
+  //공통
+  const props = {
+    "user": user,
+    "auth": true,
+    "store": MyUnderlinesStore,
+    "underlines":dummy.underlines
+  }
+
   it('[shallow] renders without crashing', () => {
     //console.log(MyUnderlinesStore)
-    const wrapper = shallow(<PureMyUnderlines user={user} auth={true} store={MyUnderlinesStore} />);
+    const wrapper = shallow(<PureMyUnderlines {...props} />);
     //console.log(wrapper.debug())
 
   });
-  it('calls componentDidMount', () => {
-    sinon.spy(PureMyUnderlines.prototype, 'componentDidMount');
-    const wrapper = mount(<PureMyUnderlines user={user} auth={true} store={MyUnderlinesStore}  />);
-    expect(PureMyUnderlines.prototype.componentDidMount.calledOnce).to.equal(true);
-  });
-  it('[shallow] Underlines length is', () => {
-    //console.log('user', typeof user);
-    //console.log('dummy', dummy.underlines);
-    const props = {
-      user: user,
-      auth: true,
-    }
-    const wrapper = mount(
-      <Provider store={MyUnderlinesStore}>
-        <BrowserRouter>
-          <Route
-            render={(props) => <PureMyUnderlines underlines={dummy.underlines} user={user}/>}
-          />
-        </BrowserRouter>
-      </Provider>
-    );
-    //wrapper.setState({underlines: [dummy.underlines]})
-    //wrapper.setProps({underlines: [dummy.underlines]});
-    //wrapper.update();
+  // it('calls componentDidMount', () => {
+  //   sinon.spy(PureMyUnderlines.prototype, 'componentDidMount');
+  //   const wrapper = mount(<PureMyUnderlines {...props}  />);
+  //   expect(PureMyUnderlines.prototype.componentDidMount.calledOnce).to.equal(true);
+  // });
+  it('MyUnderlines 렌더하면 페이지 제목이 "MyUnderlines" 여야 한다', () => {
+    //given
+    //when
+    const wrapper = shallow( <PureMyUnderlines {...props}/> );
     //console.log(wrapper.debug())
-    //console.log(wrapper.props().store)
-    //expect(wrapper.find('.Underline').exists()).to.equal(true);
-    expect(wrapper.find('.Underline')).to.have.length(2);
+    //then
+    const title = wrapper.find('h1').text();
+    expect(title).to.equal("My Underlines");
   });
+  // it('Underlines length is 2', () => {
+  //   //given
+  //   //when
+  //   const wrapper = mount( <PureMyUnderlines {...props}/> );
+  //   console.log(wrapper.debug())
+  //   //then
+  //   expect(wrapper.find('[data-name="item"]')).to.have.length(3);
+  // });
 });

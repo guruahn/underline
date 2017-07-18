@@ -1,23 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import SearchForm from './SearchForm';
 import SearchList from './SearchList';
 import jsonp from 'jsonp';
 import moment from 'moment';
-import { database, firebaseAuth, datetimeFormat } from '../config/constants'
+import { database, datetimeFormat } from '../config/constants'
 
 import { connect } from 'react-redux';
 import * as actions from './SearchActions';
 
 import './style/Search.css'
-
-const propTypes = {
-  addBook: PropTypes.func,
-  handleSearch: PropTypes.func
-};
-const defaultProps = {
-  addBook: () => createWarning('addBook'),
-  handleSearch: () => createWarning('handleSearch'),
-};
 
 class Search extends Component {
   constructor(props) {
@@ -164,12 +155,6 @@ class Search extends Component {
   }
 }
 
-function createWarning(funcName){
-  return () => console.warn(funcName + 'is now defined')
-}
-
-Search.propTypes = propTypes;
-Search.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {

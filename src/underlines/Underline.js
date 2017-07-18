@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { datetimeFormat } from '../config/constants'
 
 class Underline extends Component {
 
@@ -10,7 +9,7 @@ class Underline extends Component {
       //console.log('book', this.props.underline )
       if(this.props.underline.book && this.props.underline.bookKey){
         let to = "/mybooks/" + this.props.underline.bookKey;
-        return <Link to={to} className="">{'《' + this.props.underline.book.title + '》'}</Link>;
+        return <Link to={to}>{'《' + this.props.underline.book.title + '》'}</Link>;
       }
     }
     return(
@@ -22,6 +21,4 @@ class Underline extends Component {
     );
   }
 }
-Underline.propTypes = {};
-Underline.defaultProps = {};
 export default Underline;

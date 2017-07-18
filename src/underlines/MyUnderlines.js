@@ -1,17 +1,12 @@
-import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth, datetimeFormat } from '../config/constants';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { database } from '../config/constants';
 import Underline from '../underlines/Underline';
 import Loading from 'react-loading-animation';
 
 import { connect } from 'react-redux';
 import * as actions from './UnderlinesActions';
 
-const propTypes = {
-  underlines: PropTypes.array
-};
-const defaultProps = {
-  getUnderlines: () => createWarning('getUnderlines'),
-};
 
 class MyUnderlines extends Component {
   constructor(props) {
@@ -27,7 +22,8 @@ class MyUnderlines extends Component {
         console.log("underlines", JSON.stringify({key:data.key, value:data.val()}));
         underlines.push({key:data.key, value:data.val()})
       });
-      _this.props.handleSetMyUnderlines(underlines)
+      _this.props.handleSetMyUnderlines(underlines);
+      _this.props.handleSetLoading(false);
     });
   }
 
@@ -38,13 +34,13 @@ class MyUnderlines extends Component {
   render() {
     const mapToComponent = (underlines) => {
       if(typeof underlines === 'undefined' || underlines.length === 0){
-        return <Loading />
+        return <div>Empty undelines. </div>
       }else{
 
         return underlines.map((underline, i) => {
-          console.log('underline', underline)
+          //console.log('underline', underline)
           return (
-            <li className={"list-group-item"} key={underline.key}>
+            <li className={"list-group-item"} key={underline.key} data-name="item">
               <Underline
                 underline={underline.value}
                 />
@@ -53,6 +49,9 @@ class MyUnderlines extends Component {
         });
       }
     };
+    if (this.props.loading) {
+      return <div className="u-marginTop10em"><Loading type='balls' color='#F0AD4E' /></div>
+    }
     return(
       <div className="u-maxWidth700 u-marginAuto">
         <h1>My Underlines</h1>
@@ -62,22 +61,23 @@ class MyUnderlines extends Component {
   }
 }
 
-function createWarning(funcName){
-  return () => console.warn(funcName + 'is now defined')
-}
 
-MyUnderlines.propTypes = propTypes;
-MyUnderlines.defaultProps = defaultProps;
+MyUnderlines.propTypes = {
+  underlines: PropTypes.array,
+  loading: PropTypes.bool
+};
 
 const mapStateToProps = (state) => {
   return {
-    underlines: state.myUnderlines.underlines
+    underlines: state.myUnderlines.underlines,
+    loading: state.myUnderlines.loading,
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleSetMyUnderlines: (underlines) => { dispatch(actions.setMyUnderlines(underlines)) },
+    handleSetLoading: (state) => { dispatch(actions.setLoading(state)) },
   };
 };
 

@@ -1,11 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-const propTypes = {
-  stringToHtml: PropTypes.func
-};
-const defaultProps = {
-  stringToHtml: () => createWarning('onAdd'),
-};
-
+import React, { Component } from 'react';
 import './style/Book.css';
 
 class Book extends Component {
@@ -23,12 +16,5 @@ class Book extends Component {
         );
     }
 }
-
-function createWarning(funcName){
-  return () => console.warn(funcName + 'is now defined')
-}
-
-Book.propTypes = propTypes;
-Book.defaultProps = defaultProps;
 
 export default Book;

@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth, datetimeFormat } from '../config/constants'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { database, datetimeFormat } from '../config/constants'
 import { withRouter } from 'react-router-dom'
 import moment from 'moment';
 
@@ -8,18 +9,7 @@ import * as actions from './UnderlinesActions';
 
 import './style/AddUnderline.css'
 
-const propTypes = {
-  underline: PropTypes.string,
-  isWritingLine: PropTypes.bool,
-  isSearching: PropTypes.bool,
-  redirectToBookDetail: PropTypes.string
-};
-const defaultProps = {
-  underline: '',
-  isWritingLine: false,
-  isSearching: false,
-  redirectToBookDetail: ''
-};
+
 class addUnderline extends Component {
     constructor(props) {
       super(props);
@@ -86,8 +76,12 @@ class addUnderline extends Component {
       );
     }
 }
-addUnderline.propTypes = propTypes;
-addUnderline.defaultProps = defaultProps;
+addUnderline.propTypes  = {
+  underline: PropTypes.string,
+  isWritingLine: PropTypes.bool,
+  isSearching: PropTypes.bool,
+  redirectToBookDetail: PropTypes.string
+};
 
 const mapStateToProps = (state) => {
   return {

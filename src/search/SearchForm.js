@@ -1,10 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-const propTypes = {
-  keyword: PropTypes.string
-};
-const defaultProps = {
-  keyword: ''
-};
+import React, { Component } from 'react';
+
 class SearchForm extends Component {
 
     state = {
@@ -32,6 +27,4 @@ class SearchForm extends Component {
     }
 }
 
-SearchForm.propTypes = propTypes;
-SearchForm.defaultProps = defaultProps;
 export default SearchForm;

@@ -1,8 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-const propTypes = {
-};
-const defaultProps = {
-};
+import React, { Component } from 'react';
+
 class Underlines extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +10,5 @@ class Underlines extends Component {
         );
     }
 }
-Underlines.propTypes = propTypes;
-Underlines.defaultProps = defaultProps;
+
 export default Underlines;

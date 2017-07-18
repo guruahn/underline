@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth } from '../config/constants';
+import React, { Component } from 'react';
+import { database } from '../config/constants';
 import Book from './Book';
 import Underline from '../underlines/Underline';
 import Loading from 'react-loading-animation';
@@ -7,12 +7,6 @@ import Loading from 'react-loading-animation';
 import { connect } from 'react-redux';
 import * as actions from './BooksActions';
 
-const propTypes = {
-  getBook: PropTypes.func
-};
-const defaultProps = {
-  getBook: () => createWarning('getBook'),
-};
 class BookDetail extends Component {
   constructor(props) {
     super(props);
@@ -86,13 +80,6 @@ class BookDetail extends Component {
     );
   }
 }
-
-function createWarning(funcName){
-  return () => console.warn(funcName + 'is now defined')
-}
-
-BookDetail.propTypes = propTypes;
-BookDetail.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {

@@ -58,3 +58,10 @@ export function setSearchBookList (books){
     books
   }
 }
+
+export function setLoading (state){
+  return {
+    type: types.SET_LOADING,
+    state
+  }
+}

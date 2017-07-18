@@ -3,3 +3,4 @@ export const SET_UNDERLINE = "SET_UNDERLINE";
 export const SELECT_BOOK = "SELECT_BOOK";
 export const ADD_UNDERLINE = "ADD_UNDERLINE";
 export const REMOVE_LINE = "REMOVE_LINE";
+export const SET_LOADING = "SET_LOADING";

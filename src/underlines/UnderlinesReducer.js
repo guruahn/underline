@@ -6,7 +6,8 @@ const initialState = {
   searchBooks: [],
   isSearchingBook: false,
   selectedBook: {},
-  isWritingLine: false
+  isWritingLine: false,
+  loading: true,
 };
 
 export default function underlines(state = initialState, action){
@@ -44,6 +45,8 @@ export default function underlines(state = initialState, action){
             ...state.underlines.filter(underline => action.underline.key !== underline.key)
           ]
         }
+      case types.SET_LOADING:
+        return { ...state, loading: action.state }
       default:
         return state;
 

@@ -1,21 +1,11 @@
-import React, { Component, PropTypes } from 'react';
-import { database, firebaseAuth } from '../config/constants';
+import React, { Component } from 'react';
+import { database } from '../config/constants';
 import Book from '../books/Book';
-import BookDetail from '../books/BookDetail'
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Loading from 'react-loading-animation';
 
 import { connect } from 'react-redux';
 import * as actions from './BooksActions';
-
-const propTypes = {
-  getInitMyBooks: PropTypes.func,
-  onRemove: PropTypes.func
-};
-const defaultProps = {
-  getInitMyBooks: () => createWarning('getInitMyBooks'),
-  onRemove: () => createWarning('onRemove'),
-};
 
 class MyBooks extends Component {
   constructor(props) {
@@ -56,9 +46,9 @@ class MyBooks extends Component {
   }
 
   render() {
-    console.log('mybooks props', this.props)
+    //console.log('mybooks props', this.props)
     const mapToComponent = (books) => {
-      if(books && books.length === 0){
+      if(typeof books === 'undefined' || books.length === 0){
         return <Loading />
       }else{
         return books.map((book, i) => {
@@ -83,25 +73,16 @@ class MyBooks extends Component {
     //console.log(this.props.books)
     return(
         <div className="u-maxWidth700 u-marginAuto">
-          <Route path={`${this.props.match.url}/:bookKey`} component={props => <BookDetail {...props} user={this.props.user}/>}/>
-          <Route exact path={this.props.match.url} render={() => (
-            <div>
-              <h1>My Books</h1>
-              <ul className={"list-group"}>{mapToComponent(this.props.books)}</ul>
-            </div>
-          )}/>
+          <div>
+            <h1>My Books</h1>
+            <ul className={"list-group"}>{mapToComponent(this.props.books)}</ul>
+          </div>
 
         </div>
     );
   }
 }
 
-function createWarning(funcName){
-  return () => console.warn(funcName + 'is now defined')
-}
-
-MyBooks.propTypes = propTypes;
-MyBooks.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
   return {
